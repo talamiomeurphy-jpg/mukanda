@@ -1,0 +1,52 @@
+/* =================================================================
+   MUKANDA — identité « cahier d'écolier » (distincte de Brazza-Market)
+   ================================================================= */
+:root{
+  --papier:#FAF7F0; --encre:#14213D; --marge:#D62828; --surligneur:#FFD166;
+  --ardoise:#101A33; --craie:#F4F1E8; --gris:#5B6478; --carte:#FFFDF8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--papier);color:var(--encre);line-height:1.6;
+  background-image:repeating-linear-gradient(transparent 0 31px, rgba(20,33,61,.05) 31px 32px);}
+h1,h2,h3,.logo{font-family:'Baloo 2',cursive;line-height:1.15}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px;position:relative}
+main.wrap::before{content:'';position:absolute;top:8px;bottom:8px;left:8px;width:2px;background:rgba(214,40,40,.30);pointer-events:none}
+.entete{background:var(--carte);border-bottom:3px solid var(--encre);position:sticky;top:0;z-index:20}
+.entete-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px}
+.logo{font-size:22px;font-weight:800;color:var(--encre);text-decoration:none}
+.entete nav{display:flex;gap:14px;flex-wrap:wrap}
+.entete nav a{color:var(--gris);text-decoration:none;font-size:14px;font-weight:700}
+.entete nav a:hover{color:var(--marge)}
+.hero{background:var(--ardoise);color:var(--craie);padding:56px 0 48px;margin-bottom:34px}
+.hero h1{font-size:clamp(30px,6vw,46px);margin:14px 0 10px}
+.hero p{max-width:640px;color:#cdd3e0;font-size:15px}
+.surligne{background:var(--surligneur);color:var(--encre);padding:0 8px;border-radius:6px;box-decoration-break:clone}
+.tampon{display:inline-block;border:2px solid currentColor;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;transform:rotate(-1.5deg)}
+.tampon-clair{color:var(--surligneur)}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;font-weight:800;font-size:14px;text-decoration:none;border:2px solid var(--encre);cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-surligne{background:var(--surligneur);color:var(--encre)}
+.btn-encre{background:var(--encre);color:var(--craie)}
+.btn-fantome{background:transparent;color:var(--craie);border-color:rgba(244,241,232,.5)}
+.titre-rayon{font-size:26px;margin:6px 0 2px}
+.sous-titre{color:var(--gris);font-size:14px;margin-bottom:18px}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:36px}
+.carte{background:var(--carte);border:2px solid var(--encre);border-radius:14px;padding:16px;text-decoration:none;color:var(--encre);box-shadow:4px 4px 0 rgba(20,33,61,.12);display:flex;flex-direction:column;gap:8px;transition:transform .15s,box-shadow .15s}
+.carte:hover{transform:translateY(-3px);box-shadow:6px 6px 0 rgba(20,33,61,.16)}
+.carte .tampon{color:var(--marge);align-self:flex-start}
+.carte h3{font-size:17px}
+.carte p{font-size:13px;color:var(--gris);flex:1}
+.prix{align-self:flex-start;background:var(--surligneur);font-weight:800;padding:3px 10px;border-radius:8px;font-size:14px;transform:rotate(-1deg)}
+.vide{padding:26px;text-align:center;color:var(--gris);background:var(--carte);border:2px dashed var(--gris);border-radius:14px;grid-column:1/-1}
+.alerte-config{padding:16px;background:#fdecea;border:2px solid var(--marge);border-radius:12px;color:#8a1f1f;font-weight:700;grid-column:1/-1}
+.comment{background:var(--carte);border:2px solid var(--encre);border-radius:14px;padding:22px;margin-bottom:40px;box-shadow:4px 4px 0 rgba(20,33,61,.12)}
+.comment h2{font-size:20px;margin-bottom:12px}
+.comment ol{list-style:none;display:grid;gap:10px}
+.comment li{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.comment li span{flex:0 0 28px;height:28px;border-radius:50%;background:var(--encre);color:var(--craie);display:flex;align-items:center;justify-content:center;font-weight:800}
+.pied{background:var(--ardoise);color:#aeb6c8;padding:22px 0;font-size:13px}
+.pied-in{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pied a{color:var(--surligneur);text-decoration:none}
+@media(max-width:640px){ .entete-in{flex-direction:column;align-items:flex-start} main.wrap::before{display:none} }

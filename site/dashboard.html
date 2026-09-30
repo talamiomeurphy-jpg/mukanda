@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes cours · Mukanda</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css"></head>
+<body><div class="shell">
+
+<aside class="sidebar">
+  <div class="side-logo"><span class="em">📚</span><span class="logo-txt">Mu<b>kanda</b></span></div>
+  <nav class="side-nav">
+    <a class="side-item" href="index.html"><span class="ic">🏠</span>Accueil</a>
+    <a class="side-item" href="catalogue.html"><span class="ic">📚</span>Catalogue</a>
+    <a class="side-item on" href="dashboard.html"><span class="ic">🎒</span>Mes cours</a>
+    <a class="side-item soon" href="#" onclick="toast('🤙 Le tuteur IA arrive après les cours !');return false"><span class="ic">🤙</span>Demande au prof<span class="tag">bientôt</span></a>
+  </nav>
+  <div class="side-foot"><div class="side-user"><span class="avatar" id="avatarSide">M</span><div><div class="nm" id="sideName">Élève Mukanda</div><div class="lv" id="sideLevel">INVITÉ</div></div></div>
+  <button class="side-item" id="btnLogout"><span class="ic">🚪</span>Déconnexion</button></div>
+</aside>
+
+<div class="main">
+  <header class="topbar"><span style="font-size:22px">📚</span><span class="logo-txt">Mu<b>kanda</b></span><span class="sp"></span>
+  <button class="icon-btn" onclick="toast('🔔 Bienvenue sur Mukanda !')">🔔<span class="dot"></span></button>
+  <a class="icon-btn" href="auth.html" id="avatarTop" style="font-weight:800">M</a></header>
+  <main class="content" id="dashZone"><div class="skel" style="height:240px"></div></main>
+</div>
+
+<nav class="bottomnav">
+  <a class="bn-item" href="index.html"><span class="ic">🏠</span>Accueil</a>
+  <a class="bn-item" href="catalogue.html"><span class="ic">📚</span>Catalogue</a>
+  <a class="bn-item on" href="dashboard.html"><span class="ic">🎒</span>Mes cours</a>
+  <a class="bn-item" href="auth.html"><span class="ic">👤</span>Compte</a>
+</nav>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script></body></html>

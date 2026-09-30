@@ -1,246 +1,218 @@
-// ============================================================================
-// 🎓 MUKANDA — app.js v3 : catalogue + fiche + paiement + succès + récupérer
-//      + VISIONNEUSE interne (pdf.js) + TÉLÉCHARGEMENT réel (blob)
-// ============================================================================
-const MUKANDA = {
-  SUPABASE_URL: 'https://wyfkogowsdbxctbpfuud.supabase.co',
-  ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM',
-  FUNCTIONS: 'https://wyfkogowsdbxctbpfuud.functions.supabase.co'
-};
-let supa = null;
-function mkSupa(){ if(!supa && window.supabase) supa = window.supabase.createClient(MUKANDA.SUPABASE_URL, MUKANDA.ANON_KEY); return supa; }
-const fcfa = n => new Intl.NumberFormat('fr-FR').format(n||0) + ' FCFA';
+/* ============================================================================
+   APP.JS — logique partagée Mukanda v3
+   Session, navigation, filtres catalogue, états "en préparation", toasts
+   ============================================================================ */
+const SB_URL = 'https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb = window.supabase ? supabase.createClient(SB_URL, SB_KEY) : null;
+
+/* ---------- Config pédagogique (structure visible avant le contenu) ---------- */
+const NIVEAUX = [
+  { id:'cepe', nom:'CEPE', desc:'Primaire · CM1–CM2', sujets:['Français','Maths','Éveil'] },
+  { id:'bepc', nom:'BEPC', desc:'Collège · 6e–3e', sujets:['Français','Maths','SVT','Physique-Chimie','Histoire-Géo'] },
+  { id:'bac',  nom:'BAC',  desc:'Lycée · séries A C D', sujets:['Maths','Physique-Chimie','SVT','Philosophie','Français'] },
+  { id:'concours', nom:'Concours', desc:'Supérieur & pro', sujets:['Culture générale','Logique','Français pro'] }
+];
+const EMO_MATIERE = {'Français':'📖','Maths':'🧮','Éveil':'🌍','SVT':'🌱','Physique-Chimie':'⚗️','Histoire-Géo':'🗺️','Philosophie':'💭','Culture générale':'🎓','Logique':'🧠','Français pro':'💼'};
+
+/* ---------- Utils ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const param = n => new URLSearchParams(location.search).get(n);
-const telValide = t => /^0[56]\d{7}$/.test(String(t).replace(/\s/g,''));
+const fcfa = n => new Intl.NumberFormat('fr-FR').format(n||0) + ' FCFA';
 
-// ---------------- ACCUEIL / CATALOGUE ----------------
-async function chargerCatalogue(){
-  const s = mkSupa(); if(!s) return null;
-  const [d,c] = await Promise.all([
-    s.from('documents').select('id,titre,slug,description,categorie,niveau,matiere,prix_fcfa').eq('actif',true).order('created_at',{ascending:false}),
-    s.from('cours').select('id,titre,slug,description,niveau,matiere,prix_fcfa').eq('actif',true).order('created_at',{ascending:false})
-  ]);
-  return { documents: d.data||[], cours: c.data||[] };
-}
-function carteProduit(p, type){
-  const badge = type==='document' ? (p.categorie==='modele_pro'?'💼 Modèle pro': p.categorie==='exercice'?'✍️ Exercice':'🎓 Formation') : '🎓 Cours '+(p.niveau||'').toUpperCase();
-  return `<a class="carte" href="produit.html?type=${type}&id=${p.id}"><span class="tampon">${badge}</span><h3>${esc(p.titre)}</h3><p>${esc((p.description||'').slice(0,110))}${(p.description||'').length>110?'…':''}</p><span class="prix">${fcfa(p.prix_fcfa)}</span></a>`;
-}
-async function rendreAccueil(){
-  const g = document.getElementById('grille'); if(!g) return;
-  const cat = await chargerCatalogue();
-  if(!cat){ g.innerHTML = '<p class="vide">Impossible de charger le catalogue.</p>'; return; }
-  if(!cat.documents.length && !cat.cours.length){ g.innerHTML = '<p class="vide">📚 Le catalogue ouvre très bientôt.</p>'; return; }
-  g.innerHTML = cat.documents.map(p=>carteProduit(p,'document')).join('') + cat.cours.map(p=>carteProduit(p,'cours')).join('');
+function toast(msg){
+  let t = $('#toast');
+  if(!t){ t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2600);
 }
 
-// ---------------- FICHE PRODUIT ----------------
-async function rendreProduit(){
-  const el = document.getElementById('fiche'); if(!el) return;
-  const type = param('type')||'document', id = param('id'), s = mkSupa();
-  if(!s || !id){ el.innerHTML = '<p class="vide">Produit introuvable.</p>'; return; }
-  const r = await s.from(type==='cours'?'cours':'documents').select('*').eq('id',id).eq('actif',true).maybeSingle();
-  const p = r.data;
-  if(!p){ el.innerHTML = '<p class="vide">Ce produit n\'existe pas ou n\'est plus en ligne.</p>'; return; }
-  const badge = type==='document' ? (p.categorie==='modele_pro'?'💼 Modèle pro': p.categorie==='exercice'?'✍️ Exercice':'🎓 Formation') : '🎓 Cours '+(p.niveau||'').toUpperCase();
-  el.innerHTML = `
-    <span class="tampon" style="color:var(--marge)">${badge}</span>
-    <h1>${esc(p.titre)}</h1>
-    <div class="meta-tags">${p.niveau?`<span class="meta-tag">🎓 ${esc((p.niveau||'').toUpperCase())}</span>`:''}${p.matiere?`<span class="meta-tag">📘 ${esc(p.matiere)}</span>`:''}${p.serie?`<span class="meta-tag">Série ${esc(p.serie)}</span>`:''}</div>
-    <p class="desc">${esc(p.description||'')}</p>
-    <div class="contient"><b>Ce que tu reçois après paiement :</b>📄 PDF complet, lisible DANS le site · ⬇️ Téléchargement réel sur ton téléphone · 🔁 Lien retrouvable 48 h avec ton numéro (3 téléchargements).</div>
-    <div class="ligne-prix"><span class="prix">${fcfa(p.prix_fcfa)}</span><a class="btn btn-surligne" href="paiement.html?type=${type}&id=${p.id}">💳 Acheter maintenant</a></div>
-    <p style="font-size:13px;color:var(--gris)">Paiement MTN MoMo ou Airtel Money · Aucun compte nécessaire.</p>`;
+/* ---------- Session ---------- */
+async function getSession(){
+  if(!sb) return null;
+  const { data } = await sb.auth.getSession();
+  return data?.session || null;
+}
+async function requireAuth(msg){
+  const s = await getSession();
+  if(!s){
+    toast(msg || 'Connecte-toi pour accéder aux leçons');
+    setTimeout(()=> location.href = 'auth.html?next=' + encodeURIComponent(location.pathname + location.search), 700);
+    return null;
+  }
+  return s;
+}
+async function paintUser(){
+  const s = await getSession();
+  const av = $$('#avatarTop, #avatarSide');
+  const nameEl = $('#sideName');
+  if(s){
+    const meta = s.user.user_metadata || {};
+    const init = (meta.nom || s.user.email || 'M').trim().charAt(0).toUpperCase();
+    av.forEach(a => a && (a.textContent = init));
+    if(nameEl) nameEl.textContent = meta.nom || 'Élève Mukanda';
+    const lv = $('#sideLevel'); if(lv) lv.textContent = (meta.niveau_scolaire||'').toUpperCase() || 'ÉLÈVE';
+    const li = $('#loginItem'); if(li) li.remove();
+  }
+  return s;
 }
 
-// ---------------- PAIEMENT ----------------
-async function rendrePaiement(){
-  const t = document.getElementById('prod-titre'); if(!t) return;
-  const type = param('type')||'document', id = param('id'), s = mkSupa();
-  const r = await s.from(type==='cours'?'cours':'documents').select('titre,prix_fcfa').eq('id',id).maybeSingle();
-  if(!r.data){ t.textContent = 'Produit introuvable'; return; }
-  t.textContent = r.data.titre;
-  document.getElementById('prod-prix').textContent = fcfa(r.data.prix_fcfa);
-  window.__cmd = { type, id };
+/* ---------- Catalogue : cartes réelles (DB) + cartes "en préparation" ---------- */
+function carteReelle(c){
+  return `<a class="card" href="cours.html?id=${c.id}">
+    <div class="thumb">${EMO_MATIERE[c.matiere]||'📘'}<span class="ribbon ok">DISPONIBLE</span></div>
+    <div class="pad">
+      <span class="badge lvl">${esc((c.niveau||'').toUpperCase())}</span>
+      <h3>${esc(c.titre)}</h3>
+      <div class="meta">${esc(c.matiere)} · PDF + vidéos + quiz</div>
+      <div class="row"><span class="price">${fcfa(c.prix_fcfa)}</span><span class="btn btn-ink" style="padding:8px 14px;font-size:12.5px">Voir →</span></div>
+    </div></a>`;
 }
-function choisirProvider(el){ document.querySelectorAll('.provider').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); el.querySelector('input').checked = true; }
-function afficherErreur(id, msg){ const e = document.getElementById(id); if(e){ e.textContent = '⚠️ ' + msg; e.style.display = 'block'; } }
-function cacherErreur(id){ const e = document.getElementById(id); if(e) e.style.display = 'none'; }
-async function lancerPaiement(){
-  if(!window.__cmd){ afficherErreur('erreur','Produit manquant — repasse par le catalogue.'); return; }
-  const tel = document.getElementById('tel').value.trim();
-  if(!telValide(tel)){ afficherErreur('erreur','Numéro congolais invalide (ex : 065186967).'); return; }
-  const prov = document.querySelector('.provider input:checked')?.value || 'MTN';
-  const btn = document.getElementById('btn-payer');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Envoi de la demande…';
-  cacherErreur('erreur');
-  try {
-    const r = await fetch(MUKANDA.FUNCTIONS + '/mukanda-pay', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ produit_type: window.__cmd.type, produit_id: window.__cmd.id, telephone: tel, provider: prov }) });
-    const d = await r.json();
-    if(!r.ok || !d.ok){ afficherErreur('erreur', d.error || 'Erreur de paiement. Réessaie.'); return; }
-    localStorage.setItem('mukanda_tel', tel);
-    location.href = 'succes.html?tel=' + encodeURIComponent(tel) + '&achat=' + encodeURIComponent(d.achat_id || '');
-  } catch(e){ afficherErreur('erreur','Connexion au service de paiement impossible. Réessaie.'); }
-  finally { btn.disabled = false; btn.innerHTML = '📲 Payer — mon téléphone sonne'; }
+function cartePrepa(niveau, matiere){
+  return `<div class="card">
+    <div class="thumb">${EMO_MATIERE[matiere]||'📘'}<span class="ribbon">EN PRÉPARATION</span></div>
+    <div class="pad">
+      <span class="badge soon">🕒 Bientôt</span>
+      <h3>${esc(matiere)} · ${esc(niveau.nom)}</h3>
+      <div class="meta">PDF + vidéos + quiz · vérifiés par un prof</div>
+      <div class="row"><span class="price">500–2 000 F</span>
+      <button class="btn btn-ghost" style="padding:8px 12px;font-size:12.5px" onclick="toast('🔔 Tu seras prévenu dès la mise en ligne !')">🔔 Me prévenir</button></div>
+    </div></div>`;
 }
-
-// ---------------- VOIR DANS LE SITE + TÉLÉCHARGER VRAIMENT ----------------
-window.__cacheLiens = {};
-async function resoudreLien(urlToken){
-  if(window.__cacheLiens[urlToken]) return window.__cacheLiens[urlToken];
-  const r = await fetch(urlToken);
-  const d = await r.json().catch(()=>null);
-  if(!r.ok || !d || !d.ok){ alert('⚠️ ' + ((d && d.error) || 'Lien expiré — utilise « Récupérer mon achat ».')); return null; }
-  window.__cacheLiens[urlToken] = d;
-  return d;
+async function rendreCatalogue(state){
+  const zone = $('#grilleCatalogue'); if(!zone) return;
+  const niv = NIVEAUX.find(n=>n.id===state.niveau) || NIVEAUX[0];
+  zone.innerHTML = '<div class="skel" style="height:180px"></div>'.repeat(3).replace(/<\/div>/g,'</div>');
+  let reelles = [];
+  if(sb){
+    const r = await sb.from('cours').select('*').eq('actif', true).eq('niveau', niv.id);
+    reelles = (r.data||[]).filter(c => state.matiere==='all' || c.matiere===state.matiere);
+  }
+  const sujets = state.matiere==='all' ? niv.sujets : [state.matiere];
+  const prepa = sujets.filter(m => !reelles.some(c=>c.matiere===m)).map(m => cartePrepa(niv, m));
+  zone.innerHTML = (reelles.map(carteReelle).join('') + prepa.join('')) ||
+    `<div class="empty" style="grid-column:1/-1"><span class="big">🦜</span><h3>Rien ici pour l'instant</h3><p>Jaco prépare ce rayon. Reviens bientôt !</p></div>`;
+  const cpt = $('#compteur'); if(cpt) cpt.textContent = `${reelles.length} disponible(s) · ${prepa.length} en préparation`;
 }
-function injecterVisionneuse(){
-  if(document.getElementById('visionneuse')) return;
-  const css = document.createElement('style');
-  css.textContent = '.visionneuse{position:fixed;inset:0;z-index:60;background:rgba(16,26,51,.94);display:flex;flex-direction:column;padding:12px}.vis-head{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--craie);margin-bottom:10px;font-family:"Baloo 2",cursive}.vis-pages{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;align-items:center}.vis-pages canvas{max-width:100%;height:auto;border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.5);background:#fff}';
-  document.head.appendChild(css);
-  const v = document.createElement('div');
-  v.className = 'visionneuse'; v.id = 'visionneuse'; v.style.display = 'none';
-  v.innerHTML = `<div class="vis-head"><b id="vis-titre">Aperçu</b><button class="btn btn-surligne" onclick="fermerVisionneuse()">✕ Fermer</button></div><div class="vis-pages" id="vis-pages"></div>`;
-  document.body.appendChild(v);
-}
-function chargerPdfJs(){
-  return new Promise((res, rej) => {
-    if(window.pdfjsLib) return res();
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-    s.onload = () => { window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(); };
-    s.onerror = rej;
-    document.head.appendChild(s);
+function initFiltres(){
+  const chips = $('#chipsNiveaux'); if(!chips) return;
+  const state = { niveau:'cepe', matiere:'all' };
+  chips.innerHTML = NIVEAUX.map(n=>`<button class="chip ${n.id===state.niveau?'on':''}" data-n="${n.id}">${n.nom}</button>`).join('');
+  const sel = $('#selMatiere');
+  const rebuildSel = ()=>{ const niv=NIVEAUX.find(n=>n.id===state.niveau); sel.innerHTML = `<option value="all">Toutes les matières</option>` + niv.sujets.map(m=>`<option>${m}</option>`).join(''); state.matiere='all'; };
+  chips.addEventListener('click', e=>{
+    const b = e.target.closest('.chip'); if(!b) return;
+    state.niveau = b.dataset.n;
+    $$('#chipsNiveaux .chip').forEach(c=>c.classList.toggle('on', c===b));
+    rebuildSel(); rendreCatalogue(state);
   });
+  sel.addEventListener('change', ()=>{ state.matiere = sel.value; rendreCatalogue(state); });
+  rebuildSel(); rendreCatalogue(state);
 }
-async function voirSurSite(urlToken){
-  injecterVisionneuse();
-  const d = await resoudreLien(urlToken); if(!d) return;
-  const v = document.getElementById('visionneuse');
-  const cont = document.getElementById('vis-pages');
-  document.getElementById('vis-titre').textContent = '👁️ ' + d.titre;
-  v.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  cont.innerHTML = '<p class="vide" style="max-width:420px">Chargement de l\'aperçu…</p>';
-  try {
-    await chargerPdfJs();
-    const pdf = await pdfjsLib.getDocument(d.vue_url).promise;
-    cont.innerHTML = '';
-    for(let i = 1; i <= pdf.numPages; i++){
-      const page = await pdf.getPage(i);
-      const base = page.getViewport({ scale: 1 });
-      const scale = Math.min(2, (Math.min(cont.clientWidth || 800, 900)) / base.width);
-      const vp = page.getViewport({ scale });
-      const canvas = document.createElement('canvas');
-      canvas.width = vp.width; canvas.height = vp.height;
-      cont.appendChild(canvas);
-      await page.render({ canvasContext: canvas, viewport: vp }).promise;
-    }
-  } catch(e){
-    cont.innerHTML = '<p class="vide" style="max-width:420px">Aperçu impossible sur cet appareil — utilise ⬇️ Télécharger, le fichier t\'appartient.</p>';
+
+/* ---------- Page cours : player squelette + leçons verrouillées ---------- */
+async function rendreCours(){
+  const zone = $('#coursZone'); if(!zone) return;
+  const id = new URLSearchParams(location.search).get('id');
+  const session = await getSession();
+  let cours = null, lecons = [];
+  if(sb && id){
+    const r = await sb.from('cours').select('*').eq('id', id).maybeSingle();
+    cours = r.data;
+    if(cours){ const l = await sb.from('lecons').select('*').eq('cours_id', cours.id).order('ordre'); lecons = l.data||[]; }
   }
-}
-function fermerVisionneuse(){
-  const v = document.getElementById('visionneuse');
-  if(v) v.style.display = 'none';
-  document.body.style.overflow = '';
-}
-async function telechargerVraiment(urlToken){
-  const d = await resoudreLien(urlToken); if(!d) return;
-  const f = await fetch(d.telechargement_url);
-  if(!f.ok){ alert('⚠️ Téléchargement impossible — réessaie ou utilise « Récupérer mon achat ».'); return; }
-  const blob = await f.blob();
-  const o = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = o; a.download = (d.titre || 'mukanda-document') + '.pdf';
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(o), 5000);
-}
-
-// ---------------- SUCCÈS + RÉCUPÉRER ----------------
-async function recupererLiens(tel){
-  const r = await fetch(MUKANDA.FUNCTIONS + '/mukanda-download', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ telephone: tel }) });
-  if(!r.ok) return null;
-  const d = await r.json();
-  return (d.liens && d.liens.length) ? d.liens : null;
-}
-function afficherLiens(liens, id){
-  const c = document.getElementById(id); if(!c) return;
-  c.innerHTML = liens.map(l => `<div class="lien-tel">
-    <div><b>${esc(l.titre)}</b><div style="font-size:12px;color:var(--gris)">${fcfa(l.montant)} · lien valable 48 h</div></div>
-    <div class="lien-actions" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-encre" onclick="voirSurSite('${l.url}')">👁️ Voir</button>
-      <button class="btn btn-surligne" onclick="telechargerVraiment('${l.url}')">⬇️ Télécharger</button>
-    </div></div>`).join('');
-}
-function rendreSucces(){
-  const zone = document.getElementById('zone-liens'); if(!zone) return;
-  const tel = param('tel') || localStorage.getItem('mukanda_tel');
-  if(!tel){ document.getElementById('attente').innerHTML = '<p class="vide">Numéro introuvable — utilise « Récupérer mon achat ».</p>'; return; }
-  let essais = 0; const max = 45;
-  const t = setInterval(async () => {
-    essais++;
-    const liens = await recupererLiens(tel).catch(()=>null);
-    if(liens){
-      clearInterval(t);
-      document.getElementById('titre-succes').textContent = '🎉 Paiement confirmé !';
-      document.getElementById('attente').style.display = 'none';
-      afficherLiens(liens, 'zone-liens');
-    } else if(essais >= max){
-      clearInterval(t);
-      document.getElementById('attente').innerHTML = '<p class="vide">C\'est long ? Vérifie que tu as validé sur ton téléphone, puis <a href="recuperer.html">Récupérer mon achat</a> ou <a href="https://wa.me/242065186967">WhatsApp</a>.</p>';
-    }
-  }, 4000);
-}
-function rendreRecuperer(){
-  const btn = document.getElementById('btn-recuperer'); if(!btn) return;
-  btn.addEventListener('click', async () => {
-    const tel = document.getElementById('tel-rec').value.trim();
-    cacherErreur('msg-rec');
-    if(!telValide(tel)){ afficherErreur('msg-rec','Numéro congolais invalide (ex : 065186967).'); return; }
-    btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Recherche…';
-    const liens = await recupererLiens(tel).catch(()=>null);
-    btn.disabled = false; btn.innerHTML = '🔎 Retrouver mes achats';
-    if(!liens){ afficherErreur('msg-rec','Aucun achat payé trouvé pour ce numéro (30 derniers jours).'); return; }
-    afficherLiens(liens, 'zone-rec');
-  });
+  const titre = cours ? cours.titre : 'Cours de démonstration';
+  const liste = lecons.length ? lecons : [1,2,3,4,5,6].map(i=>({ ordre:i, titre:`Leçon ${i} — ${i===1?'Découverte':i===2?'Le concept':'Entraînement'}`, gratuite:i<=2, duree_secondes:720 }));
+  zone.innerHTML = `
+  <div class="authbar" ${session?'style="display:none"':''}>
+    <span style="font-size:22px">🔐</span>
+    <p>Les leçons sont réservées aux élèves inscrits. Crée ton compte gratuit pour recevoir <b>2 PDF + 2 vidéos offerts</b>.</p>
+    <a class="btn btn-y" href="auth.html?next=${encodeURIComponent(location.pathname+'?'+location.search)}">Se connecter / S'inscrire</a>
+  </div>
+  <div class="page-head"><div><h1>${esc(titre)}</h1><div class="sub">${cours?esc(cours.matiere)+' · ':''}PDF + vidéos + quiz · voix de Jaco 🦜</div></div>
+    ${cours?`<span class="price">${fcfa(cours.prix_fcfa)}</span>`:''}</div>
+  <div class="grid-2" style="align-items:start">
+    <div>
+      <div class="player">
+        <div class="screen"><span class="em">🎬</span><h3>Vidéo en préparation</h3><p>Jaco enregistre cette leçon (voix + slides). Disponible au lancement — les 2 premières vidéos seront offertes aux inscrits.</p></div>
+        <div class="bar"><i></i></div>
+        <div class="tabs">
+          <button class="tab on" data-p="ecouter">🎧 Écouter</button>
+          <button class="tab" data-p="lire">📄 Lire</button>
+          <button class="tab" data-p="entrainer">✍️ S'entraîner</button>
+        </div>
+        <div class="tabpane on" data-p="ecouter"><div class="empty" style="border:none;padding:10px"><p style="margin:0">🎧 Audio + slides · ~2 Mo · pensé pour la 3G. <b>En préparation.</b></p></div></div>
+        <div class="tabpane" data-p="lire"><div class="empty" style="border:none;padding:10px"><p style="margin:0">📄 Fiche PDF style cahier, imprimable. <b>En vérification par un prof.</b></p></div></div>
+        <div class="tabpane" data-p="entrainer"><div class="empty" style="border:none;padding:10px"><p style="margin:0">🧠 Quiz corrigé instantanément + exercices. <b>Disponible au lancement.</b></p></div></div>
+      </div>
+      <div style="margin-top:12px;display:flex;align-items:center;gap:10px">
+        <div class="prog" style="flex:1"><i style="width:0%"></i></div>
+        <span style="font-size:12.5px;font-weight:800;color:var(--grey)">0 / ${liste.length} leçons</span>
+      </div>
+    </div>
+    <div class="lessons">
+      ${liste.map((l,i)=>`
+      <div class="lesson">
+        <span class="n">${l.ordre}</span>
+        <div class="t">${esc(l.titre)}<div class="d">${Math.round((l.duree_secondes||720)/60)} min · ${l.gratuite?'Offerte':'Incluse dans le cours'}</div></div>
+        <span class="st">${session ? (l.gratuite?'🎁':'🔒') : '🔒'}</span>
+      </div>`).join('')}
+      <button class="btn btn-y btn-block" style="margin-top:6px" onclick="toast('🛒 Achat disponible au lancement du catalogue !')">💳 Acheter ce cours</button>
+    </div>
+  </div>`;
+  zone.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    zone.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+    zone.querySelectorAll('.tabpane').forEach(p=>p.classList.toggle('on', p.dataset.p===t.dataset.p));
+  }));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  rendreAccueil(); rendreProduit(); rendrePaiement(); rendreSucces(); rendreRecuperer();
-});
-
-// ---------------- BEST-SELLERS & NOUVEAUTÉS ----------------
-function carteProduitAccueil(p, type){
-  const badge = type==='document'
-    ? (p.categorie==='modele_pro'?'💼 Modèle pro': p.categorie==='exercice'?'✍️ Exercice':'🎓 Formation')
-    : '🎓 Cours '+(p.niveau||'').toUpperCase();
-  return `<a class="carte" href="produit.html?type=${type}&id=${p.id}"><span class="tampon">${badge}</span><h3>${esc(p.titre)}</h3><p>${esc((p.description||'').slice(0,110))}${(p.description||'').length>110?'…':''}</p><span class="prix">${fcfa(p.prix_fcfa)}</span></a>`;
-}
-async function rendreAccueilCatalogue(){
-  const bs = document.getElementById('bestsellers');
-  const nv = document.getElementById('nouveautes');
-  if(!bs && !nv) return;
-  const s = mkSupa(); if(!s){ bs && (bs.innerHTML = '<p class="vide">Catalogue hors ligne.</p>'); nv && (nv.innerHTML = '<p class="vide">Catalogue hors ligne.</p>'); return; }
-  const [d,c] = await Promise.all([
-    s.from('documents').select('id,titre,slug,description,categorie,niveau,matiere,prix_fcfa').eq('actif',true).order('created_at',{ascending:false}).limit(8),
-    s.from('cours').select('id,titre,slug,description,niveau,matiere,prix_fcfa').eq('actif',true).order('created_at',{ascending:false}).limit(8)
-  ]);
-  const docs = d.data||[], cours = c.data||[];
-  if(nv){
-    nv.innerHTML = (docs.length || cours.length)
-      ? [...docs.slice(0,4), ...cours.slice(0,4)].slice(0,6).map((p,i)=>carteProduitAccueil(p, i<docs.length?'document':'cours')).join('')
-      : '<p class="vide">📚 Le catalogue ouvre très bientôt.</p>';
+/* ---------- Dashboard : cadeaux + mes cours + filtre classe ---------- */
+async function rendreDashboard(){
+  const s = await requireAuth('Connecte-toi pour voir tes cours');
+  const zone = $('#dashZone'); if(!zone) return;
+  if(!s){ zone.innerHTML=''; return; }
+  const meta = s.user.user_metadata || {};
+  let achats = [];
+  if(sb){
+    const r = await sb.from('achats').select('*').eq('user_id', s.user.id).eq('statut','paye');
+    achats = r.data||[];
   }
-  if(bs){
-    // Pour l'instant, mêmes produits que nouveautés (pas encore de compteur de ventes)
-    bs.innerHTML = nv ? nv.innerHTML : '<p class="vide">Chargement…</p>';
-  }
+  zone.innerHTML = `
+  <div class="page-head"><div><h1>Salut ${esc((meta.nom||'élève').split(' ')[0])} 👋</h1>
+  <div class="sub">Niveau ${(meta.niveau_scolaire||'').toUpperCase()||'—'} · prêt à kotanga ? 🦜</div></div></div>
+
+  <div class="sec"><h2>🎁 Tes cadeaux d'inscription</h2><div class="ln"></div><span class="badge free">2 PDF + 2 vidéos</span></div>
+  <div class="grid-2">
+    ${['📄 PDF offert n°1','📄 PDF offert n°2','🎥 Vidéo offerte n°1','🎥 Vidéo offerte n°2'].map((t,i)=>`
+    <div class="gift"><span class="em">${t.slice(0,2)}</span><div><div class="tt">${t.slice(3)}</div><div class="ss">Réservé aux inscrits · en préparation</div></div>
+    <span class="badge soon st">🕒 Bientôt</span></div>`).join('')}
+  </div>
+
+  <div class="sec"><h2>📚 Mes cours</h2><div class="ln"></div>
+    <select class="select" id="filtreClasse">
+      <option value="all">Toutes les classes</option>
+      ${NIVEAUX.map(n=>`<option value="${n.id}">${n.nom}</option>`).join('')}
+    </select></div>
+  <div id="mesCours"></div>`;
+  const renderList = (cl)=>{
+    const list = achats.filter(a=>cl==='all'||a.niveau===cl);
+    $('#mesCours').innerHTML = list.length ? list.map(a=>`
+      <div class="gift" style="margin-bottom:10px"><span class="em">📘</span><div><div class="tt">${esc(a.produit_id)}</div><div class="ss">Payé · ${fcfa(a.montant)}</div></div>
+      <a class="btn btn-ink" style="margin-left:auto;padding:8px 14px;font-size:12.5px" href="cours.html?id=${a.produit_id}">Continuer →</a></div>`).join('')
+    : `<div class="empty"><span class="big">🎒</span><h3>Aucun cours dans cette classe</h3>
+       <p>Tes cours achetés (et tes cadeaux) apparaîtront ici. Le catalogue ouvre très bientôt.</p>
+       <a class="btn btn-y" href="catalogue.html">Explorer le catalogue</a></div>`;
+  };
+  renderList('all');
+  $('#filtreClasse').addEventListener('change', e=>renderList(e.target.value));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  rendreAccueilCatalogue();
-  rendreProduit(); rendrePaiement(); rendreSucces(); rendreRecuperer();
+/* ---------- Init ---------- */
+document.addEventListener('DOMContentLoaded', ()=>{
+  paintUser();
+  initFiltres();
+  rendreCours();
+  rendreDashboard();
+  $$('#btnLogout').forEach(b=>b.addEventListener('click', async ()=>{ if(sb){ await sb.auth.signOut(); location.href='index.html'; } }));
 });

@@ -4,7 +4,7 @@
 const MUKANDA = {
   SUPABASE_URL: 'https://wyfkogowsdbxctbpfuud.supabase.co',
   // ⬇️ SEULE ligne à remplir : Settings → API → "anon public" (clé PUBLIQUE, sans risque — jamais la service_role ici)
-  ANON_KEY: 'COLLE_TA_CLE_ANON_ICI',
+  ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM',
   FUNCTIONS: 'https://wyfkogowsdbxctbpfuud.functions.supabase.co'
 };
 

@@ -50,3 +50,38 @@ main.wrap::before{content:'';position:absolute;top:8px;bottom:8px;left:8px;width
 .pied-in{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .pied a{color:var(--surligneur);text-decoration:none}
 @media(max-width:640px){ .entete-in{flex-direction:column;align-items:flex-start} main.wrap::before{display:none} }
+
+
+/* ---- Lot 2 : fiche, paiement, succès, récupérer, FAQ ---- */
+.fiche{background:var(--carte);border:2px solid var(--encre);border-radius:16px;padding:26px;box-shadow:6px 6px 0 rgba(20,33,61,.12);margin:26px 0}
+.fiche h1{font-size:clamp(24px,5vw,34px);margin:10px 0 8px}
+.fiche .desc{color:var(--gris);font-size:15px;max-width:640px;margin-bottom:16px}
+.meta-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.meta-tag{background:rgba(20,33,61,.08);border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700}
+.contient{background:rgba(255,209,102,.15);border:2px dashed var(--surligneur);border-radius:12px;padding:14px 16px;margin:16px 0;font-size:14px}
+.contient b{display:block;margin-bottom:6px}
+.ligne-prix{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0}
+.ligne-prix .prix{font-size:18px}
+.form-carte{background:var(--carte);border:2px solid var(--encre);border-radius:16px;padding:24px;box-shadow:6px 6px 0 rgba(20,33,61,.12);margin:26px auto;max-width:560px}
+.form-carte h1{font-size:24px;margin-bottom:6px}
+.form-carte label{font-weight:800;font-size:13px;display:block;margin:14px 0 6px}
+.form-carte input[type=tel]{width:100%;padding:13px 14px;border:2px solid var(--encre);border-radius:12px;font-size:16px;background:#fff}
+.form-carte input[type=tel]:focus{outline:3px solid var(--surligneur)}
+.providers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.provider{border:2px solid var(--encre);border-radius:12px;padding:12px;text-align:center;font-weight:800;cursor:pointer;background:#fff;position:relative}
+.provider input{position:absolute;opacity:0}
+.provider.sel{background:var(--surligneur);box-shadow:3px 3px 0 rgba(20,33,61,.2)}
+.btn-block{display:block;width:100%;text-align:center;margin-top:18px}
+.erreur{background:#fdecea;border:2px solid var(--marge);color:#8a1f1f;border-radius:12px;padding:12px;font-weight:700;margin-top:14px;display:none}
+.succes-hero{text-align:center;padding:40px 0 10px}
+.succes-hero .grand{font-size:56px}
+.etapes{max-width:560px;margin:10px auto 26px;display:grid;gap:10px}
+.etapes .pas{background:var(--carte);border:2px solid var(--encre);border-radius:12px;padding:12px 14px;font-size:14px;display:flex;gap:10px;align-items:center}
+.etapes .pas span{flex:0 0 26px;height:26px;border-radius:50%;background:var(--encre);color:var(--craie);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.zone-liens{max-width:560px;margin:0 auto 30px;display:grid;gap:10px}
+.lien-tel{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--carte);border:2px solid var(--encre);border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.spinner{width:20px;height:20px;border:3px solid var(--encre);border-top-color:transparent;border-radius:50%;animation:tourne 1s linear infinite;display:inline-block;vertical-align:middle}
+@keyframes tourne{to{transform:rotate(360deg)}}
+.faq-bloc{background:var(--carte);border:2px solid var(--encre);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:4px 4px 0 rgba(20,33,61,.10)}
+.faq-bloc h3{font-size:16px;margin-bottom:6px}
+.faq-bloc p{font-size:14px;color:var(--gris)}

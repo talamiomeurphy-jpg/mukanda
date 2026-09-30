@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paiement — Mukanda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="entete"><div class="wrap entete-in"><a class="logo" href="index.html">📚 Mukanda</a>
+<nav><a href="index.html#catalogue">Catalogue</a><a href="recuperer.html">Récupérer mon achat</a><a href="faq.html">FAQ</a></nav></div></header>
+<main class="wrap">
+  <div class="form-carte">
+    <h1>💳 Paiement</h1>
+    <p style="color:var(--gris);font-size:14px">Commande : <b id="prod-titre">…</b> — <b id="prod-prix">…</b></p>
+    <label for="tel">Ton numéro mobile money</label>
+    <input type="tel" id="tel" placeholder="Ex : 065186967" maxlength="10">
+    <label>Moyen de paiement</label>
+    <div class="providers">
+      <label class="provider sel" onclick="choisirProvider(this)"><input type="radio" name="prov" value="MTN" checked>🟡 MTN MoMo</label>
+      <label class="provider" onclick="choisirProvider(this)"><input type="radio" name="prov" value="AIRTEL">🔴 Airtel Money</label>
+    </div>
+    <button class="btn btn-surligne btn-block" id="btn-payer" onclick="lancerPaiement()">📲 Payer — mon téléphone sonne</button>
+    <div class="erreur" id="erreur"></div>
+    <p style="margin-top:12px;font-size:12px;color:var(--gris)">Aucun compte nécessaire. Après paiement, ton lien s'affiche et reste retrouvable 48 h avec ton numéro.</p>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script>
+</body></html>

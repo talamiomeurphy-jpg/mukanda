@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Récupérer mon achat — Mukanda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="entete"><div class="wrap entete-in"><a class="logo" href="index.html">📚 Mukanda</a>
+<nav><a href="index.html#catalogue">Catalogue</a><a href="recuperer.html">Récupérer mon achat</a><a href="faq.html">FAQ</a></nav></div></header>
+<main class="wrap">
+  <div class="form-carte">
+    <h1>🔁 Récupérer mon achat</h1>
+    <p style="color:var(--gris);font-size:14px">Entre le numéro utilisé au paiement — tes liens (valables 48 h) réapparaissent.</p>
+    <label for="tel-rec">Ton numéro de téléphone</label>
+    <input type="tel" id="tel-rec" placeholder="Ex : 065186967" maxlength="10">
+    <button class="btn btn-surligne btn-block" id="btn-recuperer">🔎 Retrouver mes achats</button>
+    <div class="erreur" id="msg-rec"></div>
+  </div>
+  <div class="zone-liens" id="zone-rec"></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script>
+</body></html>

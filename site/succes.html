@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paiement en cours — Mukanda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="entete"><div class="wrap entete-in"><a class="logo" href="index.html">📚 Mukanda</a>
+<nav><a href="index.html#catalogue">Catalogue</a><a href="recuperer.html">Récupérer mon achat</a><a href="faq.html">FAQ</a></nav></div></header>
+<main class="wrap">
+  <div class="succes-hero"><div class="grand">📲</div>
+    <h1 id="titre-succes">Ton téléphone va sonner…</h1>
+    <p style="color:var(--gris)">Valide le paiement sur ton téléphone (MTN MoMo / Airtel Money). Ton lien apparaît tout seul ci-dessous.</p>
+  </div>
+  <div class="etapes" id="attente">
+    <div class="pas"><span>1</span> Tu reçois « Valider vous le paiement de … FCFA à Mukanda » → tape ton code PIN.</div>
+    <div class="pas"><span>2</span> <span class="spinner"></span> Confirmation en cours (quelques secondes)…</div>
+    <div class="pas"><span>3</span> Ton lien de téléchargement apparaît ci-dessous, sans recharger la page.</div>
+  </div>
+  <div class="zone-liens" id="zone-liens"></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script>
+</body></html>

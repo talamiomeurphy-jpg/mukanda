@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test paiement · Mukanda</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#101A3E;--violet:#6C5CE7;--blue:#2F6BFF;--gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;--paper:#F7F8FF;--card:#fff;--grey:#5A6478;--line:#E6EAF6;--grad:linear-gradient(135deg,var(--violet),var(--blue))}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;padding:24px 16px 60px}
+h1,h2{font-family:'Baloo 2',cursive}
+.wrap{max-width:640px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.top a{font-weight:800;color:var(--violet);font-size:14px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:18px;padding:24px;box-shadow:0 12px 30px rgba(16,26,62,.12);margin-bottom:18px}
+.card h1{font-size:24px;margin-bottom:6px}
+.card .sub{color:var(--grey);font-size:14px;margin-bottom:18px}
+.prod{display:flex;gap:14px;align-items:center;background:var(--paper);border:2px dashed var(--line);border-radius:14px;padding:14px;margin-bottom:18px}
+.prod .em{font-size:38px}
+.prod .tt{font-weight:800;font-size:15px}
+.prod .mt{font-size:12.5px;color:var(--grey)}
+.prod .pr{margin-left:auto;font-family:'Baloo 2';font-weight:800;font-size:18px;background:var(--gold);border:2px solid var(--ink);border-radius:10px;padding:4px 12px;white-space:nowrap}
+label{display:block;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px}
+input[type=tel]{width:100%;padding:13px 16px;border:2px solid var(--line);border-radius:12px;font-size:16px;font-family:inherit}
+input[type=tel]:focus{outline:none;border-color:var(--violet)}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.op{border:2px solid var(--line);border-radius:12px;padding:12px;text-align:center;font-weight:800;cursor:pointer;background:#fff;position:relative;font-size:14px}
+.op input{position:absolute;opacity:0}
+.op.sel{background:var(--gold);border-color:var(--ink)}
+.pay{width:100%;margin-top:18px;padding:16px;border:none;border-radius:14px;background:var(--grad);color:#fff;font-weight:800;font-size:16px;font-family:inherit;cursor:pointer;box-shadow:0 8px 20px rgba(108,92,231,.4)}
+.pay:disabled{opacity:.6;cursor:not-allowed}
+.status{display:none;margin-top:16px;padding:14px;border-radius:12px;font-size:14px;font-weight:700}
+.status.wait{display:block;background:rgba(255,183,3,.15);border:2px solid var(--gold);color:#8a6d00}
+.status.ok{display:block;background:rgba(6,195,154,.12);border:2px solid var(--teal);color:#047857}
+.status.err{display:block;background:rgba(255,93,115,.12);border:2px solid var(--coral);color:#be123c}
+.links{margin-top:12px;display:grid;gap:8px}
+.links a{display:flex;justify-content:space-between;align-items:center;background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:12px 14px;font-weight:800;font-size:13.5px;color:var(--ink)}
+pre{background:var(--ink);color:#9fe8c5;border-radius:12px;padding:14px;font-size:11.5px;overflow:auto;max-height:220px;margin-top:14px}
+.warn{background:rgba(255,93,115,.1);border:2px solid var(--coral);color:#be123c;border-radius:12px;padding:12px;font-size:13px;margin-top:14px;display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span style="font-family:'Baloo 2';font-size:20px;font-weight:800">🧪 Test paiement</span><a href="index.html">← Retour accueil</a></div>
+
+  <div class="card">
+    <h1>Payer en ligne, directement depuis le site</h1>
+    <p class="sub">Ce panneau appelle ton Edge Function <b>mukanda-pay</b> → OpenPay → ton téléphone sonne. Aucun compte requis.</p>
+
+    <div class="prod">
+      <span class="em">📄</span>
+      <div><div class="tt" id="pTitre">TEST — Cv simple</div><div class="mt" id="pMeta">Document de test · bucket privé</div></div>
+      <span class="pr" id="pPrix">100 F</span>
+    </div>
+
+    <label for="tel">Ton numéro Mobile Money</label>
+    <input type="tel" id="tel" value="065186967" maxlength="10">
+
+    <label>Opérateur</label>
+    <div class="ops">
+      <label class="op sel" onclick="selOp(this)"><input type="radio" name="op" value="MTN" checked>🟡 MTN MoMo</label>
+      <label class="op" onclick="selOp(this)"><input type="radio" name="op" value="AIRTEL">🔴 Airtel Money</label>
+    </div>
+
+    <button class="pay" id="btnPay" onclick="payer()">🛒 Lancer le paiement maintenant</button>
+
+    <div class="status" id="status"></div>
+    <div class="links" id="links"></div>
+    <div class="warn" id="warn">⚠️ Si le log mentionne <b>essai / abonnement / trial</b> : ton essai OpenPay est terminé → dashboard OpenPay → « S'abonner » (5 000 F/an), puis relance le test.</div>
+    <pre id="log">En attente d'un test…</pre>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const FN='https://wyfkogowsdbxctbpfuud.functions.supabase.co';
+const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb=window.supabase?supabase.createClient(SB_URL,SB_KEY):null;
+let PRODUIT={type:'document',id:'d366fe94-80b5-4472-96d3-07f5c7d39f2e'};
+let pollTimer=null;
+
+function log(o){const el=document.getElementById('log');el.textContent=typeof o==='string'?o:JSON.stringify(o,null,2);}
+function setStatus(cls,html){const s=document.getElementById('status');s.className='status '+cls;s.innerHTML=html;}
+function selOp(el){document.querySelectorAll('.op').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');el.querySelector('input').checked=true;}
+window.selOp=selOp;
+
+/* Charge le vrai produit de test depuis la base (slug test-cv) */
+(async()=>{
+  if(!sb)return;
+  const r=await sb.from('documents').select('*').eq('slug','test-cv').eq('actif',true).maybeSingle();
+  if(r.data){PRODUIT={type:'document',id:r.data.id};
+    document.getElementById('pTitre').textContent=r.data.titre;
+    document.getElementById('pPrix').textContent=new Intl.NumberFormat('fr-FR').format(r.data.prix_fcfa)+' F';
+    document.getElementById('pMeta').textContent='Chargé depuis la base · bucket privé';}
+})();
+
+async function payer(){
+  const tel=document.getElementById('tel').value.trim();
+  if(!/^0[56]\d{7}$/.test(tel)){setStatus('err','Numéro invalide (ex : 065186967).');return;}
+  const prov=document.querySelector('.op input:checked').value;
+  const btn=document.getElementById('btnPay');
+  btn.disabled=true;btn.textContent='⏳ Envoi à OpenPay…';
+  document.getElementById('links').innerHTML='';
+  setStatus('wait','📡 Contact de mukanda-pay…');
+  log('→ POST mukanda-pay '+JSON.stringify({produit_type:PRODUIT.type,produit_id:PRODUIT.id,telephone:tel,provider:prov}));
+  try{
+    const r=await fetch(FN+'/mukanda-pay',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({produit_type:PRODUIT.type,produit_id:PRODUIT.id,telephone:tel,provider:prov})});
+    const d=await r.json();
+    log(d);
+    if(!r.ok||!d.ok){
+      setStatus('err','❌ '+(d.error||'Erreur inconnue'));
+      if(JSON.stringify(d).match(/trial|essai|abonnement|subscription/i))document.getElementById('warn').style.display='block';
+      return;
+    }
+    setStatus('wait','📲 <b>Regarde ton téléphone !</b> Valide le paiement MoMo/Airtel… je surveille la confirmation.');
+    surveiller(tel);
+  }catch(e){
+    log('ERREUR '+e.message);setStatus('err','❌ Connexion impossible : '+e.message);
+  }finally{
+    btn.disabled=false;btn.textContent='🛒 Relancer un paiement';
+  }
+}
+window.payer=payer;
+
+/* Surveille le webhook via mukanda-download (récupération par numéro) */
+function surveiller(tel){
+  let essais=0;
+  clearInterval(pollTimer);
+  pollTimer=setInterval(async()=>{
+    essais++;
+    try{
+      const r=await fetch(FN+'/mukanda-download',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telephone:tel})});
+      if(r.ok){
+        const d=await r.json();
+        if(d.liens&&d.liens.length){
+          clearInterval(pollTimer);
+          setStatus('ok','🎉 <b>Paiement confirmé par le webhook !</b> Voici tes liens (voir + télécharger) :');
+          document.getElementById('links').innerHTML=d.liens.map(l=>
+            `<a href="${l.url}" target="_blank"><span>📥 ${l.titre}</span><span>Ouvrir →</span></a>`).join('');
+          log('✅ Paiement confirmé · '+d.liens.length+' lien(s)');
+          return;
+        }
+      }
+    }catch(e){}
+    if(essais>=45){clearInterval(pollTimer);setStatus('err','⏰ Délai dépassé. As-tu validé sur ton téléphone ?');}
+  },4000);
+}
+</script>
+</body>
+</html>

@@ -549,7 +549,22 @@ async function remplir(){
     cartePrepa('🌱','SVT · BEPC','Leçons + exercices corrigés'),
     cartePrepa('💭','Philosophie · BAC','Dissertation méthodée')
   ].join('');
+    const PRO_A_VENIR=[
+    {slug:'cv-modernes',em:'📄',t:'CV modernes',sub:'5 modèles prêts à remplir'},
+    {slug:'lettres-motivation',em:'✉️',t:'Lettres de motivation',sub:'10 modèles selon la situation'},
+    {slug:'factures-devis',em:'🧾',t:'Factures & devis',sub:'Modèles conformes usages Congo'},
+    {slug:'contrat-travail',em:'📑',t:'Contrat de travail',sub:'CDI / CDD clair et complet'},
+    {slug:'attestations',em:'📑',t:'Attestations',sub:'Travail, stage, salaire'},
+    {slug:'certificats',em:'📑',t:'Certificats',sub:'Prêts à personnaliser'},
+    {slug:'business-plan',em:'📊',t:'Business plan',sub:'Lancer ton commerce à Brazzaville'},
+    {slug:'etude-marche',em:'📊',t:'Étude de marché',sub:'Méthode + modèle complet'},
+    {slug:'pitch-deck',em:'📊',t:'Pitch deck',sub:'Slides prêtes à présenter'}
+  ];
   const sp=$('#shelfPro');
+  if(sp){
+    sp.innerHTML=docs.map(carteDoc).join('')+
+      PRO_A_VENIR.filter(p=>!docs.some(d=>d.slug===p.slug)).map(p=>cartePrepa(p.em,p.t,p.sub)).join('');
+  }
   if(sp)sp.innerHTML=docs.length?docs.map(carteDoc).join(''):[
     cartePrepa('📄','CV moderne','5 modèles prêts à remplir'),
     cartePrepa('✉️','Lettre de motivation','10 modèles selon la situation'),
@@ -559,7 +574,7 @@ async function remplir(){
   ].join('');
   /* Compteurs par niveau */
   if(sb){
-    for(const n of['cepe','bepc','bac','concours']){
+    for(const n of ['cepe',' bepc ','bac','concours']){
       try{
         const r=await sb.from('cours').select('id',{count:'exact',head:true}).eq('actif',true).eq('niveau',n);
         const el=document.getElementById('c-'+n);if(el)el.textContent=(r.count||0)+' cours';

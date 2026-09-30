@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>CV modernes — 5 modèles · Mukanda</title>
+<style>
+@page{size:A4;margin:0}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'Segoe UI',Arial,Helvetica,sans-serif;color:#1a1a2e;background:#fff}
+.page{width:210mm;min-height:297mm;margin:0 auto;position:relative;overflow:hidden;page-break-after:always}
+.foot{position:absolute;bottom:5mm;left:12mm;right:12mm;font-size:8.5pt;color:#9aa;text-align:center;border-top:1px solid #e5e5ef;padding-top:2mm}
+h1,h2,h3{line-height:1.2}
+@media screen{body{background:#52525b;padding:24px 0}.page{box-shadow:0 12px 40px rgba(0,0,0,.45);margin-bottom:24px}}
+
+/* ---------- PAGE GUIDE ---------- */
+.guide{padding:16mm 14mm;background:linear-gradient(160deg,#141B4D,#3A2E8C)}
+.guide .logo{color:#FFB703;font-weight:800;font-size:14pt;letter-spacing:1px}
+.guide h1{color:#fff;font-size:24pt;margin:8mm 0 3mm}
+.guide .sub{color:#C7D0EA;font-size:11pt;margin-bottom:8mm}
+.guide .card{background:#fff;border-radius:4mm;padding:6mm 7mm;margin-bottom:5mm}
+.guide h2{font-size:12pt;color:#3A2E8C;margin-bottom:3mm}
+.guide li{font-size:10pt;margin:0 0 2mm 5mm;color:#333}
+.guide .pack{display:flex;gap:3mm;flex-wrap:wrap}
+.guide .pack span{background:#EEF1FA;border:1px solid #C9D2F0;border-radius:99px;padding:2mm 4mm;font-size:9.5pt;font-weight:700;color:#3A2E8C}
+
+/* ---------- MODÈLE 1 : MODERNE (sidebar violette) ---------- */
+.cv1{display:grid;grid-template-columns:70mm 140mm}
+.cv1 .side{background:#6C5CE7;color:#fff;padding:12mm 8mm}
+.cv1 .side .av{width:26mm;height:26mm;border-radius:50%;background:#fff;color:#6C5CE7;font-size:13pt;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6mm}
+.cv1 .side h2{font-size:10pt;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2mm;margin:6mm 0 3mm}
+.cv1 .side p,.cv1 .side li{font-size:9pt;margin-bottom:1.5mm;line-height:1.4}
+.cv1 .bar{height:1.6mm;background:rgba(255,255,255,.3);border-radius:99px;margin:1mm 0 2.5mm}
+.cv1 .bar i{display:block;height:100%;background:#FFB703;border-radius:99px}
+.cv1 .main{padding:12mm 10mm}
+.cv1 .main h1{font-size:20pt;color:#1a1a2e}
+.cv1 .main .job{color:#6C5CE7;font-weight:700;font-size:11pt;margin:1mm 0 5mm}
+.cv1 .main h3{font-size:10.5pt;text-transform:uppercase;letter-spacing:1px;color:#6C5CE7;margin:5mm 0 3mm}
+.cv1 .xp{margin-bottom:4mm}
+.cv1 .xp .t{font-weight:700;font-size:10pt}
+.cv1 .xp .d{font-size:8.5pt;color:#888;margin-bottom:1mm}
+.cv1 .xp p{font-size:9pt;color:#444;line-height:1.45}
+
+/* ---------- MODÈLE 2 : CLASSIQUE ---------- */
+.cv2{padding:16mm 18mm;font-family:Georgia,'Times New Roman',serif}
+.cv2 .head{text-align:center;border-bottom:3px double #1a1a2e;padding-bottom:5mm;margin-bottom:6mm}
+.cv2 .head h1{font-size:21pt;letter-spacing:2px;text-transform:uppercase}
+.cv2 .head .job{font-style:italic;font-size:11pt;color:#555;margin:1mm 0 2mm}
+.cv2 .head .ct{font-size:9pt;color:#666}
+.cv2 h3{font-size:11pt;text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid #1a1a2e;padding-bottom:1.5mm;margin:6mm 0 3mm}
+.cv2 .xp{margin-bottom:4mm}
+.cv2 .xp .t{font-weight:700;font-size:10pt}
+.cv2 .xp .d{font-style:italic;font-size:8.5pt;color:#777}
+.cv2 p,.cv2 li{font-size:9.5pt;line-height:1.5;color:#333}
+.cv2 ul{margin:1mm 0 0 6mm}
+
+/* ---------- MODÈLE 3 : MINIMAL ---------- */
+.cv3{padding:18mm 20mm}
+.cv3 h1{font-size:24pt;font-weight:300;letter-spacing:1px}
+.cv3 h1 b{font-weight:800}
+.cv3 .job{font-size:10pt;letter-spacing:3px;text-transform:uppercase;color:#888;margin:2mm 0 6mm}
+.cv3 .ct{font-size:9pt;color:#666;margin-bottom:8mm}
+.cv3 h3{font-size:9pt;letter-spacing:3px;text-transform:uppercase;color:#1a1a2e;margin:6mm 0 3mm}
+.cv3 h3::after{content:'';display:block;width:12mm;height:.8mm;background:#1a1a2e;margin-top:1.5mm}
+.cv3 .row{display:flex;gap:6mm;margin-bottom:3mm}
+.cv3 .row .l{flex:0 0 40mm;font-size:8.5pt;color:#999}
+.cv3 .row .r{flex:1;font-size:9.5pt;color:#333;line-height:1.5}
+.cv3 .row .r b{color:#1a1a2e}
+
+/* ---------- MODÈLE 4 : CRÉATIF (bandeau or/corail) ---------- */
+.cv4 .band{background:#FFB703;padding:12mm 14mm;display:flex;align-items:center;gap:8mm}
+.cv4 .band .av{width:24mm;height:24mm;border-radius:3mm;background:#1a1a2e;color:#FFB703;font-size:12pt;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cv4 .band h1{font-size:19pt;color:#1a1a2e}
+.cv4 .band .job{font-size:10.5pt;color:#5b4300;font-weight:700}
+.cv4 .cols{display:grid;grid-template-columns:1fr 62mm;gap:8mm;padding:8mm 14mm}
+.cv4 h3{font-size:10pt;text-transform:uppercase;letter-spacing:1px;color:#FF5D73;margin:4mm 0 2mm}
+.cv4 p,.cv4 li{font-size:9pt;line-height:1.5;color:#444}
+.cv4 ul{margin-left:5mm}
+.cv4 .tag{display:inline-block;background:#1a1a2e;color:#FFB703;border-radius:99px;padding:1mm 3.5mm;font-size:8.5pt;font-weight:700;margin:0 1mm 1.5mm 0}
+
+/* ---------- MODÈLE 5 : ÉTUDIANT ---------- */
+.cv5{padding:14mm 16mm}
+.cv5 .top{display:flex;justify-content:space-between;align-items:flex-start;border-left:6mm solid #06C39A;padding-left:6mm;margin-bottom:6mm}
+.cv5 h1{font-size:19pt;color:#0b3b33}
+.cv5 .job{font-size:10pt;color:#06C39A;font-weight:700}
+.cv5 .ct{font-size:8.5pt;color:#777;text-align:right;line-height:1.6}
+.cv5 h3{font-size:10pt;text-transform:uppercase;letter-spacing:1px;color:#0b3b33;background:#E4FBF3;display:inline-block;padding:1.5mm 4mm;border-radius:2mm;margin:4mm 0 3mm}
+.cv5 p,.cv5 li{font-size:9.5pt;line-height:1.5;color:#333}
+.cv5 ul{margin-left:5mm}
+.cv5 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 : GUIDE ================= -->
+<section class="page guide">
+  <div class="logo">📚 MUKANDA · MODÈLES PRO</div>
+  <h1>CV modernes — 5 modèles prêts à remplir</h1>
+  <div class="sub">Pack professionnel · marché congolais & international · usage personnel</div>
+  <div class="card">
+    <h2>📦 Ce que contient ce pack</h2>
+    <div class="pack">
+      <span>1 · Moderne (sidebar violette)</span><span>2 · Classique (serif)</span>
+      <span>3 · Minimal (épuré)</span><span>4 · Créatif (bandeau or)</span>
+      <span>5 · Étudiant (sans expérience)</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🛠️ Comment personnaliser ton CV</h2>
+    <li><b>Ouvre</b> Canva, Google Docs ou Word et choisis un modèle vierge proche du design qui te plaît.</li>
+    <li><b>Recopie</b> la structure exacte du modèle (rubriques, ordre, hiérarchie) — c'est elle qui fait la différence.</li>
+    <li><b>Remplace</b> les informations d'exemple par les tiennes (nom, contacts, expériences, formations).</li>
+    <li><b>Une page maximum.</b> Un recruteur passe 30 secondes sur un CV : sois clair, pas exhaustif.</li>
+    <li><b>Exporte en PDF</b> toujours (jamais Word) : nomme le fichier <b>Prenom-Nom-CV.pdf</b>.</li>
+  </div>
+  <div class="card">
+    <h2>✅ Checklist avant d'envoyer</h2>
+    <li>Numéro joignable + email professionnel (prenom.nom@gmail.com).</li>
+    <li>Des résultats chiffrés (« géré une caisse de 500 000 F/jour ») plutôt que des tâches.</li>
+    <li>Zéro faute d'orthographe — fais relire par quelqu'un.</li>
+    <li>Photo professionnelle uniquement si l'offre le demande.</li>
+  </div>
+  <div class="card">
+    <h2>🦜 Besoin d'aide ?</h2>
+    <li>Écris-nous sur WhatsApp (+242 06 518 69 67) : on t'aide à adapter ton CV pour 0 F si tu as acheté ce pack.</li>
+  </div>
+  <div class="foot" style="color:#C7D0EA;border-color:rgba(255,255,255,.2)">© 2026 Mukanda · Brazzaville · Achat personnel — revente interdite</div>
+</section>
+
+<!-- ================= MODÈLE 1 : MODERNE ================= -->
+<section class="page cv1">
+  <div class="side">
+    <div class="av">JN</div>
+    <h2>Contact</h2>
+    <p>Brazzaville, Congo<br>+242 06 518 69 67<br>jb.nkouka@gmail.com</p>
+    <h2>Compétences</h2>
+    <p>Excel & tableaux de bord</p><div class="bar"><i style="width:90%"></i></div>
+    <p>Comptabilité & caisses</p><div class="bar"><i style="width:85%"></i></div>
+    <p>Facturation & devis</p><div class="bar"><i style="width:80%"></i></div>
+    <p>Logiciel Sage</p><div class="bar"><i style="width:70%"></i></div>
+    <h2>Langues</h2>
+    <p>Français — courant<br>Lingala — langue maternelle<br>Anglais — intermédiaire</p>
+    <h2>Atouts</h2>
+    <p>Ponctuel · rigoureux · honnête. Habitué au contact client et à la gestion d'argent.</p>
+  </div>
+  <div class="main">
+    <h1>Jean-Baptiste Nkouka</h1>
+    <div class="job">Assistant comptable & gestionnaire de caisse</div>
+    <h3>Profil</h3>
+    <p style="font-size:9.5pt;color:#444;line-height:1.5">Trois ans d'expérience en gestion de caisse et comptabilité dans le secteur des télécoms à Brazzaville. Je cherche un poste où la rigueur et l'honnêteté font la différence.</p>
+    <h3>Expérience professionnelle</h3>
+    <div class="xp"><div class="t">Assistant comptable — MTN Congo, Brazzaville</div><div class="d">2023 – 2025</div>
+      <p>Tenue de caisse quotidienne (≈ 500 000 F/jour). Rapprochements bancaires hebdomadaires. Facturation clients et relances. Classement et archivage des pièces comptables.</p></div>
+    <div class="xp"><div class="t">Stagiaire — Direction Générale du Trésor</div><div class="d">2022 (6 mois)</div>
+      <p>Saisie d'écritures comptables. Participation à l'inventaire annuel. Appui au rapprochement des comptes de l'État.</p></div>
+    <div class="xp"><div class="t">Vendeur conseil — Boutique Kando & Frères</div><div class="d">2020 – 2022</div>
+      <p>Accueil et conseil client. Encaissement Mobile Money. Gestion du stock et réassort.</p></div>
+    <h3>Formation</h3>
+    <div class="xp"><div class="t">Licence en Sciences de Gestion — Université Marien Ngouabi</div><div class="d">2022 · Mention Assez Bien</div></div>
+    <div class="xp"><div class="t">Baccalauréat série D — Lycée de la Révolution</div><div class="d">2018</div></div>
+  </div>
+  <div class="foot">Modèle 1/5 · © Mukanda · mukanda.onrender.com</div>
+</section>
+
+<!-- ================= MODÈLE 2 : CLASSIQUE ================= -->
+<section class="page cv2">
+  <div class="head">
+    <h1>Jean-Baptiste Nkouka</h1>
+    <div class="job">Assistant comptable & gestionnaire de caisse</div>
+    <div class="ct">Brazzaville, République du Congo · +242 06 518 69 67 · jb.nkouka@gmail.com</div>
+  </div>
+  <h3>Profil</h3>
+  <p>Trois ans d'expérience en gestion de caisse et comptabilité dans le secteur des télécoms. Sérieux, discret et rigoureux, je souhaite mettre mon honnêteté au service d'une entreprise exigeante.</p>
+  <h3>Expérience professionnelle</h3>
+  <div class="xp"><div class="t">Assistant comptable — MTN Congo, Brazzaville</div><div class="d">2023 – 2025</div>
+    <ul><li>Tenue de caisse quotidienne (≈ 500 000 F/jour) et rapprochements bancaires.</li>
+    <li>Facturation clients, relances et classement des pièces comptables.</li></ul></div>
+  <div class="xp"><div class="t">Stagiaire — Direction Générale du Trésor</div><div class="d">2022</div>
+    <ul><li>Saisie d'écritures comptables et appui à l'inventaire annuel.</li></ul></div>
+  <div class="xp"><div class="t">Vendeur conseil — Boutique Kando & Frères</div><div class="d">2020 – 2022</div>
+    <ul><li>Accueil, conseil, encaissement Mobile Money et gestion du stock.</li></ul></div>
+  <h3>Formation</h3>
+  <div class="xp"><div class="t">Licence en Sciences de Gestion — Université Marien Ngouabi</div><div class="d">2022</div></div>
+  <div class="xp"><div class="t">Baccalauréat série D — Lycée de la Révolution</div><div class="d">2018</div></div>
+  <h3>Compétences & langues</h3>
+  <ul><li>Excel, Sage, Word, PowerPoint · Facturation & devis · Gestion de caisse.</li>
+  <li>Français (courant), Lingala (maternel), Anglais (intermédiaire).</li></ul>
+  <div class="foot">Modèle 2/5 · © Mukanda · mukanda.onrender.com</div>
+</section>
+
+<!-- ================= MODÈLE 3 : MINIMAL ================= -->
+<section class="page cv3">
+  <h1>Jean-Baptiste <b>Nkouka</b></h1>
+  <div class="job">Assistant comptable</div>
+  <div class="ct">Brazzaville, CG · +242 06 518 69 67 · jb.nkouka@gmail.com</div>
+  <h3>Expérience</h3>
+  <div class="row"><div class="l">2023 – 2025</div><div class="r"><b>Assistant comptable, MTN Congo.</b> Tenue de caisse (≈ 500 000 F/jour), rapprochements bancaires, facturation et relances clients.</div></div>
+  <div class="row"><div class="l">2022</div><div class="r"><b>Stagiaire, Direction Générale du Trésor.</b> Saisie d'écritures, inventaire annuel, rapprochement des comptes.</div></div>
+  <div class="row"><div class="l">2020 – 2022</div><div class="r"><b>Vendeur conseil, Kando & Frères.</b> Accueil client, encaissement Mobile Money, gestion de stock.</div></div>
+  <h3>Formation</h3>
+  <div class="row"><div class="l">2022</div><div class="r"><b>Licence en Sciences de Gestion</b> — Université Marien Ngouabi.</div></div>
+  <div class="row"><div class="l">2018</div><div class="r"><b>Baccalauréat série D</b> — Lycée de la Révolution.</div></div>
+  <h3>Compétences</h3>
+  <div class="row"><div class="l">Outils</div><div class="r">Excel · Sage · Word · PowerPoint</div></div>
+  <div class="row"><div class="l">Métier</div><div class="r">Gestion de caisse · Facturation · Devis · Classement comptable</div></div>
+  <div class="row"><div class="l">Langues</div><div class="r">Français · Lingala · Anglais</div></div>
+  <div class="foot">Modèle 3/5 · © Mukanda · mukanda.onrender.com</div>
+</section>
+
+<!-- ================= MODÈLE 4 : CRÉATIF ================= -->
+<section class="page cv4">
+  <div class="band">
+    <div class="av">JN</div>
+    <div><h1>Jean-Baptiste Nkouka</h1><div class="job">Assistant comptable & gestionnaire de caisse</div></div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Profil</h3>
+      <p>Trois ans d'expérience en caisse et comptabilité à Brazzaville. Je transforme la rigueur en confiance : argent compté juste, factures claires, clients satisfaits.</p>
+      <h3>Expérience</h3>
+      <p><b>Assistant comptable — MTN Congo</b> · 2023-2025<br>Caisse quotidienne ≈ 500 000 F, rapprochements, facturation, relances.</p>
+      <p style="margin-top:2mm"><b>Stagiaire — Trésor Public</b> · 2022<br>Écritures comptables, inventaire annuel.</p>
+      <p style="margin-top:2mm"><b>Vendeur conseil — Kando & Frères</b> · 2020-2022<br>Conseil, encaissement MoMo, stock.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>Brazzaville, CG<br>+242 06 518 69 67<br>jb.nkouka@gmail.com</p>
+      <h3>Compétences</h3>
+      <span class="tag">Excel</span><span class="tag">Sage</span><span class="tag">Caisse</span><span class="tag">Facturation</span><span class="tag">Devis</span><span class="tag">Stock</span>
+      <h3>Langues</h3>
+      <p>Français · Lingala · Anglais</p>
+      <h3>Formation</h3>
+      <p>Licence Gestion — Université Marien Ngouabi (2022)<br>Bac D — Lycée de la Révolution (2018)</p>
+    </div>
+  </div>
+  <div class="foot">Modèle 4/5 · © Mukanda · mukanda.onrender.com</div>
+</section>
+
+<!-- ================= MODÈLE 5 : ÉTUDIANT ================= -->
+<section class="page cv5">
+  <div class="top">
+    <div><h1>Grâce Mabounga</h1><div class="job">Étudiante en Licence 2 · disponible pour stages & emplois juniors</div></div>
+    <div class="ct">Ouenzé, Brazzaville<br>+242 05 518 69 67<br>grace.mabounga@gmail.com</div>
+  </div>
+  <h3>Profil</h3>
+  <p>Étudiante sérieuse, à l'aise avec les outils bureautiques et le service client. Je cherche un premier stage où apprendre vite et être utile immédiatement.</p>
+  <div class="grid">
+    <div>
+      <h3>Stages & projets</h3>
+      <ul><li><b>Stage d'observation — SGBC</b> (1 mois, 2025) : accueil clients, ouverture de dossiers.</li>
+      <li><b>Secrétaire de classe</b> (2 ans) : organisation, comptes rendus, coordination.</li>
+      <li><b>Projet scolaire</b> : tenue de la caisse de la coopérative (120 000 F collectés).</li></ul>
+      <h3>Formation</h3>
+      <ul><li>Licence 2 Économie-Gestion — Université Marien Ngouabi (en cours).</li>
+      <li>Baccalauréat série B — Lycée Savorgnan de Brazza (2024, Mention Bien).</li></ul>
+    </div>
+    <div>
+      <h3>Compétences</h3>
+      <ul><li>Word, PowerPoint, Excel (bases solides).</li>
+      <li>Rédaction claire, prise de notes rapide.</li>
+      <li>Accueil et service client.</li></ul>
+      <h3>Langues</h3>
+      <ul><li>Français — courant</li><li>Lingala — langue maternelle</li><li>Anglais — scolaire</li></ul>
+      <h3>Qualités</h3>
+      <ul><li>Ponctuelle · organisée · souriante.</li></ul>
+    </div>
+  </div>
+  <div class="foot">Modèle 5/5 · © Mukanda · mukanda.onrender.com</div>
+</section>
+
+</body>
+</html>

@@ -146,3 +146,31 @@
   .mk-actions .mk-btn-grad{display:none}
   .mk-mega-in{grid-template-columns:1fr 1fr}
 }
+
+/* ============================================================
+   PATCH HEADER v3.1 — anti-débordement + responsive propre
+   ============================================================ */
+#mk-header{z-index:500}
+#mk-header .mk-nav-in{gap:12px}
+#mk-header .mk-links{flex:0 1 auto;min-width:0}
+#mk-header .mk-search{flex:0 1 260px;min-width:120px}
+#mk-header .mk-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+#mk-header #mkAuthZone{display:flex;align-items:center;gap:8px;flex-shrink:0}
+#mk-header #mkAuthZone .mk-btn{white-space:nowrap;flex-shrink:0}
+#mk-header .mk-avatar{flex-shrink:0}
+
+/* Tablette / petit desktop : on masque juste "Se connecter" */
+@media(max-width:1250px){
+  #mk-header #mkAuthZone .mk-btn-ghost{display:none}
+}
+/* Mobile : les boutons d'auth passent dans le drawer, on garde l'avatar si connecté */
+@media(max-width:1023px){
+  #mk-header #mkAuthZone .mk-btn{display:none}
+}
+
+/* PATCH v3.2 — empilement propre annonce/nav */
+#mk-header .mk-announce{position:relative;z-index:1}
+#mk-header .mk-nav{position:relative;z-index:2}
+#mk-header .mk-mega,#mk-header .mk-drop{z-index:60}
+#mk-header .mk-drawer{z-index:70}
+#mk-header .mk-overlay{z-index:65}

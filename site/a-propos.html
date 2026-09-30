@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À propos · Mukanda — L'école du Congo dans ta poche</title>
+<meta name="description" content="Découvre Mukanda : la plateforme d'apprentissage made in Congo qui rend les cours du CEPE au BAC accessibles à tous, en MoMo/Airtel.">
+<link rel="canonical" href="https://mukanda.onrender.com/a-propos.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%236C5CE7'/%3E%3Cpath d='M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z' fill='white'/%3E%3Cpath d='M32 26v20' stroke='%236C5CE7' stroke-width='3'/%3E%3Cpath d='M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z' fill='%23FFB703'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"AboutPage","name":"À propos de Mukanda","description":"Plateforme d'apprentissage du Congo-Brazzaville.","url":"https://mukanda.onrender.com/a-propos.html","mainEntity":{"@type":"Organization","name":"Mukanda","url":"https://mukanda.onrender.com","description":"L'école du Congo dans ta poche"}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="header.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101A3E;--ink-2:#1D2B5C;--ink-3:#0B1233;
+  --violet:#6C5CE7;--blue:#2F6BFF;--gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;
+  --paper:#FAF7F0;--card:#FFFFFF;--surface:#F1F3FA;
+  --grey:#5A6478;--grey-2:#98A2B8;--line:#E6EAF6;
+  --grad:linear-gradient(135deg,var(--violet),var(--blue));
+  --grad-hero:linear-gradient(150deg,#141B4D 0%,#3A2E8C 48%,#2F6BFF 100%);
+  --r:14px;--r-lg:18px;--r-xl:24px;
+  --sh:0 4px 14px rgba(16,26,62,.06);--sh-lg:0 12px 28px rgba(16,26,62,.12);
+  --tr:all .25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+h1,h2,h3,h4{font-family:'Baloo 2',cursive;line-height:1.2}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo svg{width:38px;height:38px}
+.logo .word{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--ink)}
+.logo .word b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;font-weight:800;font-size:14px;padding:11px 20px;border:2px solid transparent;transition:var(--tr);white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 4px 0 var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(108,92,231,.3)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-sm{padding:8px 14px;font-size:13px}
+.btn-lg{padding:15px 28px;font-size:16px}
+
+/* HERO (padding fixe = hauteur header partagé) */
+.about-hero{padding:120px 0 70px;background:var(--grad-hero);color:#fff;position:relative;overflow:hidden;text-align:center}
+.about-hero::before{content:'';position:absolute;top:-20%;right:-12%;width:56%;height:140%;background:radial-gradient(circle,rgba(255,183,3,.16) 0%,transparent 65%);pointer-events:none}
+.about-hero-in{position:relative;z-index:1;max-width:780px;margin:0 auto}
+.bread{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#B9C4E6;margin-bottom:16px}
+.bread a{color:#B9C4E6}
+.bread a:hover{color:var(--gold)}
+.about-hero h1{color:#fff;font-size:clamp(32px,6vw,52px);margin-bottom:16px}
+.about-hero h1 .hl{background:var(--gold);color:var(--ink);padding:2px 18px;border-radius:14px;display:inline-block;transform:rotate(-1.5deg)}
+.about-hero .tagline{font-size:clamp(16px,2.5vw,19px);color:#D5DCF0;max-width:640px;margin:0 auto;line-height:1.6}
+
+.section{padding:60px 0}
+.section.alt{background:var(--surface)}
+.section-head{text-align:center;margin-bottom:40px;max-width:700px;margin-left:auto;margin-right:auto}
+.section-head .kick{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--violet);margin-bottom:8px}
+.section-head h2{font-size:clamp(24px,4.5vw,36px);margin-bottom:12px}
+.section-head p{color:var(--grey);font-size:15.5px}
+
+.mission-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.mission{background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:28px;box-shadow:var(--sh);transition:var(--tr)}
+.mission:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:var(--violet)}
+.mission .ic{font-size:42px;margin-bottom:14px;display:block}
+.mission h3{font-size:18px;margin-bottom:8px}
+.mission p{font-size:14px;color:var(--grey);line-height:1.65}
+
+.numbers{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.number{background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:26px;text-align:center;transition:var(--tr)}
+.number:hover{transform:translateY(-4px);border-color:var(--violet)}
+.number .num{font-family:'Baloo 2',cursive;font-size:42px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.number .lbl{font-size:13.5px;color:var(--grey);margin-top:6px}
+
+.values-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.value{background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:24px;display:flex;gap:14px;align-items:flex-start;transition:var(--tr)}
+.value:hover{border-color:var(--violet);transform:translateX(4px)}
+.value .ic{width:48px;height:48px;border-radius:12px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.value h3{font-size:16px;margin-bottom:4px}
+.value p{font-size:13.5px;color:var(--grey);line-height:1.6}
+
+.story{background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:36px;max-width:760px;margin:0 auto;box-shadow:var(--sh);position:relative}
+.story::before{content:'"';position:absolute;top:-10px;left:20px;font-size:100px;color:var(--gold);font-family:serif;opacity:.4;line-height:1}
+.story p{font-size:16px;line-height:1.8;color:var(--ink);margin-bottom:16px}
+.story p:last-child{margin-bottom:0}
+.story .sig{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-style:italic;color:var(--grey)}
+
+.team-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.team{background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:26px;text-align:center;box-shadow:var(--sh);transition:var(--tr)}
+.team:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:var(--violet)}
+.team .av{width:84px;height:84px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;margin:0 auto 14px;box-shadow:0 8px 20px rgba(108,92,231,.35)}
+.team h3{font-size:17px;margin-bottom:2px}
+.team .role{font-size:12.5px;color:var(--violet);font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.team p{font-size:13px;color:var(--grey);line-height:1.6}
+
+.mascot{background:linear-gradient(135deg,var(--gold),var(--gold));color:var(--ink);border-radius:var(--r-xl);padding:40px 30px;display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;box-shadow:var(--sh-lg);max-width:900px;margin:0 auto}
+.mascot .em{font-size:110px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.2))}
+.mascot h2{font-size:clamp(22px,4vw,30px);margin-bottom:10px}
+.mascot p{font-size:15px;line-height:1.7;max-width:540px}
+@media(max-width:640px){.mascot{grid-template-columns:1fr;text-align:center}.mascot .em{margin:0 auto}}
+
+.final{margin:60px 0;background:var(--grad-hero);border-radius:var(--r-xl);padding:50px 30px;text-align:center;color:#fff;box-shadow:var(--sh-lg);position:relative;overflow:hidden}
+.final h2{color:#fff;font-size:clamp(24px,4.5vw,36px);margin-bottom:14px}
+.final p{color:#D5DCF0;max-width:560px;margin:0 auto 24px;font-size:16px}
+.final p b{color:var(--gold)}
+
+footer{background:var(--ink-3);color:#AEB6C8}
+.foot-in{max-width:1180px;margin:0 auto;padding:50px 20px 30px;display:grid;gap:34px;grid-template-columns:1.4fr 1fr 1fr 1fr}
+.foot-in .logo .word{color:#fff}
+.foot-in p{font-size:13.5px;line-height:1.7}
+.foot-in h4{color:#fff;font-size:15px;margin-bottom:14px}
+.foot-in a{display:block;font-size:13.5px;padding:4px 0;transition:var(--tr)}
+.foot-in a:hover{color:var(--gold);transform:translateX(3px)}
+.foot-pay{margin-top:14px;font-size:13px;color:var(--gold);font-weight:700}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 20px;text-align:center;font-size:12.5px;color:#7A8294}
+@media(max-width:640px){.foot-in{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<!-- data-header="force" = indique à header.js d'injecter le header partagé -->
+<body data-header="force">
+
+<!-- HERO -->
+<main>
+<section class="about-hero">
+  <div class="wrap about-hero-in">
+    <div class="bread"><a href="index.html">🏠 Accueil</a><span>›</span><span>À propos</span></div>
+    <h1>L'école du Congo,<br><span class="hl">dans ta poche</span></h1>
+    <p class="tagline">Mukanda est la première plateforme d'apprentissage pensée <b style="color:#fff">par des Congolais, pour les Congolais</b>. Nous rendons les cours du CEPE au BAC accessibles à tous, à un prix juste, en Mobile Money.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kick">🎯 Notre mission</span>
+      <h2>Démocratiser l'éducation au Congo</h2>
+      <p>Nous croyons qu'aucun élève ne devrait être limité par le prix d'un cours, la distance d'une bibliothèque, ou la qualité de sa connexion internet.</p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission"><span class="ic">📚</span><h3>Des cours de qualité</h3><p>Chaque leçon est alignée sur le programme officiel congolais, rédigée par un professeur, puis relue avant publication. Pas de contenu générique.</p></div>
+      <div class="mission"><span class="ic">💰</span><h3>Un prix juste</h3><p>De 500 à 2 500 FCFA la leçon, payables en MoMo ou Airtel en 15 secondes. Pas d'abonnement, pas de carte bancaire, pas de surprise.</p></div>
+      <div class="mission"><span class="ic">📱</span><h3>Pensé pour la 3G</h3><p>Nos audios font ~2 Mo, nos fiches PDF sont imprimables. Tout fonctionne sur un téléphone d'entrée de gamme, même hors-ligne.</p></div>
+      <div class="mission"><span class="ic">🦜</span><h3>Une voix de chez nous</h3><p>Jaco, ton tuteur, parle avec les mots et les exemples de Brazzaville, Pointe-Noire et Dolisie. L'école doit te ressembler.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kick">📊 En chiffres</span>
+      <h2>Mukanda aujourd'hui</h2>
+    </div>
+    <div class="numbers">
+      <div class="number"><div class="num">4</div><div class="lbl">Niveaux scolaires (CEPE → BAC)</div></div>
+      <div class="number"><div class="num">12+</div><div class="lbl">Matières couvertes</div></div>
+      <div class="number"><div class="num">15s</div><div class="lbl">Pour payer en MoMo</div></div>
+      <div class="number"><div class="num">2 Mo</div><div class="lbl">Taille moyenne d'une leçon</div></div>
+      <div class="number"><div class="num">100%</div><div class="lbl">Programme officiel congolais</div></div>
+      <div class="number"><div class="num">24/7</div><div class="lbl">Disponible partout au Congo</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kick">💎 Nos valeurs</span>
+      <h2>Ce en quoi nous croyons</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value"><div class="ic">🇨🇬</div><div><h3>Enraciné au Congo</h3><p>Nous sommes basés à Brazzaville, nos contenus parlent de chez nous, nos prix sont en FCFA.</p></div></div>
+      <div class="value"><div class="ic">🎓</div><div><h3>Excellence pédagogique</h3><p>Chaque leçon est vérifiée par un humain. Nous ne publions que ce que nous sommes fiers de montrer à nos enfants.</p></div></div>
+      <div class="value"><div class="ic">🤝</div><div><h3>Accessibilité</h3><p>Pas besoin d'une carte bancaire ni d'une fibre optique. Juste ton téléphone et ton numéro MoMo.</p></div></div>
+      <div class="value"><div class="ic">🦜</div><div><h3>Joie d'apprendre</h3><p>L'école ne doit pas être triste. Jaco rend chaque leçon agréable, avec humour et bienveillance.</p></div></div>
+      <div class="value"><div class="ic">🔒</div><div><h3>Confiance</h3><p>Tes données sont protégées. Tu peux les télécharger ou les supprimer quand tu veux.</p></div></div>
+      <div class="value"><div class="ic">🌱</div><div><h3>Croissance ensemble</h3><p>Chaque élève qui réussit, c'est le Congo qui avance. Nos chefs de classe gagnent avec nous.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kick">📖 Notre histoire</span>
+      <h2>Né d'une frustration</h2>
+    </div>
+    <div class="story">
+      <p>En 2025, un élève de Terminale D à Bacongo nous a dit : <i>« J'ai raté mon BAC parce que je n'avais pas les moyens de payer les répétiteurs. »</i> Cette phrase nous a hantés.</p>
+      <p>Nous avons regardé autour de nous : des milliers d'élèves congolais brillants, motivés, mais bloqués par le prix des cours particuliers, la distance des bibliothèques, ou l'absence de contenus en ligne adaptés à notre programme.</p>
+      <p>Nous avons construit Mukanda pour répondre à une question simple : <b>et si l'école du Congo tenait dans ta poche, et coûtait le prix d'un pain ?</b></p>
+      <p class="sig">— L'équipe Meurphy, Brazzaville 2026</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kick">👥 L'équipe</span>
+      <h2>Ceux qui font Mukanda</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team"><div class="av">M</div><h3>Meurphy</h3><div class="role">Fondateur</div><p>Ingénieur congolais, ancien élève du lycée de la Révolution. Rêve de rendre l'éducation accessible depuis l'âge de 15 ans.</p></div>
+      <div class="team"><div class="av">🦜</div><h3>Jaco</h3><div class="role">Tuteur en chef</div><p>Perroquet gris. Voix officielle de toutes les leçons Mukanda. Doux au CEPE, rigoureux au BAC.</p></div>
+      <div class="team"><div class="av">P</div><h3>L'équipe pédagogique</h3><div class="role">Professeurs</div><p>Des profs du Congo qui écrivent, relisent et valident chaque contenu avant publication.</p></div>
+      <div class="team"><div class="av">📚</div><h3>Chefs de classe</h3><div class="role">Ambassadeurs</div><p>Les délégués et chefs de classe qui font connaître Mukanda dans leurs établissements.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="mascot">
+      <div class="em">🦜</div>
+      <div>
+        <h2>Rencontre Jaco</h2>
+        <p>Jaco est un perroquet gris du Gabon — l'oiseau le plus intelligent du monde. Sur Mukanda, il est ta voix qui explique, ton ami qui te motive, ton tuteur bienveillant. Au CEPE il joue, au BAC il enseigne. Toujours avec toi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="final">
+    <h2>Prêt à rejoindre l'aventure ?</h2>
+    <p>Crée ton compte gratuit et reçois <b>2 PDF + 2 vidéos offerts</b>. Pas de carte bancaire, juste ton numéro.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-gold btn-lg" href="auth.html">✨ Créer mon compte gratuit</a>
+      <a class="btn btn-white btn-lg" href="contact.html">💬 Nous contacter</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <span class="logo"><svg style="width:38px;height:38px" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#6C5CE7"/><path d="M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#fff"/><path d="M32 26v20" stroke="#6C5CE7" stroke-width="3"/><path d="M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z" fill="#FFB703"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span>
+      <p>La grande plateforme de lecture et d'apprentissage du Congo-Brazzaville.</p>
+      <div class="foot-pay">💳 MTN MoMo · Airtel Money · Paiement en 15 s</div>
+    </div>
+    <div><h4>Explorer</h4><a href="catalogue.html">Catalogue complet</a><a href="catalogue.html?cat=pro">Modèles pro</a><a href="catalogue.html?n=cepe">Cours CEPE</a><a href="catalogue.html?n=bepc">Cours BEPC</a><a href="catalogue.html?n=bac">Cours BAC</a></div>
+    <div><h4>Mon espace</h4><a href="auth.html">Se connecter</a><a href="auth.html">Créer un compte</a><a href="dashboard.html">Mes cours</a><a href="recuperer.html">Récupérer un achat</a></div>
+    <div><h4>Aide & légal</h4><a href="faq.html">FAQ</a><a href="legal.html#cgu">CGU</a><a href="legal.html#confidentialite">Confidentialité</a><a href="legal.html#cookies">Cookies</a><a href="https://wa.me/242065186967" target="_blank">WhatsApp</a></div>
+  </div>
+  <div class="foot-bottom">© 2026 Mukanda · Brazzaville, Congo · Un projet de l'équipe Meurphy</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="header.js"></script>
+</body>
+</html>

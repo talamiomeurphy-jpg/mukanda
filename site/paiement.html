@@ -1,27 +1,306 @@
-<!DOCTYPE html><html lang="fr"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paiement — Mukanda</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paiement sécurisé · Mukanda</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%236C5CE7'/%3E%3Cpath d='M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z' fill='white'/%3E%3Cpath d='M32 26v20' stroke='%236C5CE7' stroke-width='3'/%3E%3Cpath d='M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z' fill='%23FFB703'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101A3E;--ink-3:#0B1233;--violet:#6C5CE7;--blue:#2F6BFF;
+  --gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;
+  --paper:#F7F8FF;--card:#fff;--grey:#5A6478;--grey-2:#98A2B8;--line:#E6EAF6;
+  --grad:linear-gradient(135deg,var(--violet),var(--blue));
+  --grad-hero:linear-gradient(150deg,#141B4D 0%,#3A2E8C 48%,#2F6BFF 100%);
+  --r:16px;--r-lg:22px;
+  --sh:0 6px 18px rgba(16,26,62,.08);--sh-lg:0 14px 34px rgba(16,26,62,.14);--sh-xl:0 26px 60px rgba(16,26,62,.22);
+  --tr:all .25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;min-height:100vh;
+  background-image:radial-gradient(circle at 15% 0%,rgba(108,92,231,.08),transparent 40%),radial-gradient(circle at 90% 100%,rgba(255,183,3,.08),transparent 40%)}
+h1,h2,h3{font-family:'Baloo 2',cursive;line-height:1.2}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* ---- Top ---- */
+.pay-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 0}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:'Baloo 2',cursive;font-size:22px;font-weight:800}
+.logo svg{width:38px;height:38px;filter:drop-shadow(0 3px 8px rgba(108,92,231,.35))}
+.logo b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.secure-pill{display:inline-flex;align-items:center;gap:8px;background:#E4FBF3;color:#047857;border:2px solid var(--teal);border-radius:99px;padding:7px 14px;font-size:12.5px;font-weight:800}
+
+/* ---- Étapes ---- */
+.steps-bar{display:flex;gap:10px;margin:6px 0 26px;flex-wrap:wrap}
+.stp{display:flex;align-items:center;gap:9px;background:var(--card);border:2px solid var(--line);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:800;color:var(--grey-2);transition:var(--tr)}
+.stp span{width:24px;height:24px;border-radius:50%;background:var(--line);color:var(--grey);display:flex;align-items:center;justify-content:center;font-size:12px;transition:var(--tr)}
+.stp.on{border-color:var(--violet);color:var(--ink);box-shadow:0 4px 14px rgba(108,92,231,.2)}
+.stp.on span{background:var(--grad);color:#fff}
+.stp.done{border-color:var(--teal);color:#047857}
+.stp.done span{background:var(--teal);color:#fff}
+
+/* ---- Grille ---- */
+.pay-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:start;padding-bottom:70px}
+
+/* ---- Commande ---- */
+.order-card{background:var(--card);border:2px solid var(--ink);border-radius:var(--r-lg);padding:20px;box-shadow:var(--sh-lg);margin-bottom:16px;position:relative;overflow:hidden}
+.order-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--grad)}
+.oc-head{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--grey-2);margin:6px 0 14px}
+.oc-row{display:flex;align-items:center;gap:14px}
+.oc-em{width:58px;height:58px;border-radius:14px;background:linear-gradient(150deg,#EEF1FA,#E2E7F5);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;border:2px solid var(--line)}
+.oc-info{flex:1;min-width:0}
+.oc-tt{font-weight:800;font-size:16px}
+.oc-mt{font-size:12.5px;color:var(--grey)}
+.oc-price{font-family:'Baloo 2',cursive;font-weight:800;font-size:22px;background:var(--gold);border:2.5px solid var(--ink);border-radius:12px;padding:6px 16px;white-space:nowrap;transform:rotate(-1.5deg);box-shadow:0 4px 0 var(--ink)}
+
+/* ---- Formulaire ---- */
+.form-card{background:var(--card);border:2px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh)}
+.form-card label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--grey);margin:16px 0 8px}
+.tel-box{display:flex;align-items:center;border:2px solid var(--line);border-radius:14px;overflow:hidden;transition:var(--tr);background:#fff}
+.tel-box:focus-within{border-color:var(--violet);box-shadow:0 0 0 4px rgba(108,92,231,.14)}
+.tel-box .prefix{padding:14px 14px;background:var(--paper);border-right:2px solid var(--line);font-weight:800;color:var(--grey);font-size:15px}
+.tel-box input{flex:1;border:none;outline:none;padding:14px 16px;font-size:17px;font-weight:700;font-family:inherit;letter-spacing:1px;color:var(--ink)}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.op{position:relative;border:2px solid var(--line);border-radius:14px;padding:14px 12px;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:14.5px;background:#fff;cursor:pointer;transition:var(--tr);color:var(--grey)}
+.op input{position:absolute;opacity:0}
+.op .dot{width:12px;height:12px;border-radius:50%}
+.op.mtn .dot{background:#FFCC00}
+.op.air .dot{background:#E40000}
+.op:hover{border-color:var(--grey-2)}
+.op.sel.mtn{background:#FFF8E1;border-color:#FFCC00;color:var(--ink);box-shadow:0 6px 16px rgba(255,204,0,.35)}
+.op.sel.air{background:#FFEBEB;border-color:#E40000;color:var(--ink);box-shadow:0 6px 16px rgba(228,0,0,.25)}
+.pay-btn{width:100%;margin-top:22px;padding:17px;border-radius:16px;background:var(--grad);color:#fff;font-weight:800;font-size:17px;box-shadow:0 10px 26px rgba(108,92,231,.45);transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:10px}
+.pay-btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(108,92,231,.55)}
+.pay-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.pay-btn .amt{background:rgba(255,255,255,.2);padding:3px 12px;border-radius:99px;font-size:14px}
+
+/* ---- Statuts ---- */
+.status{display:none;margin-top:18px;border-radius:16px;padding:18px;font-size:14.5px;font-weight:700;align-items:flex-start;gap:14px}
+.status.show{display:flex;animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.status .ic{font-size:30px;flex-shrink:0}
+.status.ring{background:#FFF8E1;border:2px solid var(--gold);color:#8a6d00}
+.status.ring .ic{animation:ring 1.1s ease-in-out infinite}
+@keyframes ring{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(6deg)}}
+.status.ok{background:#E4FBF3;border:2px solid var(--teal);color:#047857}
+.status.err{background:#FFEBEE;border:2px solid var(--coral);color:#be123c}
+.status .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.status .act button{background:#fff;border:2px solid currentColor;border-radius:10px;padding:8px 14px;font-weight:800;font-size:12.5px;color:inherit;transition:var(--tr)}
+.status .act button:hover{transform:translateY(-2px)}
+
+/* ---- Liens succès ---- */
+.links{display:grid;gap:10px;margin-top:16px}
+.lk{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:14px 16px;font-weight:800;font-size:14px;cursor:pointer;transition:var(--tr);box-shadow:0 4px 0 var(--ink)}
+.lk:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--ink)}
+.lk .em{font-size:20px}
+.lk small{display:block;font-weight:600;color:var(--grey);font-size:11.5px}
+
+/* ---- Colonne droite ---- */
+.side-card{background:var(--card);border:2px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--sh);margin-bottom:14px}
+.side-card h3{font-size:16px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.how{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.how:last-child{border-bottom:none}
+.how .n{width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.how .t{font-size:13.5px;font-weight:700}
+.how .d{font-size:12.5px;color:var(--grey)}
+.trust li{list-style:none;display:flex;gap:10px;font-size:13px;font-weight:700;color:var(--grey);padding:6px 0}
+.trust li b{color:var(--ink)}
+.help{background:var(--grad-hero);border:none;color:#fff}
+.help h3{color:#fff}
+.help p{font-size:13px;color:#C7D0EA;margin-bottom:14px}
+.help a{display:block;text-align:center;background:var(--gold);color:var(--ink);border:2px solid var(--ink);border-radius:12px;padding:11px;font-weight:800;font-size:14px;box-shadow:0 4px 0 var(--ink);transition:var(--tr)}
+.help a:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+
+details{margin-top:18px}
+summary{font-size:12px;font-weight:800;color:var(--grey-2);cursor:pointer}
+pre{background:var(--ink-3);color:#9fe8c5;border-radius:12px;padding:12px;font-size:11px;overflow:auto;max-height:200px;margin-top:8px}
+
+@media(max-width:900px){.pay-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.ops{grid-template-columns:1fr}.oc-price{font-size:18px}}
+</style>
+</head>
 <body>
-<header class="entete"><div class="wrap entete-in"><a class="logo" href="index.html">📚 Mukanda</a>
-<nav><a href="index.html#catalogue">Catalogue</a><a href="recuperer.html">Récupérer mon achat</a><a href="faq.html">FAQ</a></nav></div></header>
-<main class="wrap">
-  <div class="form-carte">
-    <h1>💳 Paiement</h1>
-    <p style="color:var(--gris);font-size:14px">Commande : <b id="prod-titre">…</b> — <b id="prod-prix">…</b></p>
-    <label for="tel">Ton numéro mobile money</label>
-    <input type="tel" id="tel" placeholder="Ex : 065186967" maxlength="10">
-    <label>Moyen de paiement</label>
-    <div class="providers">
-      <label class="provider sel" onclick="choisirProvider(this)"><input type="radio" name="prov" value="MTN" checked>🟡 MTN MoMo</label>
-      <label class="provider" onclick="choisirProvider(this)"><input type="radio" name="prov" value="AIRTEL">🔴 Airtel Money</label>
-    </div>
-    <button class="btn btn-surligne btn-block" id="btn-payer" onclick="lancerPaiement()">📲 Payer — mon téléphone sonne</button>
-    <div class="erreur" id="erreur"></div>
-    <p style="margin-top:12px;font-size:12px;color:var(--gris)">Aucun compte nécessaire. Après paiement, ton lien s'affiche et reste retrouvable 48 h avec ton numéro.</p>
+<div class="wrap">
+
+  <header class="pay-top">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#6C5CE7"/><path d="M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#fff"/><path d="M32 26v20" stroke="#6C5CE7" stroke-width="3"/><path d="M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z" fill="#FFB703"/></svg>
+      Mu<b>kanda</b>
+    </a>
+    <span class="secure-pill">🔒 Paiement sécurisé · OpenPay</span>
+  </header>
+
+  <div class="steps-bar">
+    <div class="stp on" id="stp1"><span>1</span> Commande</div>
+    <div class="stp" id="stp2"><span>2</span> Validation MoMo</div>
+    <div class="stp" id="stp3"><span>3</span> Téléchargement</div>
   </div>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script>
-</body></html>
+
+  <div class="pay-grid">
+    <main>
+      <div class="order-card">
+        <div class="oc-head">🧾 Ta commande</div>
+        <div class="oc-row">
+          <div class="oc-em" id="pEm"></div>
+          <div class="oc-info"><div class="oc-tt" id="pTitre">Chargement…</div><div class="oc-mt" id="pMeta">—</div></div>
+          <div class="oc-price" id="pPrix">—</div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <label for="tel">Ton numéro Mobile Money</label>
+        <div class="tel-box"><span class="prefix">+242</span><input type="tel" id="tel" maxlength="9" placeholder="6 51 86 967" inputmode="numeric"></div>
+
+        <label>Opérateur</label>
+        <div class="ops">
+          <label class="op mtn sel" onclick="selOp(this)"><input type="radio" name="op" value="MTN" checked><span class="dot"></span>MTN MoMo</label>
+          <label class="op air" onclick="selOp(this)"><input type="radio" name="op" value="AIRTEL"><span class="dot"></span>Airtel Money</label>
+        </div>
+
+        <button class="pay-btn" id="btnPay" onclick="payer()">🛒 Payer maintenant <span class="amt" id="btnPrice"></span></button>
+
+        <div class="status" id="status"></div>
+        <div class="links" id="links"></div>
+
+        <details><summary>🧪 Journal technique (debug)</summary><pre id="log">En attente…</pre></details>
+      </div>
+    </main>
+
+    <aside>
+      <div class="side-card">
+        <h3>📲 Comment ça marche</h3>
+        <div class="how"><div class="n">1</div><div><div class="t">Tu cliques sur Payer</div><div class="d">On crée ta commande et on prévient OpenPay.</div></div></div>
+        <div class="how"><div class="n">2</div><div><div class="t">Ton téléphone sonne</div><div class="d">Message MTN/Airtel : « Valider vous le paiement… » → tape ton PIN.</div></div></div>
+        <div class="how"><div class="n">3</div><div><div class="t">Ça se débloque tout seul</div><div class="d">Le webhook confirme, tes liens Voir + Télécharger apparaissent.</div></div></div>
+      </div>
+      <div class="side-card">
+        <h3>🛡️ Confiance</h3>
+        <ul class="trust">
+          <li>🔒 <span><b>Fichier protégé</b> jusqu'au paiement, jamais public.</span></li>
+          <li>🔁 <span>Lien <b>retrouvable 48 h</b> avec ton numéro.</span></li>
+          <li>⚡ <span>Débloquage <b>immédiat</b> après validation.</span></li>
+          <li>🧾 <span>Reçu visible dans ton <b>espace OpenPay</b>.</span></li>
+        </ul>
+      </div>
+      <div class="side-card help">
+        <h3>💬 Un souci ?</h3>
+        <p>Paiement débité mais rien reçu ? Numéro refusé ? On te répond en quelques minutes.</p>
+        <a href="https://wa.me/242065186967?text=Bonjour%2C%20j%27ai%20un%20souci%20de%20paiement%20sur%20Mukanda" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const FN='https://wyfkogowsdbxctbpfuud.functions.supabase.co';
+const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb=window.supabase?supabase.createClient(SB_URL,SB_KEY):null;
+const $=s=>document.querySelector(s);
+const fcfa=n=>new Intl.NumberFormat('fr-FR').format(n||0)+' FCFA';
+const params=new URLSearchParams(location.search);
+const TYPE=params.get('type')==='cours'?'cours':'document';
+const ID=params.get('id');
+let PRODUIT=null,pollTimer=null;
+
+function log(o){$('#log').textContent=typeof o==='string'?o:JSON.stringify(o,null,2);}
+function step(n){for(let i=1;i<=3;i++){const el=$('#stp'+i);el.classList.toggle('on',i===n);el.classList.toggle('done',i<n);}}
+function status(cls,ic,html,act){const s=$('#status');s.className='status show '+cls;s.innerHTML=`<span class="ic">${ic}</span><div>${html}${act?`<div class="act">${act}</div>`:''}</div>`;}
+function hideStatus(){$('#status').className='status';}
+function selOp(el){document.querySelectorAll('.op').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');el.querySelector('input').checked=true;}
+window.selOp=selOp;
+
+/* Numéro : accepte 06… ou 6… (préfixe +242 affiché) */
+function telComplet(){let t=$('#tel').value.replace(/\D/g,'');if(t.length===9&&t[0]==='0')t=t.slice(1);return t.length===9?'0'+t:null;}
+
+(async()=>{
+  if(!sb||!ID){status('err','⚠️','Produit manquant — retourne au catalogue.');return;}
+  const r=await sb.from(TYPE==='cours'?'cours':'documents').select('*').eq('id',ID).eq('actif',true).maybeSingle();
+  if(!r.data){status('err','⚠️','Ce produit n\'est pas (encore) disponible.');$('#btnPay').disabled=true;return;}
+  PRODUIT=r.data;
+  const t=(PRODUIT.titre||'').toLowerCase();
+  $('#pEm').textContent=TYPE==='cours'?'📘':(t.includes('cv')?'📄':t.includes('lettre')?'✉️':t.includes('facture')?'🧾':t.includes('contrat')?'📑':t.includes('business')?'📊':'');
+  $('#pTitre').textContent=PRODUIT.titre;
+  $('#pMeta').textContent=(PRODUIT.matiere||'Modèle professionnel')+' · '+(PRODUIT.niveau||'pro').toUpperCase()+' · accès à vie';
+  $('#pPrix').textContent=fcfa(PRODUIT.prix_fcfa);
+  $('#btnPrice').textContent=fcfa(PRODUIT.prix_fcfa);
+  const saved=localStorage.getItem('mukanda_tel');
+  if(saved)$('#tel').value=saved.replace(/^0/,'');
+})();
+
+async function payer(){
+  if(!PRODUIT)return;
+  const tel=telComplet();
+  if(!tel){status('err','⚠️','Numéro invalide — 9 chiffres, ex : 065186967.');return;}
+  localStorage.setItem('mukanda_tel',tel);
+  const prov=document.querySelector('.op input:checked').value;
+  const btn=$('#btnPay');btn.disabled=true;btn.innerHTML='⏳ Envoi à OpenPay…';
+  $('#links').innerHTML='';hideStatus();step(2);
+  log('→ mukanda-pay '+JSON.stringify({produit_type:TYPE,produit_id:ID,telephone:tel,provider:prov}));
+  try{
+    const r=await fetch(FN+'/mukanda-pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({produit_type:TYPE,produit_id:ID,telephone:tel,provider:prov})});
+    const d=await r.json();log(d);
+    if(r.ok&&d.ok){
+      status('ring','📲','<b>Ton téléphone sonne !</b> Valide le paiement '+prov+' de '+fcfa(PRODUIT.prix_fcfa)+' avec ton PIN. Je surveille la confirmation…');
+      surveiller(tel);
+    }else if(d.openpay_status){
+      /* Ex : 504 = push envoyée mais pas validée à temps */
+      status('ring','⏰','<b>Pas de validation détectée à temps.</b> Si tu viens de valider sur ton téléphone, clique ci-dessous :',
+        '<button onclick="surveiller(\''+tel+'\')">✅ J\'ai validé — vérifier</button><button onclick="payer()">🔁 Relancer un paiement</button>');
+    }else{
+      step(1);
+      status('err','❌',esc(d.error||'Erreur de paiement.'));
+      if(JSON.stringify(d).match(/trial|essai|abonnement|subscription/i))status('err','⚠️','L\'essai OpenPay est terminé → dashboard OpenPay → « S\'abonner » (5 000 F/an), puis relance.');
+    }
+  }catch(e){log('ERREUR '+e.message);step(1);status('err','❌','Connexion impossible : '+esc(e.message));}
+  finally{btn.disabled=false;btn.innerHTML='🛒 Payer maintenant <span class="amt">'+fcfa(PRODUIT.prix_fcfa)+'</span>';}
+}
+window.payer=payer;
+
+function surveiller(tel){
+  clearInterval(pollTimer);let essais=0;
+  status('ring','📲','<b>Verification en cours…</b> Dès que le webhook confirme, tes liens apparaissent.');
+  step(2);
+  pollTimer=setInterval(async()=>{
+    essais++;
+    try{
+      const r=await fetch(FN+'/mukanda-download',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telephone:tel})});
+      if(r.ok){const d=await r.json();
+        if(d.liens&&d.liens.length){
+          clearInterval(pollTimer);step(3);
+          status('ok','🎉','<b>Paiement confirmé !</b> Ton contenu est débloqué :');
+          $('#links').innerHTML=d.liens.map(l=>`
+            <div class="lk" onclick="voir('${l.url}')"><span><span class="em">👁️</span> ${esc(l.titre)}<small>Voir dans le site</small></span><span>→</span></div>
+            <div class="lk" onclick="telecharger('${l.url}','${esc(l.titre)}')"><span><span class="em">📥</span> ${esc(l.titre)}<small>Télécharger sur ton appareil</small></span><span>→</span></div>`).join('');
+          log('✅ Confirmé · '+d.liens.length+' lien(s)');return;
+        }}
+    }catch(e){}
+    if(essais>=45){clearInterval(pollTimer);status('err','⏰','Délai dépassé. As-tu validé sur ton téléphone ?',
+      '<button onclick="surveiller(\''+tel+'\')">🔍 Revérifier</button><button onclick="payer()">🔁 Relancer</button>');}
+  },4000);
+}
+window.surveiller=surveiller;
+
+async function voir(u){const r=await fetch(u);const d=await r.json().catch(()=>null);
+  if(!r.ok||!d||!d.ok){alert('⚠️ '+(d&&d.error||'Lien expiré — utilise « Récupérer mon achat ».'));return;}
+  window.open(d.vue_url,'_blank');}
+window.voir=voir;
+
+async function telecharger(u,titre){const r=await fetch(u);const d=await r.json().catch(()=>null);
+  if(!r.ok||!d||!d.ok){alert('⚠️ '+(d&&d.error||'Lien expiré — utilise « Récupérer mon achat ».'));return;}
+  const f=await fetch(d.telechargement_url);const b=await f.blob();
+  const o=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=o;a.download=(titre||'mukanda')+'.pdf';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(o),5000);}
+window.telecharger=telecharger;
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>

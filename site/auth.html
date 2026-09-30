@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion · Mukanda</title>
+<meta name="description" content="Connecte-toi à Mukanda pour accéder à tes cours, exercices et documents.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-body">
+
+<!-- ============ EN-TÊTE SIMPLE ============ -->
+<header class="auth-header">
+  <div class="wrap auth-header-in">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📚</span>
+      <span class="logo-text">Mukanda</span>
+    </a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+      <span class="theme-icon">🌙</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ CONTENEUR PRINCIPAL ============ -->
+<main class="auth-container">
+  <div class="auth-card">
+    
+    <!-- ============ LOGO CENTRÉ ============ -->
+    <div class="auth-logo-section">
+      <div class="auth-logo-circle">
+        <span class="auth-logo-emoji">📚</span>
+      </div>
+      <h1 class="auth-title">Bienvenue sur Mukanda</h1>
+      <p class="auth-subtitle">L'école du Congo dans ta poche</p>
+    </div>
+
+    <!-- ============ TABS DE NAVIGATION ============ -->
+    <div class="auth-tabs" role="tablist">
+      <button class="auth-tab active" data-tab="login" role="tab" aria-selected="true">
+        <span class="tab-icon">🔐</span>
+        <span>Se connecter</span>
+      </button>
+      <button class="auth-tab" data-tab="register" role="tab" aria-selected="false">
+        <span class="tab-icon">✨</span>
+        <span>S'inscrire</span>
+      </button>
+    </div>
+
+    <!-- ============ FORMULAIRE DE CONNEXION ============ -->
+    <div class="auth-panel active" id="panel-login" role="tabpanel">
+      <form class="auth-form" id="loginForm" novalidate>
+        
+        <!-- Champ Email/Téléphone -->
+        <div class="form-group">
+          <label for="login-identifier" class="form-label">
+            <span class="label-icon">📧</span>
+            Email ou téléphone
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="login-identifier" 
+              name="identifier" 
+              class="form-input" 
+              placeholder="exemple@email.com ou 065186967"
+              autocomplete="username"
+              required
+            >
+            <span class="input-icon">👤</span>
+          </div>
+          <div class="form-error" id="error-identifier"></div>
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="form-group">
+          <label for="login-password" class="form-label">
+            <span class="label-icon">🔒</span>
+            Mot de passe
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="login-password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Ton mot de passe"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="password-toggle" data-target="login-password" aria-label="Afficher le mot de passe">
+              <span class="eye-icon">👁️</span>
+            </button>
+          </div>
+          <div class="form-error" id="error-password"></div>
+        </div>
+
+        <!-- Options -->
+        <div class="form-options">
+          <label class="checkbox-wrapper">
+            <input type="checkbox" id="remember-me" name="remember" class="checkbox-input">
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">Se souvenir de moi</span>
+          </label>
+          <button type="button" class="forgot-link" id="showForgot">
+            Mot de passe oublié ?
+          </button>
+        </div>
+
+        <!-- Message d'erreur global -->
+        <div class="form-alert form-alert-error" id="login-alert" style="display:none;">
+          <span class="alert-icon">⚠️</span>
+          <span class="alert-text"></span>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn btn-primary btn-block" id="login-submit">
+          <span class="btn-text">Se connecter</span>
+          <span class="btn-loader" style="display:none;">
+            <span class="spinner"></span>
+          </span>
+        </button>
+
+        <!-- Séparateur -->
+        <div class="auth-divider">
+          <span>ou</span>
+        </div>
+
+        <!-- Bouton inscription rapide -->
+        <button type="button" class="btn btn-secondary btn-block" id="switchToRegister">
+          <span class="btn-icon">✨</span>
+          Créer un compte gratuitement
+        </button>
+
+        <!-- Avantages -->
+        <div class="auth-benefits">
+          <div class="benefit-item">
+            <span class="benefit-icon">🎁</span>
+            <span>2 PDF + 2 vidéos gratuits à l'inscription</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">⚡</span>
+            <span>Inscription en 30 secondes</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">🔒</span>
+            <span>Données sécurisées et privées</span>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- ============ FORMULAIRE D'INSCRIPTION ============ -->
+    <div class="auth-panel" id="panel-register" role="tabpanel">
+      <form class="auth-form" id="registerForm" novalidate>
+        
+        <!-- Champ Nom complet -->
+        <div class="form-group">
+          <label for="register-name" class="form-label">
+            <span class="label-icon">👤</span>
+            Nom complet
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="register-name" 
+              name="name" 
+              class="form-input" 
+              placeholder="Ton prénom et nom"
+              autocomplete="name"
+              required
+            >
+            <span class="input-icon">📝</span>
+          </div>
+          <div class="form-error" id="error-name"></div>
+        </div>
+
+        <!-- Champ Email -->
+        <div class="form-group">
+          <label for="register-email" class="form-label">
+            <span class="label-icon">📧</span>
+            Adresse email
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="email" 
+              id="register-email" 
+              name="email" 
+              class="form-input" 
+              placeholder="exemple@email.com"
+              autocomplete="email"
+              required
+            >
+            <span class="input-icon">✉️</span>
+          </div>
+          <div class="form-error" id="error-email"></div>
+        </div>
+
+        <!-- Champ Téléphone -->
+        <div class="form-group">
+          <label for="register-phone" class="form-label">
+            <span class="label-icon">📱</span>
+            Numéro de téléphone
+            <span class="label-hint">(optionnel, pour recevoir tes liens)</span>
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="tel" 
+              id="register-phone" 
+              name="phone" 
+              class="form-input" 
+              placeholder="065186967"
+              autocomplete="tel"
+            >
+            <span class="input-icon">📞</span>
+          </div>
+          <div class="form-error" id="error-phone"></div>
+        </div>
+
+        <!-- Champ Niveau scolaire -->
+        <div class="form-group">
+          <label for="register-level" class="form-label">
+            <span class="label-icon">🎓</span>
+            Ton niveau scolaire
+          </label>
+          <div class="input-wrapper select-wrapper">
+            <select id="register-level" name="level" class="form-select" required>
+              <option value="">Choisis ton niveau</option>
+              <option value="cepe">CEPE (Primaire)</option>
+              <option value="bepc">BEPC (Collège)</option>
+              <option value="bac">BAC (Lycée)</option>
+              <option value="concours">Concours</option>
+              <option value="universite">Université</option>
+              <option value="pro">Professionnel</option>
+              <option value="autre">Autre</option>
+            </select>
+            <span class="select-icon">📚</span>
+          </div>
+          <div class="form-error" id="error-level"></div>
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="form-group">
+          <label for="register-password" class="form-label">
+            <span class="label-icon">🔒</span>
+            Mot de passe
+            <span class="label-hint">(minimum 8 caractères)</span>
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="register-password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Crée un mot de passe sécurisé"
+              autocomplete="new-password"
+              required
+              minlength="8"
+            >
+            <button type="button" class="password-toggle" data-target="register-password" aria-label="Afficher le mot de passe">
+              <span class="eye-icon">👁️</span>
+            </button>
+          </div>
+          <div class="form-error" id="error-password-reg"></div>
+          
+          <!-- Indicateur de force du mot de passe -->
+          <div class="password-strength" id="password-strength" style="display:none;">
+            <div class="strength-bar">
+              <div class="strength-fill" id="strength-fill"></div>
+            </div>
+            <span class="strength-text" id="strength-text"></span>
+          </div>
+        </div>
+
+        <!-- Champ Confirmation mot de passe -->
+        <div class="form-group">
+          <label for="register-password-confirm" class="form-label">
+            <span class="label-icon">🔒</span>
+            Confirmer le mot de passe
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="register-password-confirm" 
+              name="password_confirm" 
+              class="form-input" 
+              placeholder="Retape ton mot de passe"
+              autocomplete="new-password"
+              required
+            >
+            <span class="input-icon">✓</span>
+          </div>
+          <div class="form-error" id="error-password-confirm"></div>
+        </div>
+
+        <!-- Conditions générales -->
+        <div class="form-group">
+          <label class="checkbox-wrapper">
+            <input type="checkbox" id="accept-terms" name="terms" class="checkbox-input" required>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">
+              J'accepte les 
+              <a href="legal.html#cgu" target="_blank" class="link-inline">Conditions Générales</a> 
+              et la 
+              <a href="legal.html#confidentialite" target="_blank" class="link-inline">Politique de confidentialité</a>
+            </span>
+          </label>
+          <div class="form-error" id="error-terms"></div>
+        </div>
+
+        <!-- Message d'erreur global -->
+        <div class="form-alert form-alert-error" id="register-alert" style="display:none;">
+          <span class="alert-icon">⚠️</span>
+          <span class="alert-text"></span>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn btn-primary btn-block" id="register-submit">
+          <span class="btn-text">Créer mon compte</span>
+          <span class="btn-loader" style="display:none;">
+            <span class="spinner"></span>
+          </span>
+        </button>
+
+        <!-- Séparateur -->
+        <div class="auth-divider">
+          <span>ou</span>
+        </div>
+
+        <!-- Bouton retour connexion -->
+        <button type="button" class="btn btn-secondary btn-block" id="switchToLogin">
+          <span class="btn-icon">🔐</span>
+          J'ai déjà un compte
+        </button>
+
+      </form>
+    </div>
+
+    <!-- ============ FORMULAIRE MOT DE PASSE OUBLIÉ ============ -->
+    <div class="auth-panel" id="panel-forgot" role="tabpanel">
+      <form class="auth-form" id="forgotForm" novalidate>
+        
+        <div class="forgot-header">
+          <div class="forgot-icon">🔑</div>
+          <h2 class="forgot-title">Mot de passe oublié ?</h2>
+          <p class="forgot-desc">
+            Entre ton email et nous t'enverrons un lien pour réinitialiser ton mot de passe.
+          </p>
+        </div>
+
+        <!-- Champ Email -->
+        <div class="form-group">
+          <label for="forgot-email" class="form-label">
+            <span class="label-icon">📧</span>
+            Ton adresse email
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="email" 
+              id="forgot-email" 
+              name="email" 
+              class="form-input" 
+              placeholder="exemple@email.com"
+              autocomplete="email"
+              required
+            >
+            <span class="input-icon">✉️</span>
+          </div>
+          <div class="form-error" id="error-forgot-email"></div>
+        </div>
+
+        <!-- Message d'erreur global -->
+        <div class="form-alert form-alert-error" id="forgot-alert" style="display:none;">
+          <span class="alert-icon">⚠️</span>
+          <span class="alert-text"></span>
+        </div>
+
+        <!-- Message de succès -->
+        <div class="form-alert form-alert-success" id="forgot-success" style="display:none;">
+          <span class="alert-icon">✅</span>
+          <span class="alert-text">
+            Un email de réinitialisation a été envoyé. Vérifie ta boîte de réception (et les spams).
+          </span>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn btn-primary btn-block" id="forgot-submit">
+          <span class="btn-text">Envoyer le lien</span>
+          <span class="btn-loader" style="display:none;">
+            <span class="spinner"></span>
+          </span>
+        </button>
+
+        <!-- Bouton retour -->
+        <button type="button" class="btn btn-secondary btn-block" id="backToLogin">
+          <span class="btn-icon">←</span>
+          Retour à la connexion
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- ============ FOOTER SIMPLE ============ -->
+  <footer class="auth-footer">
+    <p>
+      © 2026 Mukanda · 
+      <a href="legal.html#cgu">CGU</a> · 
+      <a href="legal.html#confidentialite">Confidentialité</a> · 
+      <a href="contact.html">Contact</a>
+    </p>
+  </footer>
+
+</main>
+
+<!-- ============ MODAL DE BIENVENUE (après inscription) ============ -->
+<div class="welcome-modal" id="welcomeModal" style="display:none;">
+  <div class="welcome-modal-overlay"></div>
+  <div class="welcome-modal-content">
+    <div class="welcome-header">
+      <div class="welcome-icon">🎉</div>
+      <h2 class="welcome-title">Bienvenue sur Mukanda !</h2>
+    </div>
+    <div class="welcome-body">
+      <p class="welcome-text">
+        Ton compte a été créé avec succès ! Voici tes cadeaux de bienvenue :
+      </p>
+      <div class="welcome-gifts">
+        <div class="gift-item">
+          <span class="gift-icon">📄</span>
+          <div class="gift-info">
+            <strong>2 PDF gratuits</strong>
+            <span>À télécharger maintenant</span>
+          </div>
+        </div>
+        <div class="gift-item">
+          <span class="gift-icon">🎥</span>
+          <div class="gift-info">
+            <strong>2 vidéos gratuites</strong>
+            <span>À regarder dès maintenant</span>
+          </div>
+        </div>
+      </div>
+      <p class="welcome-cta-text">
+        Tu peux accéder à tes cadeaux dans ton espace "Mes cours".
+      </p>
+    </div>
+    <div class="welcome-actions">
+      <button class="btn btn-primary btn-block" id="goToDashboard">
+        <span class="btn-icon">📚</span>
+        Accéder à mes cours
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+</body>
+</html>

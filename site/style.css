@@ -85,3 +85,116 @@ main.wrap::before{content:'';position:absolute;top:8px;bottom:8px;left:8px;width
 .faq-bloc{background:var(--carte);border:2px solid var(--encre);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:4px 4px 0 rgba(20,33,61,.10)}
 .faq-bloc h3{font-size:16px;margin-bottom:6px}
 .faq-bloc p{font-size:14px;color:var(--gris)}
+
+
+/* =================================================================
+   ACCUEIL V2 — sections hero, réassurance, méthode, rayons, etc.
+   ================================================================= */
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:20px 0 40px}
+.hero-desc{font-size:17px;color:#cdd3e0;max-width:560px;margin:14px 0 20px;line-height:1.6}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.hero-chiffres{display:flex;gap:24px;flex-wrap:wrap;padding-top:20px;border-top:1px solid rgba(244,241,232,.15);font-size:14px;color:#aeb6c8}
+.hero-chiffres strong{color:var(--surligneur);font-size:18px;display:block;margin-bottom:2px}
+.hero-droite{position:relative;display:flex;flex-direction:column;align-items:center}
+.jaco-svg{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3))}
+.jaco-bulle{background:var(--craie);color:var(--encre);padding:12px 16px;border-radius:14px;margin-top:18px;font-size:14px;font-weight:700;text-align:center;position:relative;max-width:240px}
+.jaco-bulle::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-bottom-color:var(--craie);border-top:0}
+.nav-desktop{display:flex;gap:18px}
+.nav-desktop a{color:var(--gris);text-decoration:none;font-size:14px;font-weight:700}
+.nav-desktop a:hover{color:var(--marge)}
+.btn-lien{color:var(--gris);text-decoration:none;font-size:13px;font-weight:700}
+.entete-actions{display:flex;gap:14px;align-items:center}
+
+/* Réassurance */
+.reassurance{background:var(--ardoise);padding:18px 0;border-bottom:3px solid var(--encre)}
+.reassurance-in{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:center}
+.reassurance-item{display:flex;align-items:center;gap:12px;color:var(--craie);font-size:14px}
+.reassurance-ic{font-size:24px;flex-shrink:0}
+.reassurance-item strong{display:block;font-size:13px}
+.reassurance-item span{font-size:12px;opacity:.75}
+
+/* Section commune */
+.section-titre{text-align:center;margin:0 auto 30px;max-width:640px}
+.section-titre h2{font-size:clamp(26px,5vw,36px);margin:10px 0 8px}
+.section-titre p{color:var(--gris);font-size:15px}
+
+/* Méthode */
+.methode{padding:50px 0 40px;background:var(--carte)}
+.methode-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:10px}
+.methode-pas{background:var(--papier);border:2px solid var(--encre);border-radius:14px;padding:22px 18px;position:relative;box-shadow:4px 4px 0 rgba(20,33,61,.10)}
+.pas-numero{position:absolute;top:-14px;left:20px;background:var(--surligneur);color:var(--encre);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;border:2px solid var(--encre)}
+.pas-ic{font-size:28px;margin-bottom:8px}
+.methode-pas h3{font-size:17px;margin-bottom:6px}
+.methode-pas p{font-size:13px;color:var(--gris);line-height:1.5}
+
+/* Rayons */
+.rayons{padding:50px 0}
+.rayons-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rayon-carte{background:var(--carte);border:2px solid var(--encre);border-radius:16px;padding:26px 22px;text-decoration:none;color:var(--encre);box-shadow:6px 6px 0 rgba(20,33,61,.12);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.rayon-carte:hover{transform:translateY(-4px);box-shadow:8px 8px 0 rgba(20,33,61,.18)}
+.rayon-ic{font-size:38px;margin-bottom:10px}
+.rayon-carte h3{font-size:20px;margin-bottom:8px}
+.rayon-carte p{font-size:14px;color:var(--gris);line-height:1.5;flex:1}
+.rayon-lien{color:var(--marge);font-weight:800;font-size:14px;margin-top:14px}
+
+/* Catalogue best-sellers/nouveautés */
+.catalogue{padding:40px 0;background:var(--papier)}
+.catalogue-nouveautes{background:var(--carte)}
+.catalogue-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+
+/* Leçon gratuite */
+.gratuit{background:var(--ardoise);color:var(--craie);padding:60px 0;position:relative;overflow:hidden}
+.gratuit-in{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.gratuit-titre{font-size:17px;margin:12px 0}
+.gratuit-desc{color:#cdd3e0;margin-bottom:22px;font-size:15px;line-height:1.6}
+.gratuit-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.gratuit-note{font-size:13px;opacity:.7;font-style:italic}
+.gratuit-apercu{background:var(--papier);border-radius:12px;padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);transform:rotate(2deg)}
+.apercu-page{background:#fff;padding:30px 24px;border-radius:6px;position:relative;aspect-ratio:3/4;display:flex;flex-direction:column;gap:14px;font-family:Georgia,serif}
+.apercu-ligne{color:var(--encre);font-size:22px;font-weight:700;text-align:center}
+.apercu-ligne.petit{font-size:14px;color:var(--gris);font-weight:400}
+.apercu-schema{font-size:42px;text-align:center;letter-spacing:12px;margin:10px 0}
+.apercu-filigrane{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:48px;font-weight:800;color:rgba(20,33,61,.08);letter-spacing:8px;pointer-events:none}
+
+/* Comment acheter */
+.comment{padding:50px 0;background:var(--carte)}
+.comment-pas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:20px auto 0}
+.comment-etape{background:var(--papier);border:2px solid var(--encre);border-radius:14px;padding:24px 20px;position:relative;box-shadow:4px 4px 0 rgba(20,33,61,.10)}
+.etape-num{width:40px;height:40px;border-radius:50%;background:var(--encre);color:var(--craie);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:12px}
+.comment-etape h3{font-size:17px;margin-bottom:6px}
+.comment-etape p{font-size:14px;color:var(--gris);line-height:1.5}
+
+/* Avis */
+.avis{padding:50px 0}
+.avis-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.avis-carte{background:var(--carte);border:2px solid var(--encre);border-radius:14px;padding:22px 20px;box-shadow:4px 4px 0 rgba(20,33,61,.10)}
+.avis-etoiles{color:#F3A712;font-size:16px;margin-bottom:8px;letter-spacing:2px}
+.avis-texte{font-size:14px;line-height:1.6;color:var(--encre);font-style:italic;margin-bottom:12px;flex:1}
+.avis-auteur{font-size:13px;color:var(--gris);padding-top:10px;border-top:1px solid rgba(20,33,61,.08)}
+.avis-auteur strong{color:var(--encre)}
+
+/* Footer */
+.pied-in{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;padding:36px 0 24px}
+.pied-logo{color:var(--craie);font-size:20px;margin-bottom:10px;display:inline-block}
+.pied-col p{font-size:13px;color:#aeb6c8;line-height:1.6}
+.pied-col h4{font-size:14px;color:var(--craie);margin-bottom:10px;font-family:'Baloo 2',cursive}
+.pied-col a{display:block;color:#aeb6c8;text-decoration:none;font-size:13px;padding:4px 0}
+.pied-col a:hover{color:var(--surligneur)}
+.pied-paiements{margin-top:14px;font-size:13px;color:var(--surligneur);font-weight:700}
+.pied-bas{border-top:1px solid rgba(244,241,232,.1);padding:14px 0;font-size:12px;text-align:center;color:#7a8294}
+
+/* Responsive */
+@media(max-width:900px){
+  .hero-in,.gratuit-in{grid-template-columns:1fr;text-align:center}
+  .hero-ctas,.gratuit-ctas{justify-content:center}
+  .hero-chiffres{justify-content:center}
+  .reassurance-in{grid-template-columns:repeat(2,1fr)}
+  .methode-grille,.rayons-grille,.comment-pas,.avis-grille{grid-template-columns:1fr}
+  .pied-in{grid-template-columns:1fr 1fr}
+  .nav-desktop,.btn-lien{display:none}
+  .jaco-svg{max-width:220px}
+}
+@media(max-width:520px){
+  .pied-in{grid-template-columns:1fr;text-align:center}
+  .reassurance-in{grid-template-columns:1fr}
+}

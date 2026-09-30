@@ -211,3 +211,36 @@ function rendreRecuperer(){
 document.addEventListener('DOMContentLoaded', () => {
   rendreAccueil(); rendreProduit(); rendrePaiement(); rendreSucces(); rendreRecuperer();
 });
+
+// ---------------- BEST-SELLERS & NOUVEAUTÉS ----------------
+function carteProduitAccueil(p, type){
+  const badge = type==='document'
+    ? (p.categorie==='modele_pro'?'💼 Modèle pro': p.categorie==='exercice'?'✍️ Exercice':'🎓 Formation')
+    : '🎓 Cours '+(p.niveau||'').toUpperCase();
+  return `<a class="carte" href="produit.html?type=${type}&id=${p.id}"><span class="tampon">${badge}</span><h3>${esc(p.titre)}</h3><p>${esc((p.description||'').slice(0,110))}${(p.description||'').length>110?'…':''}</p><span class="prix">${fcfa(p.prix_fcfa)}</span></a>`;
+}
+async function rendreAccueilCatalogue(){
+  const bs = document.getElementById('bestsellers');
+  const nv = document.getElementById('nouveautes');
+  if(!bs && !nv) return;
+  const s = mkSupa(); if(!s){ bs && (bs.innerHTML = '<p class="vide">Catalogue hors ligne.</p>'); nv && (nv.innerHTML = '<p class="vide">Catalogue hors ligne.</p>'); return; }
+  const [d,c] = await Promise.all([
+    s.from('documents').select('id,titre,slug,description,categorie,niveau,matiere,prix_fcfa').eq('actif',true).order('created_at',{ascending:false}).limit(8),
+    s.from('cours').select('id,titre,slug,description,niveau,matiere,prix_fcfa').eq('actif',true).order('created_at',{ascending:false}).limit(8)
+  ]);
+  const docs = d.data||[], cours = c.data||[];
+  if(nv){
+    nv.innerHTML = (docs.length || cours.length)
+      ? [...docs.slice(0,4), ...cours.slice(0,4)].slice(0,6).map((p,i)=>carteProduitAccueil(p, i<docs.length?'document':'cours')).join('')
+      : '<p class="vide">📚 Le catalogue ouvre très bientôt.</p>';
+  }
+  if(bs){
+    // Pour l'instant, mêmes produits que nouveautés (pas encore de compteur de ventes)
+    bs.innerHTML = nv ? nv.innerHTML : '<p class="vide">Chargement…</p>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  rendreAccueilCatalogue();
+  rendreProduit(); rendrePaiement(); rendreSucces(); rendreRecuperer();
+});

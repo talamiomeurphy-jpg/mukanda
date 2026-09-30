@@ -1,35 +1,681 @@
-<!DOCTYPE html><html lang="fr"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cours · Mukanda</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css"></head>
-<body><div class="shell">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Cours · Mukanda</title>
+<meta name="description" id="metaDesc" content="Cours Mukanda">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%236C5CE7'/%3E%3Cpath d='M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z' fill='white'/%3E%3Cpath d='M32 26v20' stroke='%236C5CE7' stroke-width='3'/%3E%3Cpath d='M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z' fill='%23FFB703'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="header.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101A3E;--ink-2:#1D2B5C;--ink-3:#0B1233;
+  --violet:#6C5CE7;--blue:#2F6BFF;--gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;
+  --paper:#FAF7F0;--card:#FFFFFF;--grey:#5A6478;--line:#E6EAF6;
+  --grad:linear-gradient(135deg,var(--violet),var(--blue));
+  --r:14px;--r-lg:18px;--sh:0 4px 14px rgba(16,26,62,.06);
+  --tr:all .25s cubic-bezier(.4,0,.2,1);--nav-h:68px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+h1,h2,h3,h4{font-family:'Baloo 2',cursive;line-height:1.2}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
 
-<aside class="sidebar">
-  <div class="side-logo"><span class="em">📚</span><span class="logo-txt">Mu<b>kanda</b></span></div>
-  <nav class="side-nav">
-    <a class="side-item" href="index.html"><span class="ic">🏠</span>Accueil</a>
-    <a class="side-item" href="catalogue.html"><span class="ic">📚</span>Catalogue</a>
-    <a class="side-item" href="dashboard.html"><span class="ic">🎒</span>Mes cours</a>
-    <a class="side-item soon" href="#" onclick="toast('🤙 Le tuteur IA arrive après les cours !');return false"><span class="ic">🤙</span>Demande au prof<span class="tag">bientôt</span></a>
-  </nav>
-  <div class="side-foot"><div class="side-user"><span class="avatar" id="avatarSide">M</span><div><div class="nm" id="sideName">Élève Mukanda</div><div class="lv" id="sideLevel">INVITÉ</div></div></div>
-  <a class="side-item" id="loginItem" href="auth.html" style="margin-top:8px"><span class="ic">🔐</span>Se connecter</a></div>
-</aside>
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo svg{width:38px;height:38px}
+.logo .word{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800}
+.logo .word b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-<div class="main">
-  <header class="topbar"><span style="font-size:22px">📚</span><span class="logo-txt">Mu<b>kanda</b></span><span class="sp"></span>
-  <button class="icon-btn" onclick="toast('🔔 Bienvenue sur Mukanda !')">🔔<span class="dot"></span></button>
-  <a class="icon-btn" href="auth.html" id="avatarTop" style="font-weight:800">M</a></header>
-  <main class="content" id="coursZone"><div class="skel" style="height:300px"></div></main>
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;font-weight:800;font-size:14px;padding:11px 20px;border:2px solid transparent;transition:var(--tr)}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 4px 0 var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(108,92,231,.3)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);background:#fff}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-lg{padding:15px 28px;font-size:16px}
+.btn-block{width:100%}
+.btn-sm{padding:8px 14px;font-size:13px}
+
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;background:rgba(250,247,240,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1280px;margin:0 auto;height:100%;padding:0 20px;display:flex;align-items:center;gap:18px}
+.nav-links{display:flex;gap:2px;margin-left:4px}
+.nav-links a{padding:9px 14px;border-radius:10px;font-weight:700;font-size:14px;color:var(--grey);transition:var(--tr)}
+.nav-links a:hover{color:var(--ink);background:#fff}
+.nav-links a.on{color:#fff;background:var(--grad)}
+.nav-sp{flex:1}
+.nav-auth{display:flex;align-items:center;gap:8px}
+.nav-user{display:none;align-items:center;gap:10px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.burger{display:none;flex-direction:column;gap:4px;padding:8px}
+.burger span{width:22px;height:3px;background:var(--ink);border-radius:2px}
+
+/* Hero simple */
+.hero{padding:calc(var(--nav-h) + 40px) 0 30px;background:var(--grad);color:#fff}
+.hero-in{text-align:center;max-width:700px;margin:0 auto}
+.hero .tags{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.2);color:#fff}
+.hero h1{color:#fff;font-size:clamp(26px,5vw,38px);margin-bottom:12px}
+.hero .sub{color:rgba(255,255,255,.9);font-size:15.5px;line-height:1.6;margin-bottom:20px}
+.hero-meta{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-size:13.5px}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.hero-meta b{color:var(--gold)}
+
+/* Onglets de navigation */
+.tabs-nav{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:var(--nav-h);z-index:50}
+.tabs-nav-in{max-width:900px;margin:0 auto;display:flex;gap:0;padding:0 20px}
+.tab-btn{padding:16px 20px;font-weight:800;font-size:14px;color:var(--grey);border-bottom:3px solid transparent;transition:var(--tr);flex:1;text-align:center}
+.tab-btn:hover{color:var(--ink);background:rgba(108,92,231,.04)}
+.tab-btn.on{color:var(--violet);border-bottom-color:var(--violet)}
+
+/* Contenu principal */
+.content{padding:30px 20px 60px;max-width:900px;margin:0 auto}
+.tab-content{display:none;animation:fadeIn .3s}
+.tab-content.on{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Section */
+.section{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;margin-bottom:24px;box-shadow:var(--sh)}
+.section h2{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section h2 .ic{font-size:22px}
+.section p{color:var(--grey);line-height:1.7}
+
+/* Liste des leçons (chapitres) */
+.chapters{list-style:none;padding:0}
+.chapter{padding:18px 20px;border:2px solid var(--line);border-radius:var(--r);margin-bottom:10px;cursor:pointer;transition:var(--tr);background:#fff}
+.chapter:hover{border-color:var(--violet);transform:translateX(4px)}
+.chapter.on{border-color:var(--violet);background:rgba(108,92,231,.04)}
+.chapter.done{background:rgba(6,195,154,.05);border-color:var(--teal)}
+.chapter.locked{opacity:.5;cursor:not-allowed}
+.chapter.locked:hover{border-color:var(--line);transform:none}
+.chapter-head{display:flex;align-items:center;gap:14px}
+.chapter-num{width:44px;height:44px;border-radius:12px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
+.chapter.done .chapter-num{background:var(--teal)}
+.chapter.done .chapter-num::after{content:'✓';font-size:20px}
+.chapter.done .chapter-num span{display:none}
+.chapter-info{flex:1}
+.chapter-title{font-size:16px;font-weight:800;margin-bottom:4px}
+.chapter-meta{font-size:13px;color:var(--grey);display:flex;gap:12px;flex-wrap:wrap}
+.chapter-status{font-size:18px;flex-shrink:0}
+.chapter.free .chapter-title::after{content:' 🎁';font-size:14px}
+
+/* Player intégré (apparaît quand on clique sur une leçon) */
+.player{background:#fff;border:2px solid var(--violet);border-radius:var(--r-lg);padding:24px;margin-top:16px;box-shadow:var(--sh-lg);animation:slideDown .3s}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.player-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.player-head h3{font-size:18px}
+.player-close{font-size:24px;color:var(--grey);padding:4px 8px;cursor:pointer}
+.player-close:hover{color:var(--ink)}
+
+.player-tabs{display:flex;gap:8px;margin-bottom:20px}
+.player-tab{padding:10px 18px;border-radius:10px;font-weight:800;font-size:13px;color:var(--grey);background:var(--paper);transition:var(--tr);flex:1;text-align:center}
+.player-tab:hover{background:#fff;color:var(--ink)}
+.player-tab.on{background:var(--grad);color:#fff}
+
+.player-content{min-height:200px}
+.player-empty{text-align:center;padding:40px 20px;color:var(--grey)}
+.player-empty .big{font-size:48px;display:block;margin-bottom:12px}
+
+/* Audio wave */
+.audio-wave{height:60px;display:flex;align-items:flex-end;gap:3px;justify-content:center;background:var(--paper);padding:10px;border-radius:var(--r);margin-bottom:16px}
+.audio-wave span{width:4px;background:var(--grad);border-radius:2px;animation:wave 1.2s ease-in-out infinite}
+@keyframes wave{0%,100%{height:10%}50%{height:80%}}
+.audio-wave span:nth-child(1){animation-delay:0s}
+.audio-wave span:nth-child(2){animation-delay:.1s}
+.audio-wave span:nth-child(3){animation-delay:.2s}
+.audio-wave span:nth-child(4){animation-delay:.3s}
+.audio-wave span:nth-child(5){animation-delay:.4s}
+.audio-wave.paused span{animation-play-state:paused}
+
+.audio-controls{display:flex;align-items:center;gap:14px;padding:12px;background:var(--paper);border-radius:var(--r)}
+.play-btn{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:var(--tr);flex-shrink:0}
+.play-btn:hover{transform:scale(1.05)}
+.progress-bar{flex:1;height:6px;background:var(--line);border-radius:99px;cursor:pointer;position:relative;overflow:hidden}
+.progress-fill{height:100%;background:var(--grad);width:0%;transition:width .2s}
+.time{font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;min-width:42px}
+.speed-btn{padding:6px 12px;background:#fff;border:2px solid var(--line);border-radius:8px;font-weight:800;font-size:12px;cursor:pointer}
+
+/* PDF viewer */
+.pdf-viewer{background:var(--paper);border:2px solid var(--line);border-radius:var(--r);padding:24px;font-family:Georgia,serif;line-height:1.8}
+.pdf-viewer h4{font-family:'Baloo 2',cursive;color:var(--violet);margin-bottom:12px}
+.pdf-viewer p{margin-bottom:14px}
+.pdf-actions{display:flex;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+
+/* Quiz */
+.quiz{display:flex;flex-direction:column;gap:20px}
+.quiz-q{font-size:17px;font-weight:700;line-height:1.5;margin-bottom:8px}
+.quiz-opts{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{padding:14px 16px;border:2px solid var(--line);border-radius:var(--r);cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:12px}
+.quiz-opt:hover{border-color:var(--violet);background:rgba(108,92,231,.04)}
+.quiz-opt .let{width:32px;height:32px;border-radius:50%;background:var(--paper);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.quiz-opt.correct{border-color:var(--teal);background:rgba(6,195,154,.08)}
+.quiz-opt.correct .let{background:var(--teal);color:#fff}
+.quiz-opt.wrong{border-color:var(--coral);background:rgba(255,93,115,.08)}
+.quiz-opt.wrong .let{background:var(--coral);color:#fff}
+.quiz-exp{padding:16px;background:rgba(108,92,231,.06);border-left:4px solid var(--violet);border-radius:var(--r);font-size:14px;display:none}
+.quiz-exp.show{display:block}
+
+/* Box achat (sidebar desktop) */
+.buy-box{position:sticky;top:calc(var(--nav-h) + 90px);background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh);margin-bottom:24px}
+.buy-box .price{font-family:'Baloo 2',cursive;font-size:36px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.buy-box .price.free{color:var(--teal)}
+.buy-box .included{font-size:13px;color:var(--grey);margin:16px 0}
+.buy-box .included ul{list-style:none;padding:0}
+.buy-box .included li{padding:5px 0;display:flex;align-items:center;gap:8px}
+.buy-box .included li::before{content:'✓';color:var(--teal);font-weight:800}
+
+/* Layout avec sidebar */
+.course-layout{display:grid;grid-template-columns:1fr 320px;gap:24px;max-width:1280px;margin:0 auto;padding:30px 20px 60px}
+.course-main{min-width:0}
+.course-side{position:sticky;top:calc(var(--nav-h) + 90px);align-self:start}
+
+/* Footer */
+footer{background:var(--ink-3);color:#AEB6C8;margin-top:60px}
+.foot-in{max-width:1280px;margin:0 auto;padding:50px 20px 30px;display:grid;gap:34px;grid-template-columns:1.4fr 1fr 1fr 1fr}
+.foot-in .logo .word{color:#fff}
+.foot-in p{font-size:13.5px;line-height:1.7}
+.foot-in h4{color:#fff;font-size:15px;margin-bottom:14px}
+.foot-in a{display:block;font-size:13.5px;padding:4px 0;transition:var(--tr)}
+.foot-in a:hover{color:var(--gold);transform:translateX(3px)}
+.foot-pay{margin-top:14px;font-size:13px;color:var(--gold);font-weight:700}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 20px;text-align:center;font-size:12.5px;color:#7A8294}
+
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 26px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:var(--tr);z-index:300;border:2px solid var(--gold)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.empty{text-align:center;padding:60px 20px;background:#fff;border:2px dashed var(--line);border-radius:var(--r-lg)}
+.empty .big{font-size:54px;display:block;margin-bottom:14px}
+.empty h3{font-size:19px;margin-bottom:8px}
+.empty p{color:var(--grey);max-width:440px;margin:0 auto 16px}
+
+@media(max-width:1024px){
+  .course-layout{grid-template-columns:1fr}
+  .course-side{position:static}
+  .nav-links{display:none}
+  .burger{display:flex}
+}
+@media(max-width:640px){
+  .foot-in{grid-template-columns:1fr 1fr}
+  .tab-btn{padding:14px 10px;font-size:13px}
+  .chapter{padding:14px 16px}
+  .chapter-num{width:38px;height:38px;font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="logo-mk" viewBox="0 0 64 64">
+    <defs><linearGradient id="gLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6C5CE7"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient></defs>
+    <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#gLogo)"/>
+    <path d="M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#fff"/>
+    <path d="M32 26v20" stroke="#6C5CE7" stroke-width="3"/>
+    <path d="M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z" fill="#FFB703"/>
+  </symbol>
+</svg>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html"><svg><use href="#logo-mk"/></svg><span class="word">Mu<b>kanda</b></span></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html" class="on">Catalogue</a>
+      <a href="catalogue.html?cat=pro">Modèles Pro</a>
+      <a href="dashboard.html">Mes cours</a>
+    </nav>
+    <span class="nav-sp"></span>
+    <div class="nav-auth" id="navAuth">
+      <a class="btn btn-ghost btn-sm" href="auth.html">Se connecter</a>
+      <a class="btn btn-grad btn-sm" href="auth.html">✨ Créer un compte</a>
+    </div>
+    <div class="nav-user" id="navUser">
+      <a class="btn btn-grad btn-sm" href="dashboard.html">🎒 Mes cours</a>
+      <span class="avatar" id="navAvatar">M</span>
+    </div>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO SIMPLE -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="tags">
+      <span class="tag" id="tagNiv">🎓 Niveau</span>
+      <span class="tag" id="tagMat">📖 Matière</span>
+    </div>
+    <h1 id="coursTitre">Chargement…</h1>
+    <p class="sub" id="coursSub">Description du cours</p>
+    <div class="hero-meta">
+      <span>📚 <b id="coursLecons">0</b> leçons</span>
+      <span>⏱ <b id="coursDuree">0</b> min</span>
+      <span>⭐ <b>4.8</b>/5</span>
+    </div>
+  </div>
+</section>
+
+<!-- ONGLETS -->
+<div class="tabs-nav">
+  <div class="tabs-nav-in">
+    <button class="tab-btn on" data-tab="overview">Vue d'ensemble</button>
+    <button class="tab-btn" data-tab="lessons">Leçons</button>
+    <button class="tab-btn" data-tab="reviews">Avis</button>
+  </div>
 </div>
 
-<nav class="bottomnav">
-  <a class="bn-item" href="index.html"><span class="ic">🏠</span>Accueil</a>
-  <a class="bn-item on" href="catalogue.html"><span class="ic">📚</span>Catalogue</a>
-  <a class="bn-item" href="dashboard.html"><span class="ic">🎒</span>Mes cours</a>
-  <a class="bn-item" href="auth.html"><span class="ic">👤</span>Compte</a>
-</nav>
+<!-- LAYOUT 2 COLONNES -->
+<div class="course-layout">
+  <div class="course-main">
+    
+    <!-- TAB: VUE D'ENSEMBLE -->
+    <div class="tab-content on" id="tab-overview">
+      <div class="section">
+        <h2><span class="ic">📖</span>À propos de ce cours</h2>
+        <p id="descLong">Description détaillée du cours.</p>
+      </div>
+      
+      <div class="section">
+        <h2><span class="ic">🎯</span>Ce que tu vas apprendre</h2>
+        <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+          <div style="display:flex;gap:10px;padding:12px;background:var(--paper);border-radius:var(--r)"><span style="font-size:20px">🎧</span><div style="font-size:13.5px;font-weight:700">Audio + slides, ~2 Mo</div></div>
+          <div style="display:flex;gap:10px;padding:12px;background:var(--paper);border-radius:var(--r)"><span style="font-size:20px">📄</span><div style="font-size:13.5px;font-weight:700">Fiches PDF imprimables</div></div>
+          <div style="display:flex;gap:10px;padding:12px;background:var(--paper);border-radius:var(--r)"><span style="font-size:20px">✍️</span><div style="font-size:13.5px;font-weight:700">Quiz corrigés</div></div>
+          <div style="display:flex;gap:10px;padding:12px;background:var(--paper);border-radius:var(--r)"><span style="font-size:20px">🦜</span><div style="font-size:13.5px;font-weight:700">Voix de Jaco</div></div>
+          <div style="display:flex;gap:10px;padding:12px;background:var(--paper);border-radius:var(--r)"><span style="font-size:20px">📱</span><div style="font-size:13.5px;font-weight:700">Optimisé 3G</div></div>
+          <div style="display:flex;gap:10px;padding:12px;background:var(--paper);border-radius:var(--r)"><span style="font-size:20px">♾️</span><div style="font-size:13.5px;font-weight:700">Accès à vie</div></div>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2><span class="ic">👨‍🏫</span>Ton prof</h2>
+        <div style="display:flex;gap:16px;align-items:center;padding:16px;background:var(--paper);border-radius:var(--r)">
+          <div style="width:64px;height:64px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0">🦜</div>
+          <div>
+            <div style="font-size:16px;font-weight:800">Jaco, ton tuteur Mukanda</div>
+            <div style="font-size:13px;color:var(--grey);margin-top:2px">Perroquet gris — voix de toutes les leçons. Doux au CEPE, rigoureux au BAC.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TAB: LEÇONS -->
+    <div class="tab-content" id="tab-lessons">
+      <div class="section">
+        <h2><span class="ic">📚</span>Chapitres du cours</h2>
+        <ul class="chapters" id="chaptersList"></ul>
+      </div>
+      <div id="playerZone"></div>
+    </div>
+    
+    <!-- TAB: AVIS -->
+    <div class="tab-content" id="tab-reviews">
+      <div class="section">
+        <h2><span class="ic">⭐</span>Avis des élèves</h2>
+        <div class="empty">
+          <span class="big">📝</span>
+          <h3>Pas encore d'avis</h3>
+          <p>Sois le premier à donner ton avis après avoir suivi ce cours !</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- SIDEBAR -->
+  <aside class="course-side">
+    <div class="buy-box">
+      <div class="price" id="sidePrix">…</div>
+      <button class="btn btn-gold btn-lg btn-block" id="btnBuy">💳 Acheter ce cours</button>
+      <div class="included">
+        <ul>
+          <li>Accès à vie à toutes les leçons</li>
+          <li>Audio + PDF + quiz inclus</li>
+          <li>Téléchargement immédiat</li>
+          <li>Paiement MoMo / Airtel en 15 s</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
 </div>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <span class="logo"><svg><use href="#logo-mk"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span>
+      <p>La grande plateforme de lecture et d'apprentissage du Congo-Brazzaville.</p>
+      <div class="foot-pay">💳 MTN MoMo · Airtel Money · Paiement en 15 s</div>
+    </div>
+    <div><h4>Explorer</h4><a href="catalogue.html">Catalogue complet</a><a href="catalogue.html?cat=pro">Modèles pro</a><a href="catalogue.html?n=cepe">Cours CEPE</a><a href="catalogue.html?n=bepc">Cours BEPC</a><a href="catalogue.html?n=bac">Cours BAC</a></div>
+    <div><h4>Mon espace</h4><a href="auth.html">Se connecter</a><a href="auth.html">Créer un compte</a><a href="dashboard.html">Mes cours</a><a href="recuperer.html">Récupérer un achat</a></div>
+    <div><h4>Aide & légal</h4><a href="faq.html">FAQ</a><a href="legal.html#cgu">CGU</a><a href="legal.html#confidentialite">Confidentialité</a><a href="legal.html#cookies">Cookies</a><a href="https://wa.me/242065186967" target="_blank">WhatsApp</a></div>
+  </div>
+  <div class="foot-bottom">© 2026 Mukanda · Brazzaville, Congo · Un projet de l'équipe Meurphy</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="app.js"></script></body></html>
+<script>
+const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb=window.supabase?supabase.createClient(SB_URL,SB_KEY):null;
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fcfa=n=>new Intl.NumberFormat('fr-FR').format(n||0)+' FCFA';
+const fmtTime=s=>{s=Math.floor(s||0);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2800);}
+
+const NIVEAUX={cepe:{nom:'CEPE',icon:'🎓'},bepc:{nom:'BEPC',icon:'📘'},bac:{nom:'BAC',icon:'🏆'},concours:{nom:'Concours',icon:'💼'}};
+const EMO={'Français':'📖','Maths':'🧮','Éveil':'🌍','SVT':'🌱','Physique-Chimie':'⚗️','Histoire-Géo':'🗺️','Philosophie':'💭'};
+
+let COURS=null,LECONS=[],USER=null,A_ACCES=false,CURRENT_LECON=null;
+
+$('#burger').addEventListener('click',()=>{
+  const mmenu=document.createElement('div');
+  mmenu.style.cssText='position:fixed;inset:0;z-index:200;background:var(--ink-3);color:#fff;padding:22px;display:flex;flex-direction:column';
+  mmenu.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:26px"><span class="logo"><svg><use href="#logo-mk"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span><button style="font-size:24px;color:#fff;padding:6px 12px;background:none;border:none" onclick="this.closest('div').parentElement.remove()">✕</button></div><a href="index.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08)">🏠 Accueil</a><a href="catalogue.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08)">📚 Catalogue</a><a href="dashboard.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08)">🎒 Mes cours</a><a href="auth.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08)">🔐 Se connecter</a>`;
+  document.body.appendChild(mmenu);
+});
+
+(async()=>{
+  if(!sb)return;
+  const{data}=await sb.auth.getSession();
+  USER=data?.session?.user||null;
+  if(USER){
+    const m=USER.user_metadata||{};
+    $('#navAuth').style.display='none';
+    $('#navUser').style.display='flex';
+    $('#navAvatar').textContent=(m.nom||USER.email||'M').trim().charAt(0).toUpperCase();
+  }
+})();
+
+$$('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('.tab-btn').forEach(b=>b.classList.remove('on'));
+    $$('.tab-content').forEach(c=>c.classList.remove('on'));
+    btn.classList.add('on');
+    $('#tab-'+btn.dataset.tab).classList.add('on');
+  });
+});
+
+async function chargerCours(){
+  const id=new URLSearchParams(location.search).get('id');
+  if(!id){
+    document.body.innerHTML='<div class="wrap" style="padding:60px 20px"><div class="empty"><span class="big">🔍</span><h3>Aucun cours sélectionné</h3><a class="btn btn-grad" href="catalogue.html">📚 Voir le catalogue</a></div></div>';
+    return;
+  }
+  
+  try{
+    const[rc,rl]=await Promise.all([
+      sb.from('cours').select('*').eq('id',id).maybeSingle(),
+      sb.from('lecons').select('*').eq('cours_id',id).eq('actif',true).order('ordre')
+    ]);
+    
+    COURS=rc.data;
+    if(!COURS){
+      document.body.innerHTML='<div class="wrap" style="padding:60px 20px"><div class="empty"><span class="big">🦜</span><h3>Cours introuvable</h3><a class="btn btn-grad" href="catalogue.html">📚 Retour au catalogue</a></div></div>';
+      return;
+    }
+    
+    LECONS=rl.data||[];
+    if(!LECONS.length){
+      LECONS=[
+        {id:'demo-1',ordre:1,titre:'Introduction au sujet',duree_secondes:720,gratuite:true,contenu_texte:'Bienvenue dans ce cours !'},
+        {id:'demo-2',ordre:2,titre:'Les concepts fondamentaux',duree_secondes:900,gratuite:true,contenu_texte:'Plongeons dans les concepts fondamentaux.'},
+        {id:'demo-3',ordre:3,titre:'Applications pratiques',duree_secondes:840,gratuite:false,contenu_texte:'C\'est le moment de mettre en pratique.'},
+        {id:'demo-4',ordre:4,titre:'Exercices corrigés',duree_secondes:960,gratuite:false,contenu_texte:'Voici des exercices corrigés pas à pas.'},
+        {id:'demo-5',ordre:5,titre:'Cas complexes',duree_secondes:1080,gratuite:false,contenu_texte:'Cette leçon traite des cas difficiles.'},
+        {id:'demo-6',ordre:6,titre:'Révision finale',duree_secondes:780,gratuite:false,contenu_texte:'On fait le point sur tout.'}
+      ];
+    }
+    
+    await verifierAcces();
+    renderHero();
+    renderChapters();
+    updatePrix();
+    
+    document.title=COURS.titre+' · Mukanda';
+    
+  }catch(e){
+    console.error(e);
+    document.body.innerHTML='<div class="wrap" style="padding:60px 20px"><div class="empty"><span class="big">⚠️</span><h3>Erreur</h3></div></div>';
+  }
+}
+
+async function verifierAcces(){
+  if(!COURS)return;
+  if(!COURS.prix_fcfa||COURS.prix_fcfa===0){A_ACCES=true;return;}
+  if(!USER){A_ACCES=false;return;}
+  
+  const{data:achats}=await sb.from('achats').select('*').eq('user_id',USER.id).eq('produit_type','cours').eq('produit_id',COURS.id).eq('statut','paye');
+  if(achats&&achats.length>0){A_ACCES=true;return;}
+  
+  const{data:acces}=await sb.from('acces').select('*').eq('user_id',USER.id).eq('produit_type','cours').eq('produit_id',COURS.id);
+  A_ACCES=!!(acces&&acces.length>0);
+}
+
+function peutAccederLecon(l){
+  if(A_ACCES)return true;
+  if(l.gratuite)return true;
+  return false;
+}
+
+function renderHero(){
+  if(!COURS)return;
+  const niv=NIVEAUX[COURS.niveau]||{nom:COURS.niveau,icon:'📘'};
+  $('#tagNiv').innerHTML=niv.icon+' '+niv.nom;
+  $('#tagMat').innerHTML=(EMO[COURS.matiere]||'📘')+' '+esc(COURS.matiere);
+  $('#coursTitre').textContent=COURS.titre;
+  $('#coursSub').textContent=COURS.description||'Cours complet avec audio, fiches PDF et quiz.';
+  $('#coursLecons').textContent=LECONS.length;
+  const totalMin=Math.ceil(LECONS.reduce((s,l)=>s+(l.duree_secondes||720),0)/60);
+  $('#coursDuree').textContent=totalMin;
+  $('#descLong').textContent=COURS.description||'Cours complet avec audio, fiches PDF et quiz. Voix de Jaco 🦜, pensée pour la 3G.';
+}
+
+function renderChapters(){
+  $('#chaptersList').innerHTML=LECONS.map(l=>{
+    const peut=peutAccederLecon(l);
+    const classes=['chapter'];
+    if(l.gratuite)classes.push('free');
+    if(!peut)classes.push('locked');
+    
+    return `<li class="${classes.join(' ')}" data-id="${l.id}">
+      <div class="chapter-head">
+        <div class="chapter-num"><span>${l.ordre}</span></div>
+        <div class="chapter-info">
+          <div class="chapter-title">${esc(l.titre)}</div>
+          <div class="chapter-meta">
+            <span>⏱ ${fmtTime(l.duree_secondes||720)}</span>
+            ${l.gratuite?'<span>🎁 Gratuit</span>':''}
+            ${!peut?'<span>🔒 Verrouillé</span>':''}
+          </div>
+        </div>
+        <span class="chapter-status">${peut?'▶':'🔒'}</span>
+      </div>
+    </li>`;
+  }).join('');
+  
+  $$('.chapter').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const id=el.dataset.id;
+      const l=LECONS.find(x=>x.id===id);
+      if(!l)return;
+      if(!peutAccederLecon(l)){
+        if(!USER){
+          toast('🔐 Connecte-toi pour accéder aux leçons');
+          setTimeout(()=>location.href='auth.html?next='+encodeURIComponent(location.pathname+location.search),800);
+        }else{
+          toast('🔒 Achète ce cours pour débloquer');
+          document.querySelector('.buy-box').scrollIntoView({behavior:'smooth'});
+        }
+        return;
+      }
+      ouvrirPlayer(l);
+    });
+  });
+}
+
+function ouvrirPlayer(l){
+  CURRENT_LECON=l;
+  $$('.chapter').forEach(el=>el.classList.toggle('on',el.dataset.id===l.id));
+  
+  $('#playerZone').innerHTML=`<div class="player">
+    <div class="player-head">
+      <h3>Leçon ${l.ordre} : ${esc(l.titre)}</h3>
+      <button class="player-close" onclick="fermerPlayer()">✕</button>
+    </div>
+    <div class="player-tabs">
+      <button class="player-tab on" data-tab="ecouter">🎧 Écouter</button>
+      <button class="player-tab" data-tab="lire">📄 Lire</button>
+      <button class="player-tab" data-tab="quiz">✍️ Quiz</button>
+    </div>
+    <div class="player-content" id="playerContent"></div>
+  </div>`;
+  
+  renderPlayerTab('ecouter');
+  
+  $$('.player-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      $$('.player-tab').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      renderPlayerTab(btn.dataset.tab);
+    });
+  });
+  
+  $('#playerZone').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function fermerPlayer(){
+  $('#playerZone').innerHTML='';
+  $$('.chapter').forEach(el=>el.classList.remove('on'));
+  CURRENT_LECON=null;
+}
+
+function renderPlayerTab(tab){
+  if(!CURRENT_LECON)return;
+  const l=CURRENT_LECON;
+  
+  if(tab==='ecouter'){
+    $('#playerContent').innerHTML=`<div>
+      <div class="audio-wave paused">${Array(10).fill('<span></span>').join('')}</div>
+      <div class="audio-controls">
+        <button class="play-btn" id="btnPlay">▶</button>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+        <span class="time" id="timeCurrent">0:00</span>
+        <span class="time">/</span>
+        <span class="time">${fmtTime(l.duree_secondes||720)}</span>
+        <button class="speed-btn" id="btnSpeed">1×</button>
+      </div>
+      <p style="text-align:center;color:var(--grey);font-size:13px;margin-top:12px">🦜 Jaco est en train d'enregistrer cette leçon. Disponible au lancement.</p>
+    </div>`;
+    
+    let playing=false,current=0,timer=null,speed=1;
+    const total=l.duree_secondes||720;
+    
+    $('#btnPlay').addEventListener('click',()=>{
+      playing=!playing;
+      $('#btnPlay').textContent=playing?'⏸':'▶';
+      document.querySelector('.audio-wave').classList.toggle('paused',!playing);
+      if(playing){
+        timer=setInterval(()=>{
+          current+=speed;
+          const pct=Math.min(100,(current/total)*100);
+          $('#progFill').style.width=pct+'%';
+          $('#timeCurrent').textContent=fmtTime(current);
+          if(current>=total){
+            clearInterval(timer);
+            playing=false;
+            $('#btnPlay').textContent='▶';
+            document.querySelector('.audio-wave').classList.add('paused');
+            toast('🎉 Leçon terminée !');
+          }
+        },1000);
+      }else{
+        clearInterval(timer);
+      }
+    });
+    
+    $('#btnSpeed').addEventListener('click',()=>{
+      const vit=[0.5,1,1.25,1.5,2];
+      speed=vit[(vit.indexOf(speed)+1)%vit.length];
+      $('#btnSpeed').textContent=speed+'×';
+    });
+  }
+  
+  if(tab==='lire'){
+    const texte=l.contenu_texte||'Cette fiche PDF sera disponible au lancement.';
+    $('#playerContent').innerHTML=`<div class="pdf-viewer">
+      <h4>${esc(l.titre)}</h4>
+      <p>${esc(texte)}</p>
+      <div class="pdf-actions">
+        <button class="btn btn-grad btn-sm" onclick="toast('📄 Téléchargement disponible au lancement !')">📄 Télécharger le PDF</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('🖨️ Impression disponible au lancement !')">🖨️ Imprimer</button>
+      </div>
+    </div>`;
+  }
+  
+  if(tab==='quiz'){
+    $('#playerContent').innerHTML=`<div class="quiz">
+      <div class="quiz-q">🧠 Question : ${esc(l.titre)}</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" onclick="checkQuiz(this,false)"><span class="let">A</span><span>Réponse A</span></div>
+        <div class="quiz-opt" onclick="checkQuiz(this,true)"><span class="let">B</span><span>Réponse B (correcte) ✓</span></div>
+        <div class="quiz-opt" onclick="checkQuiz(this,false)"><span class="let">C</span><span>Réponse C</span></div>
+        <div class="quiz-opt" onclick="checkQuiz(this,false)"><span class="let">D</span><span>Réponse D</span></div>
+      </div>
+      <div class="quiz-exp" id="quizExp"><b>💡 Explication :</b> La bonne réponse est B.</div>
+    </div>`;
+  }
+}
+
+window.checkQuiz=function(el,ok){
+  const parent=el.parentElement;
+  parent.querySelectorAll('.quiz-opt').forEach(o=>o.style.pointerEvents='none');
+  el.classList.add(ok?'correct':'wrong');
+  if(!ok)parent.querySelectorAll('.quiz-opt').forEach(o=>{if(o.onclick.toString().includes('true'))o.classList.add('correct');});
+  document.querySelector('.quiz-exp').classList.add('show');
+  if(ok)toast('✅ Bonne réponse !');
+};
+
+window.fermerPlayer=fermerPlayer;
+
+function updatePrix(){
+  if(!COURS)return;
+  const gratuit=!COURS.prix_fcfa||COURS.prix_fcfa===0;
+  const prix=gratuit?'GRATUIT':fcfa(COURS.prix_fcfa);
+  $('#sidePrix').textContent=prix;
+  $('#sidePrix').classList.toggle('free',gratuit);
+  
+  if(A_ACCES){
+    $('#btnBuy').textContent='✅ Tu as accès';
+    $('#btnBuy').disabled=true;
+    $('#btnBuy').className='btn btn-teal btn-lg btn-block';
+  }else if(gratuit){
+    $('#btnBuy').textContent='✨ Commencer gratuitement';
+    $('#btnBuy').className='btn btn-teal btn-lg btn-block';
+  }
+  
+  $('#btnBuy').addEventListener('click',()=>{
+    if(!USER){
+      toast('🔐 Connecte-toi pour acheter');
+      setTimeout(()=>location.href='auth.html?next='+encodeURIComponent(location.pathname+location.search),800);
+      return;
+    }
+    toast('🛒 Redirection vers le paiement…');
+    setTimeout(()=>location.href='paiement.html?cours='+COURS.id+'&montant='+COURS.prix_fcfa,800);
+  });
+}
+
+chargerCours();
+</script>
+<script src="header.js"></script>
+</body>
+</html>

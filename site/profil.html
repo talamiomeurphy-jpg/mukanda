@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon profil · Mukanda</title>
+<meta name="description" content="Gère ton profil Mukanda : infos personnelles, historique d'achats, codes promo et paramètres.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%236C5CE7'/%3E%3Cpath d='M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z' fill='white'/%3E%3Cpath d='M32 26v20' stroke='%236C5CE7' stroke-width='3'/%3E%3Cpath d='M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z' fill='%23FFB703'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="header.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101A3E;--ink-2:#1D2B5C;--ink-3:#0B1233;
+  --violet:#6C5CE7;--blue:#2F6BFF;--gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;
+  --paper:#FAF7F0;--card:#FFFFFF;--surface:#F1F3FA;
+  --grey:#5A6478;--grey-2:#98A2B8;--line:#E6EAF6;
+  --grad:linear-gradient(135deg,var(--violet),var(--blue));
+  --grad-hero:linear-gradient(150deg,#141B4D 0%,#3A2E8C 48%,#2F6BFF 100%);
+  --r:14px;--r-lg:18px;--r-xl:24px;
+  --sh:0 4px 14px rgba(16,26,62,.06);--sh-lg:0 12px 28px rgba(16,26,62,.12);--sh-xl:0 20px 50px rgba(16,26,62,.18);
+  --tr:all .25s cubic-bezier(.4,0,.2,1);--nav-h:68px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--surface);color:var(--ink);line-height:1.6}
+h1,h2,h3,h4{font-family:'Baloo 2',cursive;line-height:1.2}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo svg{width:38px;height:38px}
+.logo .word{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--ink)}
+.logo .word b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;font-weight:800;font-size:14px;padding:11px 20px;border:2px solid transparent;transition:var(--tr);white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 4px 0 var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(108,92,231,.3)}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(108,92,231,.4)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);background:#fff}
+.btn-coral{background:var(--coral);color:#fff}
+.btn-coral:hover{background:#e04862}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-sm{padding:8px 14px;font-size:13px}
+.btn-lg{padding:15px 28px;font-size:16px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1180px;margin:0 auto;height:100%;padding:0 20px;display:flex;align-items:center;gap:18px}
+.nav-links{display:flex;gap:2px;margin-left:4px}
+.nav-links a{padding:9px 14px;border-radius:10px;font-weight:700;font-size:14px;color:var(--grey);transition:var(--tr)}
+.nav-links a:hover{color:var(--ink);background:var(--surface)}
+.nav-links a.on{color:#fff;background:var(--grad)}
+.nav-sp{flex:1}
+.nav-auth{display:flex;align-items:center;gap:8px}
+.nav-user{display:none;align-items:center;gap:10px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;box-shadow:0 4px 10px rgba(108,92,231,.35)}
+.burger{display:none;flex-direction:column;gap:4px;padding:8px}
+.burger span{width:22px;height:3px;background:var(--ink);border-radius:2px}
+
+/* LAYOUT 2 COLONNES */
+.profile-layout{max-width:1180px;margin:0 auto;padding:calc(var(--nav-h) + 30px) 20px 60px;display:grid;grid-template-columns:280px 1fr;gap:26px}
+
+/* SIDEBAR PROFIL */
+.profile-side{position:sticky;top:calc(var(--nav-h) + 30px);align-self:start}
+.profile-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh);margin-bottom:16px;text-align:center}
+.profile-avatar{width:100px;height:100px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;margin:0 auto 14px;box-shadow:0 8px 20px rgba(108,92,231,.4)}
+.profile-card h3{font-size:18px;margin-bottom:4px}
+.profile-card .email{font-size:13px;color:var(--grey);margin-bottom:12px}
+.profile-card .level{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--grad);color:#fff;border-radius:99px;font-size:12px;font-weight:800}
+
+.profile-menu{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh)}
+.profile-menu a{display:flex;align-items:center;gap:12px;padding:14px 18px;font-weight:700;font-size:14px;color:var(--grey);transition:var(--tr);border-bottom:1px solid var(--line);cursor:pointer}
+.profile-menu a:last-child{border-bottom:none}
+.profile-menu a:hover{background:var(--surface);color:var(--ink)}
+.profile-menu a.on{background:rgba(108,92,231,.08);color:var(--violet);border-left:4px solid var(--violet);padding-left:14px}
+.profile-menu a .ic{font-size:18px;width:22px;text-align:center}
+.profile-menu a .badge{margin-left:auto;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--coral);color:#fff}
+
+/* CONTENU */
+.profile-main{min-width:0}
+.section{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;margin-bottom:20px;box-shadow:var(--sh)}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.section-head h2{font-size:20px;display:flex;align-items:center;gap:10px}
+.section-head h2 .ic{font-size:22px}
+.section-head .sub{font-size:13px;color:var(--grey)}
+
+/* FORMULAIRES */
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-label .hint{font-weight:400;color:var(--grey);text-transform:none;letter-spacing:0;font-size:12px;margin-left:6px}
+.form-input,.form-select{width:100%;padding:12px 16px;border:2px solid var(--line);border-radius:var(--r);font-size:14.5px;font-family:inherit;background:#fff;color:var(--ink);transition:var(--tr)}
+.form-input:focus,.form-select:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(108,92,231,.15)}
+.form-input:disabled{background:var(--surface);color:var(--grey)}
+.form-row{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}}
+
+.form-error{font-size:12.5px;color:var(--coral);margin-top:4px;display:none}
+.form-error.show{display:block}
+
+/* ALERTS */
+.alert{padding:14px 18px;border-radius:var(--r);margin-bottom:18px;font-size:13.5px;display:flex;align-items:center;gap:10px}
+.alert-success{background:rgba(6,195,154,.1);border:2px solid var(--teal);color:var(--teal)}
+.alert-error{background:rgba(255,93,115,.1);border:2px solid var(--coral);color:var(--coral)}
+.alert-info{background:rgba(108,92,231,.08);border:2px solid var(--violet);color:var(--violet)}
+
+/* HISTORIQUE ACHATS */
+.purchases{display:flex;flex-direction:column;gap:10px}
+.purchase{display:flex;gap:14px;padding:14px;border:2px solid var(--line);border-radius:var(--r);background:#fff;transition:var(--tr);align-items:center}
+.purchase:hover{border-color:var(--violet)}
+.purchase .ic{width:44px;height:44px;border-radius:12px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.purchase .ic.doc{background:var(--gold);color:var(--ink)}
+.purchase-info{flex:1;min-width:0}
+.purchase-info .ttl{font-size:14.5px;font-weight:700;margin-bottom:2px}
+.purchase-info .mt{font-size:12.5px;color:var(--grey);display:flex;gap:12px;flex-wrap:wrap}
+.purchase .price{font-weight:800;color:var(--ink)}
+
+/* CODES PROMO */
+.promo-input{display:flex;gap:8px;align-items:stretch;margin-bottom:14px}
+.promo-input input{flex:1;text-transform:uppercase;font-weight:800;letter-spacing:1px}
+.promo-result{padding:14px;border-radius:var(--r);font-size:13.5px}
+.promo-result.success{background:rgba(6,195,154,.1);color:var(--teal);border:2px solid var(--teal)}
+.promo-result.error{background:rgba(255,93,115,.1);color:var(--coral);border:2px solid var(--coral)}
+
+/* TOGGLES */
+.toggle-list{display:flex;flex-direction:column;gap:12px}
+.toggle-item{display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--surface);border-radius:var(--r)}
+.toggle-item .info{flex:1;margin-right:14px}
+.toggle-item .ttl{font-size:14px;font-weight:700;margin-bottom:2px}
+.toggle-item .desc{font-size:12.5px;color:var(--grey)}
+.toggle{position:relative;width:48px;height:26px;background:var(--line);border-radius:99px;cursor:pointer;transition:var(--tr);flex-shrink:0}
+.toggle.on{background:var(--grad)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:var(--tr);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.toggle.on::after{left:25px}
+
+/* DANGER ZONE */
+.danger-zone{background:#fff;border:2px solid var(--coral);border-radius:var(--r-lg);padding:24px;margin-top:20px}
+.danger-zone h3{color:var(--coral);font-size:18px;margin-bottom:8px}
+.danger-zone p{font-size:13.5px;color:var(--grey);margin-bottom:16px}
+
+/* ÉTAT NON CONNECTÉ */
+.lock-screen{text-align:center;padding:80px 20px;max-width:560px;margin:0 auto}
+.lock-screen .lock{font-size:80px;margin-bottom:20px;display:block}
+.lock-screen h1{font-size:clamp(28px,5vw,40px);margin-bottom:12px}
+.lock-screen p{color:var(--grey);font-size:15px;margin-bottom:26px}
+
+/* FOOTER */
+footer{background:var(--ink-3);color:#AEB6C8;margin-top:60px}
+.foot-in{max-width:1180px;margin:0 auto;padding:50px 20px 30px;display:grid;gap:34px;grid-template-columns:1.4fr 1fr 1fr 1fr}
+.foot-in .logo .word{color:#fff}
+.foot-in p{font-size:13.5px;line-height:1.7}
+.foot-in h4{color:#fff;font-size:15px;margin-bottom:14px}
+.foot-in a{display:block;font-size:13.5px;padding:4px 0;transition:var(--tr)}
+.foot-in a:hover{color:var(--gold);transform:translateX(3px)}
+.foot-pay{margin-top:14px;font-size:13px;color:var(--gold);font-weight:700}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 20px;text-align:center;font-size:12.5px;color:#7A8294}
+
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 26px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:var(--tr);z-index:300;border:2px solid var(--gold)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(11,18,51,.6);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-in{background:#fff;border-radius:var(--r-xl);max-width:480px;width:100%;padding:28px;box-shadow:var(--sh-xl)}
+.modal h3{font-size:20px;margin-bottom:10px}
+.modal p{font-size:14px;color:var(--grey);margin-bottom:20px}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+@media(max-width:1024px){
+  .profile-layout{grid-template-columns:1fr}
+  .profile-side{position:static}
+  .nav-links{display:none}
+  .burger{display:flex}
+}
+@media(max-width:640px){
+  .foot-in{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="logo-mk" viewBox="0 0 64 64">
+    <defs><linearGradient id="gLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6C5CE7"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient></defs>
+    <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#gLogo)"/>
+    <path d="M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#fff"/>
+    <path d="M32 26v20" stroke="#6C5CE7" stroke-width="3"/>
+    <path d="M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z" fill="#FFB703"/>
+  </symbol>
+</svg>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html"><svg><use href="#logo-mk"/></svg><span class="word">Mu<b>kanda</b></span></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="catalogue.html?cat=pro">Modèles Pro</a>
+      <a href="dashboard.html">Mes cours</a>
+    </nav>
+    <span class="nav-sp"></span>
+    <div class="nav-auth" id="navAuth">
+      <a class="btn btn-ghost btn-sm" href="auth.html">Se connecter</a>
+      <a class="btn btn-grad btn-sm" href="auth.html">✨ Créer un compte</a>
+    </div>
+    <div class="nav-user" id="navUser">
+      <a class="btn btn-grad btn-sm" href="dashboard.html">🎒 Mes cours</a>
+      <span class="avatar" id="navAvatar">M</span>
+    </div>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="mainContent">
+  <!-- Contenu injecté par JS -->
+</main>
+
+<!-- MODAL SUPPRESSION -->
+<div class="modal" id="modalDelete">
+  <div class="modal-in">
+    <h3>⚠️ Supprimer ton compte</h3>
+    <p>Cette action est <b>irréversible</b>. Tous tes cours, ta progression et tes données seront supprimés. Es-tu sûr(e) ?</p>
+    <div class="form-group">
+      <label class="form-label">Tape "SUPPRIMER" pour confirmer</label>
+      <input type="text" class="form-input" id="confirmDelete" placeholder="SUPPRIMER" autocomplete="off">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('modalDelete').classList.remove('show')">Annuler</button>
+      <button class="btn btn-coral" id="btnConfirmDelete">Supprimer définitivement</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <span class="logo"><svg><use href="#logo-mk"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span>
+      <p>La grande plateforme de lecture et d'apprentissage du Congo-Brazzaville.</p>
+      <div class="foot-pay">💳 MTN MoMo · Airtel Money · Paiement en 15 s</div>
+    </div>
+    <div><h4>Explorer</h4><a href="catalogue.html">Catalogue complet</a><a href="catalogue.html?cat=pro">Modèles pro</a><a href="catalogue.html?n=cepe">Cours CEPE</a><a href="catalogue.html?n=bepc">Cours BEPC</a><a href="catalogue.html?n=bac">Cours BAC</a></div>
+    <div><h4>Mon espace</h4><a href="auth.html">Se connecter</a><a href="auth.html">Créer un compte</a><a href="dashboard.html">Mes cours</a><a href="recuperer.html">Récupérer un achat</a></div>
+    <div><h4>Aide & légal</h4><a href="faq.html">FAQ</a><a href="legal.html#cgu">CGU</a><a href="legal.html#confidentialite">Confidentialité</a><a href="legal.html#cookies">Cookies</a><a href="https://wa.me/242065186967" target="_blank">WhatsApp</a></div>
+  </div>
+  <div class="foot-bottom">© 2026 Mukanda · Brazzaville, Congo · Un projet de l'équipe Meurphy</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb=window.supabase?supabase.createClient(SB_URL,SB_KEY):null;
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fcfa=n=>new Intl.NumberFormat('fr-FR').format(n||0)+' FCFA';
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2800);}
+
+const NIVEAUX={cepe:{nom:'CEPE',icon:'🎓'},bepc:{nom:'BEPC',icon:'📘'},bac:{nom:'BAC',icon:'🏆'},concours:{nom:'Concours',icon:'💼'},universite:{nom:'Université',icon:'🎓'},pro:{nom:'Professionnel',icon:'💼'},autre:{nom:'Autre',icon:'👤'}};
+
+let USER=null;
+let PROFILE=null;
+let SECTION='infos';/* infos, achats, promo, parametres, securite */
+
+/* ---- Menu mobile ---- */
+$('#burger').addEventListener('click',()=>{
+  const m=document.createElement('div');
+  m.style.cssText='position:fixed;inset:0;z-index:200;background:var(--ink-3);color:#fff;padding:22px;display:flex;flex-direction:column;overflow-y:auto';
+  m.innerHTML=`
+    <div style="display:flex;justify-content:space-between;margin-bottom:26px">
+      <span class="logo"><svg><use href="#logo-mk"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span>
+      <button style="font-size:24px;color:#fff;padding:6px 12px;background:none;border:none" onclick="this.closest('div').parentElement.remove()">✕</button>
+    </div>
+    <a href="index.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">🏠 Accueil</a>
+    <a href="catalogue.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">📚 Catalogue</a>
+    <a href="dashboard.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">🎒 Mes cours</a>
+    <a href="a-propos.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">👋 À propos</a>
+    <a href="contact.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">💬 Contact</a>`;
+  document.body.appendChild(m);
+});
+
+/* ---- Init ---- */
+async function init(){
+  if(!sb){renderLockScreen();return;}
+  const{data}=await sb.auth.getSession();
+  USER=data?.session?.user||null;
+  
+  if(USER){
+    const m=USER.user_metadata||{};
+    $('#navAuth').style.display='none';
+    $('#navUser').style.display='flex';
+    $('#navAvatar').textContent=(m.nom||USER.email||'M').trim().charAt(0).toUpperCase();
+    await chargerProfil();
+    renderProfil();
+  }else{
+    renderLockScreen();
+  }
+}
+
+async function chargerProfil(){
+  try{
+    const{data}=await sb.from('profils').select('*').eq('id',USER.id).maybeSingle();
+    PROFILE=data;
+  }catch(e){console.error(e);}
+}
+
+function renderLockScreen(){
+  $('#mainContent').innerHTML=`
+    <div class="lock-screen">
+      <span class="lock">🔐</span>
+      <h1>Connecte-toi</h1>
+      <p>Tu dois être connecté pour accéder à ton profil.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-grad btn-lg" href="auth.html?next=${encodeURIComponent(location.pathname)}">🔐 Se connecter</a>
+        <a class="btn btn-gold btn-lg" href="auth.html?next=${encodeURIComponent(location.pathname)}">✨ Créer un compte</a>
+      </div>
+    </div>`;
+}
+
+function renderProfil(){
+  if(!USER||!PROFILE)return;
+  const m=USER.user_metadata||{};
+  const prenom=(m.nom||'élève').split(' ')[0];
+  const niv=m.niveau_scolaire||'autre';
+  const nivInfo=NIVEAUX[niv]||NIVEAUX.autre;
+  const init=(m.nom||USER.email||'M').trim().charAt(0).toUpperCase();
+  
+  $('#mainContent').innerHTML=`
+    <div class="profile-layout">
+      <aside class="profile-side">
+        <div class="profile-card">
+          <div class="profile-avatar">${init}</div>
+          <h3>${esc(m.nom||'Élève Mukanda')}</h3>
+          <div class="email">${esc(USER.email)}</div>
+          <span class="level">${nivInfo.icon} ${nivInfo.nom}</span>
+        </div>
+        <nav class="profile-menu">
+          <a class="${SECTION==='infos'?'on':''}" data-sec="infos"><span class="ic">👤</span>Informations personnelles</a>
+          <a class="${SECTION==='achats'?'on':''}" data-sec="achats"><span class="ic">🧾</span>Historique d'achats</a>
+          <a class="${SECTION==='promo'?'on':''}" data-sec="promo"><span class="ic">🎟️</span>Codes promo</a>
+          <a class="${SECTION==='parametres'?'on':''}" data-sec="parametres"><span class="ic">⚙️</span>Paramètres</a>
+          <a class="${SECTION==='securite'?'on':''}" data-sec="securite"><span class="ic">🔒</span>Sécurité</a>
+          <a onclick="seDeconnecter()" style="color:var(--coral)"><span class="ic">🚪</span>Déconnexion</a>
+        </nav>
+      </aside>
+      
+      <main class="profile-main">
+        <div id="sectionContent"></div>
+      </main>
+    </div>`;
+  
+  $$('.profile-menu a').forEach(a=>{
+    if(a.dataset.sec){
+      a.addEventListener('click',()=>{
+        SECTION=a.dataset.sec;
+        renderProfil();
+      });
+    }
+  });
+  
+  renderSection();
+}
+
+function renderSection(){
+  const container=$('#sectionContent');
+  if(SECTION==='infos')renderInfos(container);
+  else if(SECTION==='achats')renderAchats(container);
+  else if(SECTION==='promo')renderPromo(container);
+  else if(SECTION==='parametres')renderParametres(container);
+  else if(SECTION==='securite')renderSecurite(container);
+}
+
+function renderInfos(container){
+  const m=USER.user_metadata||{};
+  container.innerHTML=`
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">👤</span>Informations personnelles</h2>
+          <div class="sub">Modifie tes informations de profil</div>
+        </div>
+      </div>
+      <div id="alertZone"></div>
+      <form id="formInfos">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nom complet</label>
+            <input type="text" class="form-input" id="inpNom" value="${esc(m.nom||'')}" required>
+            <div class="form-error" id="errNom"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone<span class="hint">(pour récupérer tes achats)</span></label>
+            <input type="tel" class="form-input" id="inpTel" value="${esc(m.telephone||'')}" placeholder="065186967">
+            <div class="form-error" id="errTel"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" value="${esc(USER.email)}" disabled>
+          <div class="form-error" style="color:var(--grey);display:block;margin-top:4px">L'email ne peut pas être modifié pour des raisons de sécurité.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Niveau scolaire</label>
+          <select class="form-select" id="inpNiveau">
+            ${Object.entries(NIVEAUX).map(([id,n])=>`<option value="${id}" ${(m.niveau_scolaire||'autre')===id?'selected':''}>${n.icon} ${n.nom}</option>`).join('')}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-grad btn-lg">💾 Enregistrer les modifications</button>
+      </form>
+    </div>
+    
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">📊</span>Statistiques</h2>
+          <div class="sub">Ton activité sur Mukanda</div>
+        </div>
+      </div>
+      <div id="statsZone" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--violet)">0</div><div style="font-size:12.5px;color:var(--grey)">Cours achetés</div></div>
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--teal)">0</div><div style="font-size:12.5px;color:var(--grey)">Leçons terminées</div></div>
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--gold)">0h</div><div style="font-size:12.5px;color:var(--grey)">Temps d'étude</div></div>
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--coral)">Membre depuis</div><div style="font-size:12.5px;color:var(--grey)">${new Date(USER.created_at).toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}</div></div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">📥</span>Mes données</h2>
+          <div class="sub">Télécharge ou supprime tes données personnelles (RGPD)</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-grad" onclick="telechargerDonnees()">📥 Télécharger mes données</button>
+      </div>
+    </div>
+    
+    <div class="danger-zone">
+      <h3>⚠️ Zone dangereuse</h3>
+      <p>La suppression de ton compte est irréversible. Tous tes cours, ta progression et tes données seront perdus.</p>
+      <button class="btn btn-coral" onclick="document.getElementById('modalDelete').classList.add('show')">🗑️ Supprimer mon compte</button>
+    </div>`;
+  
+  /* Charger stats */
+  chargerStats();
+  
+  /* Soumission du formulaire */
+  $('#formInfos').addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    await sauvegarderInfos();
+  });
+}
+
+async function chargerStats(){
+  if(!sb||!USER)return;
+  try{
+    const[ra,rp]=await Promise.all([
+      sb.from('achats').select('*').eq('user_id',USER.id).eq('statut','paye'),
+      sb.from('progresses').select('*').eq('user_id',USER.id)
+    ]);
+    const achats=ra.data||[];
+    const progres=rp.data||[];
+    const leconsTerm=progres.filter(p=>p.terminee).length;
+    const tempsTotal=progres.reduce((s,p)=>s+(p.temps_passe_secondes||0),0);
+    const heures=Math.floor(tempsTotal/3600);
+    
+    const stats=$('#statsZone');
+    if(stats){
+      stats.innerHTML=`
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--violet)">${achats.length}</div><div style="font-size:12.5px;color:var(--grey)">Cours achetés</div></div>
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--teal)">${leconsTerm}</div><div style="font-size:12.5px;color:var(--grey)">Leçons terminées</div></div>
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:24px;font-weight:800;color:var(--gold)">${heures}h</div><div style="font-size:12.5px;color:var(--grey)">Temps d'étude</div></div>
+        <div style="padding:16px;background:var(--surface);border-radius:var(--r)"><div style="font-size:16px;font-weight:800;color:var(--ink)">Membre depuis</div><div style="font-size:12.5px;color:var(--grey)">${new Date(USER.created_at).toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}</div></div>`;
+    }
+  }catch(e){console.error(e);}
+}
+
+async function sauvegarderInfos(){
+  const nom=$('#inpNom').value.trim();
+  const tel=$('#inpTel').value.trim();
+  const niv=$('#inpNiveau').value;
+  const alertZone=$('#alertZone');
+  
+  /* Validation */
+  let ok=true;
+  if(!nom){$('#errNom').textContent='Le nom est obligatoire';$('#errNom').classList.add('show');ok=false;}
+  else{$('#errNom').classList.remove('show');}
+  if(tel&&!/^0[56]\d{7}$/.test(tel)){$('#errTel').textContent='Numéro invalide (ex: 065186967)';$('#errTel').classList.add('show');ok=false;}
+  else{$('#errTel').classList.remove('show');}
+  if(!ok)return;
+  
+  try{
+    const{error}=await sb.auth.updateUser({data:{nom,tel,telephone:tel,niveau_scolaire:niv}});
+    if(error)throw error;
+    await sb.from('profils').update({nom,telephone:tel,niveau_scolaire:niv}).eq('id',USER.id);
+    alertZone.innerHTML='<div class="alert alert-success">✅ Modifications enregistrées avec succès !</div>';
+    toast('✅ Profil mis à jour');
+    await chargerProfil();
+    renderProfil();
+  }catch(e){
+    alertZone.innerHTML=`<div class="alert alert-error">❌ Erreur : ${esc(e.message)}</div>`;
+  }
+}
+
+async function renderAchats(container){
+  container.innerHTML=`
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">🧾</span>Historique d'achats</h2>
+          <div class="sub">Tous tes paiements et téléchargements</div>
+        </div>
+      </div>
+      <div id="achatsZone">
+        <div style="text-align:center;padding:30px;color:var(--grey)">Chargement...</div>
+      </div>
+    </div>`;
+  
+  if(!sb||!USER)return;
+  try{
+    const{data:achats}=await sb.from('achats').select('*').eq('user_id',USER.id).eq('statut','paye').order('created_at',{ascending:false});
+    const list=achats||[];
+    const zone=$('#achatsZone');
+    
+    if(!list.length){
+      zone.innerHTML=`<div style="text-align:center;padding:40px;color:var(--grey)">
+        <div style="font-size:48px;margin-bottom:10px">🛍️</div>
+        <h3 style="font-size:16px;margin-bottom:6px">Aucun achat pour l'instant</h3>
+        <p style="font-size:13.5px">Explore le catalogue pour trouver des cours qui t'intéressent.</p>
+        <a class="btn btn-grad" href="catalogue.html" style="margin-top:14px">📚 Explorer le catalogue</a>
+      </div>`;
+      return;
+    }
+    
+    zone.innerHTML=`<div class="purchases">${list.map(a=>{
+      const date=new Date(a.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+      const heure=new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+      const isCours=a.produit_type==='cours';
+      return `<div class="purchase">
+        <div class="ic ${isCours?'':'doc'}">${isCours?'📘':'📄'}</div>
+        <div class="purchase-info">
+          <div class="ttl">${isCours?'Cours':'Document'} #${a.produit_id.slice(0,8)}</div>
+          <div class="mt"><span>📅 ${date} à ${heure}</span><span>📱 ${esc(a.telephone||'—')}</span><span>💳 ${a.ref_openpay?'OpenPay':'—'}</span></div>
+        </div>
+        <div class="price">${fcfa(a.montant)}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }catch(e){
+    $('#achatsZone').innerHTML=`<div class="alert alert-error">❌ Erreur : ${esc(e.message)}</div>`;
+  }
+}
+
+function renderPromo(container){
+  container.innerHTML=`
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">🎟️</span>Codes promo</h2>
+          <div class="sub">Applique un code de réduction</div>
+        </div>
+      </div>
+      <div class="promo-input">
+        <input type="text" class="form-input" id="inpPromo" placeholder="Entre ton code promo" style="text-transform:uppercase;letter-spacing:1px;font-weight:800">
+        <button class="btn btn-grad" id="btnAppliquer">Appliquer</button>
+      </div>
+      <div id="promoResult"></div>
+      
+      <div style="margin-top:24px;padding:18px;background:var(--surface);border-radius:var(--r)">
+        <h3 style="font-size:15px;margin-bottom:8px">💡 Comment obtenir un code promo ?</h3>
+        <ul style="font-size:13.5px;color:var(--grey);padding-left:20px;line-height:1.8">
+          <li>Sois chef de classe ou délégué et contacte-nous sur WhatsApp</li>
+          <li>Participe à nos événements et jeux concours</li>
+          <li>Parraine un ami et recevez tous les deux une réduction</li>
+        </ul>
+      </div>
+    </div>`;
+  
+  $('#btnAppliquer').addEventListener('click',async()=>{
+    const code=$('#inpPromo').value.trim().toUpperCase();
+    const result=$('#promoResult');
+    
+    if(!code){result.innerHTML='<div class="promo-result error">❌ Entre un code promo</div>';return;}
+    if(!sb){result.innerHTML='<div class="promo-result error">❌ Erreur de connexion</div>';return;}
+    
+    try{
+      const{data,error}=await sb.from('codes').select('*').eq('code',code).eq('actif',true).maybeSingle();
+      if(error||!data){
+        result.innerHTML='<div class="promo-result error">❌ Code invalide ou expiré</div>';
+        return;
+      }
+      result.innerHTML=`<div class="promo-result success">
+        ✅ Code <b>${esc(code)}</b> valide !<br>
+        Réduction : <b>${data.reduction_pct}%</b> sur ton prochain achat.<br>
+        ${data.commission_pct?`Commission apporteur : ${data.commission_pct}%`:''}
+      </div>`;
+      toast(`🎉 Code ${code} appliqué !`);
+    }catch(e){
+      result.innerHTML=`<div class="promo-result error">❌ Erreur : ${esc(e.message)}</div>`;
+    }
+  });
+}
+
+function renderParametres(container){
+  container.innerHTML=`
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">⚙️</span>Paramètres</h2>
+          <div class="sub">Personnalise ton expérience Mukanda</div>
+        </div>
+      </div>
+      <div class="toggle-list">
+        <div class="toggle-item">
+          <div class="info"><div class="ttl">📧 Notifications par email</div><div class="desc">Reçois les nouveautés et promos par email</div></div>
+          <div class="toggle on" data-key="notif_email"></div>
+        </div>
+        <div class="toggle-item">
+          <div class="info"><div class="ttl">📱 Notifications WhatsApp</div><div class="desc">Reçois des rappels d'étude sur WhatsApp</div></div>
+          <div class="toggle" data-key="notif_whatsapp"></div>
+        </div>
+        <div class="toggle-item">
+          <div class="info"><div class="ttl">🌙 Mode sombre</div><div class="desc">Interface sombre pour étudier le soir (bientôt)</div></div>
+          <div class="toggle" data-key="dark_mode" onclick="toast('🌙 Bientôt disponible !')"></div>
+        </div>
+        <div class="toggle-item">
+          <div class="info"><div class="ttl">🔔 Rappels d'étude quotidiens</div><div class="desc">Reçois une notification chaque jour pour étudier</div></div>
+          <div class="toggle on" data-key="daily_reminder"></div>
+        </div>
+        <div class="toggle-item">
+          <div class="info"><div class="ttl">📊 Partager ma progression</div><div class="desc">Afficher mes badges sur mon profil public</div></div>
+          <div class="toggle" data-key="share_progress"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">🌍</span>Langue et région</h2>
+          <div class="sub">Choisis ta langue et ton fuseau horaire</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Langue</label>
+          <select class="form-select">
+            <option selected>🇫🇷 Français</option>
+            <option disabled>🇬🇧 English (bientôt)</option>
+            <option disabled>🇨🇩 Lingala (bientôt)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fuseau horaire</label>
+          <select class="form-select">
+            <option selected>🌍 Africa/Brazzaville (UTC+1)</option>
+          </select>
+        </div>
+      </div>
+    </div>`;
+  
+  /* Toggles */
+  $$('.toggle').forEach(t=>{
+    t.addEventListener('click',()=>{
+      if(t.onclick)return;/* déjà géré */
+      t.classList.toggle('on');
+      const key=t.dataset.key;
+      const val=t.classList.contains('on');
+      localStorage.setItem('mk_'+key,val);
+      toast('✅ Préférence enregistrée');
+    });
+    const key=t.dataset.key;
+    if(key){
+      const saved=localStorage.getItem('mk_'+key);
+      if(saved!==null)t.classList.toggle('on',saved==='true');
+    }
+  });
+}
+
+function renderSecurite(container){
+  container.innerHTML=`
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">🔒</span>Changer mon mot de passe</h2>
+          <div class="sub">Modifie ton mot de passe de connexion</div>
+        </div>
+      </div>
+      <div id="alertPwd"></div>
+      <form id="formPwd">
+        <div class="form-group">
+          <label class="form-label">Mot de passe actuel</label>
+          <input type="password" class="form-input" id="pwdActuel" required autocomplete="current-password">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nouveau mot de passe<span class="hint">minimum 8 caractères</span></label>
+          <input type="password" class="form-input" id="pwdNouveau" required minlength="8" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmer le nouveau mot de passe</label>
+          <input type="password" class="form-input" id="pwdConfirm" required autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-grad btn-lg">🔐 Changer le mot de passe</button>
+      </form>
+    </div>
+    
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2><span class="ic">📱</span>Sessions actives</h2>
+          <div class="sub">Appareils actuellement connectés à ton compte</div>
+        </div>
+      </div>
+      <div style="padding:16px;background:var(--surface);border-radius:var(--r);display:flex;align-items:center;gap:14px">
+        <div style="font-size:28px">💻</div>
+        <div style="flex:1">
+          <div style="font-weight:800;font-size:14px">Session actuelle</div>
+          <div style="font-size:12.5px;color:var(--grey)">${navigator.userAgent.slice(0,50)}...</div>
+        </div>
+        <span style="padding:4px 10px;background:var(--teal);color:#fff;border-radius:99px;font-size:11px;font-weight:800">Actif maintenant</span>
+      </div>
+    </div>`;
+  
+  $('#formPwd').addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const actuel=$('#pwdActuel').value;
+    const nouveau=$('#pwdNouveau').value;
+    const confirm=$('#pwdConfirm').value;
+    const alert=$('#alertPwd');
+    
+    if(nouveau!==confirm){alert.innerHTML='<div class="alert alert-error">❌ Les mots de passe ne correspondent pas</div>';return;}
+    if(nouveau.length<8){alert.innerHTML='<div class="alert alert-error">❌ Minimum 8 caractères</div>';return;}
+    
+    try{
+      /* Supabase ne supporte pas le changement de mdp avec l'ancien mdp directement,
+         on envoie un email de réinitialisation */
+      const{error}=await sb.auth.resetPasswordForEmail(USER.email,{redirectTo:location.origin+'/reset-password.html'});
+      if(error)throw error;
+      alert.innerHTML='<div class="alert alert-success">✅ Un email de réinitialisation t\'a été envoyé. Vérifie ta boîte de réception.</div>';
+      toast('📧 Email envoyé');
+    }catch(e){
+      alert.innerHTML=`<div class="alert alert-error">❌ ${esc(e.message)}</div>`;
+    }
+  });
+}
+
+async function telechargerDonnees(){
+  if(!sb||!USER)return;
+  try{
+    const[profil,achats,progres]=await Promise.all([
+      sb.from('profils').select('*').eq('id',USER.id).maybeSingle(),
+      sb.from('achats').select('*').eq('user_id',USER.id),
+      sb.from('progresses').select('*').eq('user_id',USER.id)
+    ]);
+    const data={
+      exporte_le:new Date().toISOString(),
+      profil:profil.data,
+      achats:achats.data||[],
+      progres:progres.data||[]
+    };
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='mes-donnees-mukanda.json';a.click();
+    URL.revokeObjectURL(url);
+    toast('📥 Données téléchargées');
+  }catch(e){
+    toast('❌ Erreur de téléchargement');
+  }
+}
+
+async function seDeconnecter(){
+  if(!sb)return;
+  await sb.auth.signOut();
+  toast('👋 Déconnecté avec succès');
+  setTimeout(()=>location.href='index.html',800);
+}
+
+$('#btnConfirmDelete').addEventListener('click',async()=>{
+  const conf=$('#confirmDelete').value.trim();
+  if(conf!=='SUPPRIMER'){toast('❌ Tape SUPPRIMER pour confirmer');return;}
+  if(!sb||!USER)return;
+  try{
+    /* Note : la suppression réelle d'un utilisateur Supabase nécessite une Edge Function
+       ou un appel admin. Ici on supprime juste le profil et on déconnecte. */
+    await sb.from('profils').delete().eq('id',USER.id);
+    await sb.auth.signOut();
+    toast('🗑️ Compte supprimé');
+    setTimeout(()=>location.href='index.html',800);
+  }catch(e){
+    toast('❌ Erreur : '+e.message);
+  }
+});
+
+window.seDeconnecter=seDeconnecter;
+window.telechargerDonnees=telechargerDonnees;
+
+init();
+console.log('✅ Page profil Mukanda chargée');
+</script>
+<script src="header.js"></script>
+</body>
+</html>

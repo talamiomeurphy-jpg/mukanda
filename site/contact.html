@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · Mukanda — Écris-nous</title>
+<meta name="description" content="Contacte l'équipe Mukanda. Questions, suggestions, partenariats : nous te répondons sous 24h.">
+<link rel="canonical" href="https://mukanda.onrender.com/contact.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%236C5CE7'/%3E%3Cpath d='M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z' fill='white'/%3E%3Cpath d='M32 26v20' stroke='%236C5CE7' stroke-width='3'/%3E%3Cpath d='M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z' fill='%23FFB703'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="header.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101A3E;--ink-2:#1D2B5C;--ink-3:#0B1233;
+  --violet:#6C5CE7;--blue:#2F6BFF;--gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;
+  --paper:#FAF7F0;--card:#FFFFFF;--surface:#F1F3FA;
+  --grey:#5A6478;--grey-2:#98A2B8;--line:#E6EAF6;
+  --grad:linear-gradient(135deg,var(--violet),var(--blue));
+  --grad-hero:linear-gradient(150deg,#141B4D 0%,#3A2E8C 48%,#2F6BFF 100%);
+  --r:14px;--r-lg:18px;--r-xl:24px;
+  --sh:0 4px 14px rgba(16,26,62,.06);--sh-lg:0 12px 28px rgba(16,26,62,.12);--sh-xl:0 20px 50px rgba(16,26,62,.18);
+  --tr:all .25s cubic-bezier(.4,0,.2,1);--nav-h:68px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+h1,h2,h3,h4{font-family:'Baloo 2',cursive;line-height:1.2}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo svg{width:38px;height:38px}
+.logo .word{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--ink)}
+.logo .word b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;font-weight:800;font-size:14px;padding:11px 20px;border:2px solid transparent;transition:var(--tr);white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 4px 0 var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(108,92,231,.3)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-sm{padding:8px 14px;font-size:13px}
+.btn-lg{padding:15px 28px;font-size:16px}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1180px;margin:0 auto;height:100%;padding:0 20px;display:flex;align-items:center;gap:18px}
+.nav-links{display:flex;gap:2px;margin-left:4px}
+.nav-links a{padding:9px 14px;border-radius:10px;font-weight:700;font-size:14px;color:var(--grey);transition:var(--tr)}
+.nav-links a:hover{color:var(--ink);background:var(--surface)}
+.nav-links a.on{color:#fff;background:var(--grad)}
+.nav-sp{flex:1}
+.nav-auth{display:flex;align-items:center;gap:8px}
+.nav-user{display:none;align-items:center;gap:10px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.burger{display:none;flex-direction:column;gap:4px;padding:8px}
+.burger span{width:22px;height:3px;background:var(--ink);border-radius:2px}
+
+/* HERO */
+.contact-hero{padding:calc(var(--nav-h) + 60px) 0 60px;background:var(--grad-hero);color:#fff;position:relative;overflow:hidden;text-align:center}
+.contact-hero::before{content:'';position:absolute;top:-20%;right:-12%;width:56%;height:140%;background:radial-gradient(circle,rgba(255,183,3,.16) 0%,transparent 65%);pointer-events:none}
+.contact-hero-in{position:relative;z-index:1;max-width:760px;margin:0 auto}
+.bread{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#B9C4E6;margin-bottom:16px}
+.bread a{color:#B9C4E6}
+.contact-hero h1{color:#fff;font-size:clamp(30px,5.5vw,48px);margin-bottom:14px}
+.contact-hero h1 .hl{background:var(--gold);color:var(--ink);padding:2px 18px;border-radius:14px;display:inline-block;transform:rotate(-1.5deg)}
+.contact-hero p{color:#D5DCF0;font-size:clamp(15px,2.3vw,17.5px);max-width:580px;margin:0 auto}
+
+/* LAYOUT */
+.contact-layout{max-width:1180px;margin:-40px auto 0;padding:0 20px 60px;display:grid;grid-template-columns:1.2fr .8fr;gap:26px;position:relative;z-index:2}
+
+/* FORMULAIRE */
+.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:32px;box-shadow:var(--sh-xl)}
+.form-card h2{font-size:22px;margin-bottom:6px}
+.form-card .sub{font-size:14px;color:var(--grey);margin-bottom:24px}
+
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-label .req{color:var(--coral)}
+.form-label .hint{font-weight:400;color:var(--grey);text-transform:none;letter-spacing:0;font-size:12px;margin-left:6px}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 16px;border:2px solid var(--line);border-radius:var(--r);font-size:14.5px;font-family:inherit;background:#fff;color:var(--ink);transition:var(--tr)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(108,92,231,.15)}
+.form-textarea{resize:vertical;min-height:140px;line-height:1.6}
+.form-row{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.form-error{font-size:12.5px;color:var(--coral);margin-top:4px;display:none}
+.form-error.show{display:block}
+.char-count{font-size:11.5px;color:var(--grey);margin-top:4px;text-align:right}
+
+.alert{padding:14px 18px;border-radius:var(--r);margin-bottom:18px;font-size:13.5px;display:flex;align-items:center;gap:10px}
+.alert-success{background:rgba(6,195,154,.1);border:2px solid var(--teal);color:var(--teal)}
+.alert-error{background:rgba(255,93,115,.1);border:2px solid var(--coral);color:var(--coral)}
+.alert-info{background:rgba(108,92,231,.08);border:2px solid var(--violet);color:var(--violet)}
+
+/* CONTACTS */
+.contact-side{display:flex;flex-direction:column;gap:16px}
+.contact-box{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh)}
+.contact-box h3{font-size:16px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.contact-box .item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.contact-box .item:last-child{border-bottom:none;padding-bottom:0}
+.contact-box .item .ic{width:38px;height:38px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.contact-box .item .lbl{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;font-weight:800}
+.contact-box .item .val{font-size:14px;font-weight:700;margin-top:2px}
+.contact-box .item a{color:var(--violet)}
+.contact-box .item a:hover{text-decoration:underline}
+
+.faq-mini{background:linear-gradient(135deg,var(--gold),#FFE9B8);border:2px solid var(--gold);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh)}
+.faq-mini h3{font-size:16px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.faq-item{padding:12px 0;border-bottom:1px dashed rgba(16,26,62,.2);cursor:pointer}
+.faq-item:last-child{border-bottom:none;padding-bottom:0}
+.faq-q{font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.faq-q .arr{transition:var(--tr);font-size:11px}
+.faq-item.open .arr{transform:rotate(180deg)}
+.faq-a{font-size:12.5px;color:rgba(16,26,62,.8);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .3s}
+.faq-item.open .faq-a{max-height:200px;padding-top:8px}
+
+/* SUCCÈS */
+.success-screen{text-align:center;padding:40px 20px;background:#fff;border:2px solid var(--teal);border-radius:var(--r-lg);box-shadow:var(--sh-xl);animation:fadeIn .5s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.success-screen .big{font-size:68px;display:block;margin-bottom:14px}
+.success-screen h2{font-size:24px;margin-bottom:8px;color:var(--teal)}
+.success-screen p{font-size:14.5px;color:var(--grey);max-width:440px;margin:0 auto 16px;line-height:1.6}
+.success-screen .ref{display:inline-block;padding:8px 14px;background:var(--surface);border-radius:99px;font-size:12px;font-weight:800;color:var(--ink);margin-bottom:20px;font-family:monospace}
+
+footer{background:var(--ink-3);color:#AEB6C8}
+.foot-in{max-width:1180px;margin:0 auto;padding:50px 20px 30px;display:grid;gap:34px;grid-template-columns:1.4fr 1fr 1fr 1fr}
+.foot-in .logo .word{color:#fff}
+.foot-in p{font-size:13.5px;line-height:1.7}
+.foot-in h4{color:#fff;font-size:15px;margin-bottom:14px}
+.foot-in a{display:block;font-size:13.5px;padding:4px 0;transition:var(--tr)}
+.foot-in a:hover{color:var(--gold);transform:translateX(3px)}
+.foot-pay{margin-top:14px;font-size:13px;color:var(--gold);font-weight:700}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 20px;text-align:center;font-size:12.5px;color:#7A8294}
+
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 26px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:var(--tr);z-index:300;border:2px solid var(--gold)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:900px){
+  .contact-layout{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .burger{display:flex}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .foot-in{grid-template-columns:1fr 1fr}
+  .form-card{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="logo-mk" viewBox="0 0 64 64">
+    <defs><linearGradient id="gLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6C5CE7"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient></defs>
+    <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#gLogo)"/>
+    <path d="M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#fff"/>
+    <path d="M32 26v20" stroke="#6C5CE7" stroke-width="3"/>
+    <path d="M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z" fill="#FFB703"/>
+  </symbol>
+</svg>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html"><svg><use href="#logo-mk"/></svg><span class="word">Mu<b>kanda</b></span></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="catalogue.html?cat=pro">Modèles Pro</a>
+      <a href="dashboard.html">Mes cours</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html" class="on">Contact</a>
+    </nav>
+    <span class="nav-sp"></span>
+    <div class="nav-auth">
+      <a class="btn btn-ghost btn-sm" href="auth.html">Se connecter</a>
+      <a class="btn btn-grad btn-sm" href="auth.html">✨ Créer un compte</a>
+    </div>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+<section class="contact-hero">
+  <div class="wrap contact-hero-in">
+    <div class="bread"><a href="index.html">🏠 Accueil</a><span>›</span><span>Contact</span></div>
+    <h1>Parlons<br><span class="hl">ensemble</span></h1>
+    <p>Une question, une suggestion, un partenariat ? Remplis le formulaire ci-dessous et notre équipe te répond sous <b style="color:#fff">24 heures</b>.</p>
+  </div>
+</section>
+
+<div class="contact-layout">
+
+<!-- FORMULAIRE -->
+<div class="form-card" id="formCard">
+  <h2>📮 Écris-nous</h2>
+  <div class="sub">Tous les champs marqués d'un <span style="color:var(--coral)">*</span> sont obligatoires.</div>
+  
+  <div id="alertZone"></div>
+  
+  <form id="contactForm" novalidate>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Nom complet <span class="req">*</span></label>
+        <input type="text" class="form-input" id="inpNom" placeholder="Ton prénom et nom" required>
+        <div class="form-error" id="errNom"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone<span class="hint">(optionnel)</span></label>
+        <input type="tel" class="form-input" id="inpTel" placeholder="065186967">
+        <div class="form-error" id="errTel"></div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Adresse email <span class="req">*</span></label>
+      <input type="email" class="form-input" id="inpEmail" placeholder="ton.email@exemple.com" required>
+      <div class="form-error" id="errEmail"></div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Sujet <span class="req">*</span></label>
+      <select class="form-select" id="inpSujet" required>
+        <option value="">— Choisis un sujet —</option>
+        <option value="question">❓ Question sur un cours</option>
+        <option value="paiement">💳 Problème de paiement</option>
+        <option value="technique">🔧 Problème technique</option>
+        <option value="suggestion">💡 Suggestion d'amélioration</option>
+        <option value="partenariat">🤝 Partenariat ou presse</option>
+        <option value="contributeur">📝 Je veux contribuer (prof)</option>
+        <option value="autre">📬 Autre</option>
+      </select>
+      <div class="form-error" id="errSujet"></div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Ton message <span class="req">*</span></label>
+      <textarea class="form-textarea" id="inpMessage" placeholder="Explique-nous clairement ta question ou ta demande. Plus tu es précis, plus nous pourrons t'aider rapidement." required maxlength="2000"></textarea>
+      <div class="char-count"><span id="charCount">0</span> / 2000 caractères</div>
+      <div class="form-error" id="errMessage"></div>
+    </div>
+    
+    <div style="padding:12px 14px;background:var(--surface);border-radius:var(--r);margin-bottom:20px;font-size:12.5px;color:var(--grey);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:16px">🔒</span>
+      <div>Tes données sont protégées. Elles servent uniquement à te répondre et ne sont jamais partagées avec des tiers. <a href="legal.html#confidentialite" style="color:var(--violet);font-weight:700">Politique de confidentialité</a></div>
+    </div>
+    
+    <button type="submit" class="btn btn-grad btn-lg btn-block" id="btnSubmit">
+      <span id="btnText">📤 Envoyer le message</span>
+      <span id="btnLoader" style="display:none"><span class="spinner" style="width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block"></span> Envoi en cours...</span>
+    </button>
+  </form>
+</div>
+
+<!-- CÔTÉ DROIT -->
+<aside class="contact-side">
+  <div class="contact-box">
+    <h3>📞 Autres moyens</h3>
+    <div class="item">
+      <div class="ic">💬</div>
+      <div><div class="lbl">WhatsApp</div><div class="val"><a href="https://wa.me/242065186967" target="_blank" rel="noopener">+242 06 518 69 67</a></div></div>
+    </div>
+    <div class="item">
+      <div class="ic">📧</div>
+      <div><div class="lbl">Email</div><div class="val"><a href="mailto:contact@mukanda.cg">contact@mukanda.cg</a></div></div>
+    </div>
+    <div class="item">
+      <div class="ic">📍</div>
+      <div><div class="lbl">Adresse</div><div class="val">Brazzaville, Congo</div></div>
+    </div>
+    <div class="item">
+      <div class="ic">⏰</div>
+      <div><div class="lbl">Disponibilité</div><div class="val">Lun–Sam · 8h–19h</div></div>
+    </div>
+  </div>
+  
+  <div class="faq-mini">
+    <h3>💡 Questions fréquentes</h3>
+    <div class="faq-item">
+      <div class="faq-q">Comment payer un cours ?<span class="arr">▼</span></div>
+      <div class="faq-a">En MTN MoMo ou Airtel Money en 15 secondes. Ton téléphone sonne, tu valides ton PIN, et ton cours se télécharge immédiatement.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Puis-je récupérer un achat perdu ?<span class="arr">▼</span></div>
+      <div class="faq-a">Oui, pendant 48 h, avec ton seul numéro via la page « Récupérer mon achat ».</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Puis-je devenir contributeur ?<span class="arr">▼</span></div>
+      <div class="faq-a">Absolument ! Si tu es prof au Congo, contacte-nous en choisissant « Je veux contribuer » dans le formulaire.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Les cours suivent-ils le programme ?<span class="arr">▼</span></div>
+      <div class="faq-a">Oui, 100% alignés sur le programme officiel congolais du CEPE au BAC.</div>
+    </div>
+  </div>
+  
+  <div class="contact-box" style="background:linear-gradient(135deg,var(--ink-3),var(--ink));color:#fff">
+    <h3 style="color:#fff">🚀 Tu veux nous aider à grandir ?</h3>
+    <p style="font-size:13.5px;color:#D5DCF0;margin-bottom:14px;line-height:1.6">Rejoins notre programme de <b style="color:var(--gold)">chefs de classe ambassadeurs</b> et gagne des commissions sur chaque élève que tu parraines.</p>
+    <a class="btn btn-gold btn-block" href="https://wa.me/242065186967?text=Bonjour%20!%20Je%20veux%20devenir%20ambassadeur%20Mukanda" target="_blank" rel="noopener">💬 Je veux être ambassadeur</a>
+  </div>
+</aside>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <span class="logo"><svg><use href="#logo-mk"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span>
+      <p>La grande plateforme de lecture et d'apprentissage du Congo-Brazzaville.</p>
+      <div class="foot-pay">💳 MTN MoMo · Airtel Money · Paiement en 15 s</div>
+    </div>
+    <div><h4>Explorer</h4><a href="catalogue.html">Catalogue complet</a><a href="catalogue.html?cat=pro">Modèles pro</a><a href="catalogue.html?n=cepe">Cours CEPE</a><a href="catalogue.html?n=bepc">Cours BEPC</a><a href="catalogue.html?n=bac">Cours BAC</a></div>
+    <div><h4>Mon espace</h4><a href="auth.html">Se connecter</a><a href="auth.html">Créer un compte</a><a href="dashboard.html">Mes cours</a><a href="recuperer.html">Récupérer un achat</a></div>
+    <div><h4>Aide & légal</h4><a href="faq.html">FAQ</a><a href="legal.html#cgu">CGU</a><a href="legal.html#confidentialite">Confidentialité</a><a href="legal.html#cookies">Cookies</a><a href="https://wa.me/242065186967" target="_blank">WhatsApp</a></div>
+  </div>
+  <div class="foot-bottom">© 2026 Mukanda · Brazzaville, Congo · Un projet de l'équipe Meurphy</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb=window.supabase?supabase.createClient(SB_URL,SB_KEY):null;
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),3000);}
+
+let USER=null;
+
+/* Burger menu */
+$('#burger').addEventListener('click',()=>{
+  const m=document.createElement('div');
+  m.style.cssText='position:fixed;inset:0;z-index:200;background:var(--ink-3);color:#fff;padding:22px;display:flex;flex-direction:column';
+  m.innerHTML=`
+    <div style="display:flex;justify-content:space-between;margin-bottom:26px">
+      <span class="logo"><svg><use href="#logo-mk"/></svg><span class="word" style="color:#fff">Mu<b style="color:var(--gold)">kanda</b></span></span>
+      <button style="font-size:24px;color:#fff;padding:6px 12px;background:none;border:none" onclick="this.closest('div').parentElement.remove()">✕</button>
+    </div>
+    <a href="index.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">🏠 Accueil</a>
+    <a href="catalogue.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">📚 Catalogue</a>
+    <a href="dashboard.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">🎒 Mes cours</a>
+    <a href="a-propos.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">👋 À propos</a>
+    <a href="contact.html" style="padding:16px 10px;font-size:18px;font-weight:800;color:#E8ECF5;border-bottom:1px solid rgba(255,255,255,.08);display:block">💬 Contact</a>`;
+  document.body.appendChild(m);
+});
+
+/* FAQ accordion */
+$$('.faq-item').forEach(it=>{
+  it.addEventListener('click',()=>it.classList.toggle('open'));
+});
+
+/* Char count */
+$('#inpMessage').addEventListener('input',e=>{
+  $('#charCount').textContent=e.target.value.length;
+});
+
+/* Session */
+(async()=>{
+  if(!sb)return;
+  const{data}=await sb.auth.getSession();
+  USER=data?.session?.user||null;
+  if(USER){
+    const m=USER.user_metadata||{};
+    if($('#inpNom')&&!$('#inpNom').value)$('#inpNom').value=m.nom||'';
+    if($('#inpEmail')&&!$('#inpEmail').value)$('#inpEmail').value=USER.email||'';
+    if($('#inpTel')&&!$('#inpTel').value)$('#inpTel').value=m.telephone||'';
+  }
+})();
+
+/* Validation */
+function showError(id,msg){
+  const el=$('#'+id);
+  if(el){el.textContent=msg;el.classList.add('show');}
+}
+function clearErrors(){
+  $$('.form-error').forEach(el=>el.classList.remove('show'));
+}
+
+/* Soumission */
+$('#contactForm').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  clearErrors();
+  
+  const nom=$('#inpNom').value.trim();
+  const tel=$('#inpTel').value.trim();
+  const email=$('#inpEmail').value.trim();
+  const sujet=$('#inpSujet').value;
+  const message=$('#inpMessage').value.trim();
+  const alert=$('#alertZone');
+  alert.innerHTML='';
+  
+  let ok=true;
+  if(!nom||nom.length<2){showError('errNom','Le nom doit faire au moins 2 caractères');ok=false;}
+  if(tel&&!/^(\+242|00242)?0[56]\d{7}$/.test(tel.replace(/\s/g,''))){showError('errTel','Numéro invalide (ex: 065186967)');ok=false;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('errEmail','Adresse email invalide');ok=false;}
+  if(!sujet){showError('errSujet','Choisis un sujet');ok=false;}
+  if(!message||message.length<10){showError('errMessage','Ton message doit faire au moins 10 caractères');ok=false;}
+  if(message.length>2000){showError('errMessage','Maximum 2000 caractères');ok=false;}
+  
+  if(!ok)return;
+  
+  if(!sb){alert.innerHTML='<div class="alert alert-error">❌ Erreur de connexion. Recharge la page.</div>';return;}
+  
+  /* Loader */
+  $('#btnSubmit').disabled=true;
+  $('#btnText').style.display='none';
+  $('#btnLoader').style.display='inline-flex';
+  
+  try{
+    const payload={
+      nom,
+      email,
+      telephone:tel||null,
+      sujet,
+      message,
+      user_id:USER?USER.id:null,
+      ip_address:null
+    };
+    
+    const{data,error}=await sb.from('contact_messages').insert(payload).select().single();
+    
+    if(error)throw error;
+    
+    /* Succès */
+    $('#formCard').innerHTML=`
+      <div class="success-screen">
+        <span class="big">🎉</span>
+        <h2>Message envoyé !</h2>
+        <p>Merci <b>${esc(nom)}</b> ! Ton message a bien été reçu. Notre équipe te répondra sous <b>24 heures</b> à l'adresse <b>${esc(email)}</b>.</p>
+        <div class="ref">Référence : ${data.id.slice(0,8).toUpperCase()}</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a class="btn btn-grad" href="index.html">🏠 Retour à l'accueil</a>
+          <a class="btn btn-gold" href="catalogue.html">📚 Explorer le catalogue</a>
+        </div>
+      </div>`;
+    
+    toast('✅ Message envoyé avec succès !');
+    window.scrollTo({top:0,behavior:'smooth'});
+    
+  }catch(err){
+    console.error(err);
+    alert.innerHTML=`<div class="alert alert-error">❌ Erreur lors de l'envoi : ${esc(err.message||'Erreur inconnue')}. Réessaie dans quelques instants.</div>`;
+    $('#btnSubmit').disabled=false;
+    $('#btnText').style.display='inline';
+    $('#btnLoader').style.display='none';
+  }
+});
+
+console.log('✅ Page contact Mukanda chargée');
+</script>
+<script src="header.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Exemplaire · Mukanda</title>
+<meta name="description" id="metaDesc" content="Prévisualise, personnalise et télécharge ton modèle professionnel Mukanda.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%236C5CE7'/%3E%3Cpath d='M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z' fill='white'/%3E%3Cpath d='M32 26v20' stroke='%236C5CE7' stroke-width='3'/%3E%3Cpath d='M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z' fill='%23FFB703'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="header.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101A3E;--ink-3:#0B1233;--violet:#6C5CE7;--blue:#2F6BFF;
+  --gold:#FFB703;--teal:#06C39A;--coral:#FF5D73;
+  --paper:#F7F8FF;--card:#fff;--surface:#F1F3FA;
+  --grey:#5A6478;--grey-2:#98A2B8;--line:#E6EAF6;
+  --grad:linear-gradient(135deg,var(--violet),var(--blue));
+  --grad-hero:linear-gradient(150deg,#141B4D 0%,#3A2E8C 48%,#2F6BFF 100%);
+  --r:16px;--r-lg:22px;
+  --sh:0 6px 18px rgba(16,26,62,.08);--sh-lg:0 14px 34px rgba(16,26,62,.14);--sh-xl:0 26px 60px rgba(16,26,62,.22);
+  --tr:all .25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--surface);color:var(--ink);line-height:1.6}
+h1,h2,h3{font-family:'Baloo 2',cursive;line-height:1.2}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:14px;font-weight:800;font-size:15px;padding:13px 24px;border:2px solid transparent;transition:var(--tr);white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 5px 0 var(--ink)}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 8px 0 var(--ink)}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 8px 20px rgba(108,92,231,.4)}
+.btn-grad:hover{transform:translateY(-3px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{padding:9px 16px;font-size:13.5px;border-radius:11px;box-shadow:none}
+.btn-lg{padding:15px 28px;font-size:16px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+/* ---- Hero compact ---- */
+.ex-hero{padding:130px 0 26px;background:var(--grad-hero);color:#fff;position:relative;overflow:hidden}
+.ex-hero::before{content:'';position:absolute;top:-20%;right:-12%;width:56%;height:140%;background:radial-gradient(circle,rgba(255,183,3,.16) 0%,transparent 65%);pointer-events:none}
+.ex-hero-in{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.bread{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#B9C4E6;margin-bottom:10px;flex-wrap:wrap}
+.bread a{color:#B9C4E6}.bread a:hover{color:var(--gold)}
+.ex-hero h1{color:#fff;font-size:clamp(26px,4.5vw,38px)}
+.ex-hero h1 .em{margin-right:8px}
+.ex-hero .sub{color:#D5DCF0;font-size:14.5px;max-width:640px;margin-top:6px}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap}
+.hpill{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.28);border-radius:99px;padding:8px 14px;font-size:12.5px;font-weight:800;color:#fff;backdrop-filter:blur(6px)}
+.hpill.gold{background:var(--gold);color:var(--ink);border-color:var(--ink)}
+
+/* ---- Layout ---- */
+.ex-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;max-width:1180px;margin:0 auto;padding:26px 20px 90px;align-items:start}
+.preview-col{min-width:0}
+
+/* ---- Feuille A4 ---- */
+.sheet-wrap{position:relative;overflow:hidden;background:#dfe3ee;border-radius:var(--r);box-shadow:var(--sh-xl);border:2px solid var(--line)}
+#sheet{width:210mm;min-height:297mm;position:relative;overflow:hidden;background:#fff;transform-origin:top left;margin:0 auto}
+.sheet-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:#fff;border:2px solid var(--line);border-bottom:none;border-radius:var(--r) var(--r) 0 0;font-size:12.5px;font-weight:800;color:var(--grey)}
+.sheet-toolbar .live{display:inline-flex;align-items:center;gap:6px;color:var(--teal)}
+.sheet-toolbar .live i{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ---- Barre d'actions sous la feuille ---- */
+.action-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;flex-wrap:wrap}
+.action-bar .hint{font-size:12.5px;color:var(--grey);flex:1;min-width:200px}
+
+/* ---- Sidebar ---- */
+.side-card{background:#fff;border:2px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--sh);margin-bottom:14px}
+.side-card h3{font-size:17px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.side-card p{font-size:13px;color:var(--grey);line-height:1.6}
+.side-card .usage{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:800;color:var(--violet);background:rgba(108,92,231,.1);padding:4px 10px;border-radius:99px}
+.price-card{background:#fff;border:3px solid var(--ink);border-radius:var(--r-lg);padding:22px;box-shadow:var(--sh-xl);position:relative;overflow:hidden;margin-bottom:14px}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--gold)}
+.price-card .kick{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--violet);margin:4px 0 8px}
+.price-card .amount{font-family:'Baloo 2',cursive;font-size:40px;font-weight:800;line-height:1;margin-bottom:2px}
+.price-card .amount small{font-size:15px;color:var(--grey);font-family:'Nunito Sans';font-weight:700}
+.price-card ul{list-style:none;margin:14px 0 16px;padding:0}
+.price-card li{font-size:13px;font-weight:700;color:var(--grey);padding:5px 0;display:flex;gap:8px}
+.price-card li::before{content:'✓';color:var(--teal);font-weight:800}
+.price-card .btn{margin-bottom:8px}
+.price-card .secure{font-size:11.5px;color:var(--grey-2);text-align:center}
+
+/* ---- Drawer formulaire ---- */
+.drawer-ov{position:fixed;inset:0;background:rgba(11,18,51,.55);opacity:0;visibility:hidden;transition:var(--tr);z-index:410}
+.drawer-ov.show{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,94vw);background:var(--paper);z-index:420;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(16,26,62,.3)}
+.drawer.show{transform:none}
+.drawer-head{padding:18px 20px;background:var(--grad-hero);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.drawer-head h2{color:#fff;font-size:18px}
+.drawer-head p{font-size:12px;color:#C7D0EA}
+.drawer-head button{color:#fff;font-size:22px;padding:4px 10px}
+.drawer-body{flex:1;overflow-y:auto;padding:18px 20px 30px}
+.f-group{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.f-group h4{font-family:'Baloo 2';font-size:14px;color:var(--violet);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.f-row{margin-bottom:10px}
+.f-row label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);margin-bottom:4px}
+.f-row input,.f-row textarea{width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:13.5px;font-family:inherit;color:var(--ink);background:#fff;transition:var(--tr)}
+.f-row input:focus,.f-row textarea:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(108,92,231,.13)}
+.f-row textarea{resize:vertical;min-height:64px;line-height:1.5}
+.f-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drawer-foot{padding:14px 20px;border-top:2px solid var(--line);background:#fff;display:flex;gap:10px}
+.drawer-foot .btn{flex:1}
+
+/* ---- Modale paiement ---- */
+.modal-ov{position:fixed;inset:0;background:rgba(11,18,51,.6);opacity:0;visibility:hidden;transition:var(--tr);z-index:430;display:flex;align-items:center;justify-content:center;padding:18px}
+.modal-ov.show{opacity:1;visibility:visible}
+.modal{background:#fff;border:3px solid var(--ink);border-radius:var(--r-lg);max-width:460px;width:100%;padding:26px;box-shadow:var(--sh-xl);max-height:92vh;overflow-y:auto;position:relative}
+.modal .close{position:absolute;top:12px;right:12px;font-size:20px;color:var(--grey);padding:4px 10px}
+.modal h2{font-size:21px;margin-bottom:4px;padding-right:30px}
+.modal .msub{font-size:13px;color:var(--grey);margin-bottom:16px}
+.modal .recap{display:flex;gap:12px;align-items:center;background:var(--surface);border:2px dashed var(--line);border-radius:12px;padding:12px;margin-bottom:14px}
+.modal .recap .em{font-size:30px}
+.modal .recap .tt{font-weight:800;font-size:13.5px}
+.modal .recap .mt{font-size:11.5px;color:var(--grey)}
+.modal .recap .pr{margin-left:auto;font-family:'Baloo 2';font-weight:800;font-size:19px;background:var(--gold);border:2px solid var(--ink);border-radius:10px;padding:4px 12px;white-space:nowrap}
+.modal label{display:block;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);margin:12px 0 6px}
+.tel-box{display:flex;align-items:center;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.tel-box:focus-within{border-color:var(--violet)}
+.tel-box .prefix{padding:12px;background:var(--surface);border-right:2px solid var(--line);font-weight:800;color:var(--grey);font-size:14px}
+.tel-box input{flex:1;border:none;outline:none;padding:12px;font-size:16px;font-weight:700;font-family:inherit;letter-spacing:1px}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.op{position:relative;border:2px solid var(--line);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:13.5px;background:#fff;cursor:pointer;color:var(--grey);transition:var(--tr)}
+.op input{position:absolute;opacity:0}
+.op .dot{width:11px;height:11px;border-radius:50%}
+.op.mtn .dot{background:#FFCC00}.op.air .dot{background:#E40000}
+.op.sel.mtn{background:#FFF8E1;border-color:#FFCC00;color:var(--ink)}
+.op.sel.air{background:#FFEBEB;border-color:#E40000;color:var(--ink)}
+.status{display:none;margin-top:14px;border-radius:14px;padding:14px;font-size:13.5px;font-weight:700;align-items:flex-start;gap:12px}
+.status.show{display:flex;animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.status .ic{font-size:26px;flex-shrink:0}
+.status.ring{background:#FFF8E1;border:2px solid var(--gold);color:#8a6d00}
+.status.ring .ic{animation:ring 1.1s ease-in-out infinite}
+@keyframes ring{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(6deg)}}
+.status.ok{background:#E4FBF3;border:2px solid var(--teal);color:#047857}
+.status.err{background:#FFEBEE;border:2px solid var(--coral);color:#be123c}
+.status .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.status .act button{background:#fff;border:2px solid currentColor;border-radius:10px;padding:7px 12px;font-weight:800;font-size:12px;color:inherit}
+
+/* ---- FAB ---- */
+.fab{position:fixed;right:20px;bottom:20px;z-index:300;display:flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);border:3px solid var(--ink);border-radius:99px;padding:14px 22px;font-weight:800;font-size:15px;box-shadow:0 6px 0 var(--ink),0 18px 40px rgba(16,26,62,.35);transition:var(--tr)}
+.fab:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--ink),0 22px 46px rgba(16,26,62,.4)}
+.fab .em{font-size:19px}
+
+/* ---- Bientôt (types non-CV) ---- */
+.soon-panel{background:#fff;border:2px dashed var(--grey-2);border-radius:var(--r-lg);padding:60px 30px;text-align:center}
+.soon-panel .em{font-size:70px;display:block;margin-bottom:16px}
+.soon-panel h2{font-size:24px;margin-bottom:10px}
+.soon-panel p{color:var(--grey);font-size:14.5px;max-width:520px;margin:0 auto 22px}
+.soon-panel .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---- Footer ---- */
+footer{background:var(--ink-3);color:#AEB6C8;margin-top:40px}
+.foot-in{max-width:1180px;margin:0 auto;padding:50px 20px 30px;display:grid;gap:34px;grid-template-columns:1.4fr 1fr 1fr 1fr}
+.foot-in .logo{display:inline-flex;align-items:center;gap:10px}
+.foot-in .logo svg{width:38px;height:38px}
+.foot-in .logo .word{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:#fff}
+.foot-in .logo .word b{color:var(--gold)}
+.foot-in p{font-size:13.5px;line-height:1.7}
+.foot-in h4{color:#fff;font-size:15px;margin-bottom:14px}
+.foot-in a{display:block;font-size:13.5px;padding:4px 0;transition:var(--tr)}
+.foot-in a:hover{color:var(--gold);transform:translateX(3px)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 20px;text-align:center;font-size:12.5px;color:#7A8294}
+
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 26px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:var(--tr);z-index:500;border:2px solid var(--gold)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:1024px){.ex-layout{grid-template-columns:1fr}}
+@media(max-width:640px){.foot-in{grid-template-columns:1fr 1fr}.f-2{grid-template-columns:1fr}.fab span.lbl{display:none}.fab{padding:16px}}
+
+/* ============================================================
+   STYLES DES DOCUMENTS (A4) — repris des packs PDF
+   ============================================================ */
+#sheet *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#sheet{font-family:'Segoe UI',Arial,Helvetica,sans-serif;color:#1a1a2e}
+#sheet .foot{position:absolute;bottom:5mm;left:12mm;right:12mm;font-size:8.5pt;color:#9aa;text-align:center;border-top:1px solid #e5e5ef;padding-top:2mm}
+/* M1 Moderne */
+.cv1{display:grid;grid-template-columns:70mm 140mm;min-height:297mm}
+.cv1 .side{background:#6C5CE7;color:#fff;padding:12mm 8mm}
+.cv1 .side .av{width:26mm;height:26mm;border-radius:50%;background:#fff;color:#6C5CE7;font-size:13pt;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6mm}
+.cv1 .side h2{font-size:10pt;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2mm;margin:6mm 0 3mm}
+.cv1 .side p{font-size:9pt;margin-bottom:1.5mm;line-height:1.4}
+.cv1 .bar{height:1.6mm;background:rgba(255,255,255,.3);border-radius:99px;margin:1mm 0 2.5mm}
+.cv1 .bar i{display:block;height:100%;background:#FFB703;border-radius:99px}
+.cv1 .main{padding:12mm 10mm}
+.cv1 .main h1{font-size:20pt}
+.cv1 .main .job{color:#6C5CE7;font-weight:700;font-size:11pt;margin:1mm 0 5mm}
+.cv1 .main h3{font-size:10.5pt;text-transform:uppercase;letter-spacing:1px;color:#6C5CE7;margin:5mm 0 3mm}
+.cv1 .xp{margin-bottom:4mm}
+.cv1 .xp .t{font-weight:700;font-size:10pt}
+.cv1 .xp .d{font-size:8.5pt;color:#888;margin-bottom:1mm}
+.cv1 .xp p{font-size:9pt;color:#444;line-height:1.45}
+/* M2 Classique */
+.cv2{padding:16mm 18mm;font-family:Georgia,'Times New Roman',serif}
+.cv2 .head{text-align:center;border-bottom:3px double #1a1a2e;padding-bottom:5mm;margin-bottom:6mm}
+.cv2 .head h1{font-size:21pt;letter-spacing:2px;text-transform:uppercase}
+.cv2 .head .job{font-style:italic;font-size:11pt;color:#555;margin:1mm 0 2mm}
+.cv2 .head .ct{font-size:9pt;color:#666}
+.cv2 h3{font-size:11pt;text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid #1a1a2e;padding-bottom:1.5mm;margin:6mm 0 3mm}
+.cv2 .xp{margin-bottom:4mm}
+.cv2 .xp .t{font-weight:700;font-size:10pt}
+.cv2 .xp .d{font-style:italic;font-size:8.5pt;color:#777}
+.cv2 p,.cv2 li{font-size:9.5pt;line-height:1.5;color:#333}
+.cv2 ul{margin:1mm 0 0 6mm}
+/* M3 Minimal */
+.cv3{padding:18mm 20mm}
+.cv3 h1{font-size:24pt;font-weight:300;letter-spacing:1px}
+.cv3 h1 b{font-weight:800}
+.cv3 .job{font-size:10pt;letter-spacing:3px;text-transform:uppercase;color:#888;margin:2mm 0 6mm}
+.cv3 .ct{font-size:9pt;color:#666;margin-bottom:8mm}
+.cv3 h3{font-size:9pt;letter-spacing:3px;text-transform:uppercase;margin:6mm 0 3mm}
+.cv3 h3::after{content:'';display:block;width:12mm;height:.8mm;background:#1a1a2e;margin-top:1.5mm}
+.cv3 .row{display:flex;gap:6mm;margin-bottom:3mm}
+.cv3 .row .l{flex:0 0 40mm;font-size:8.5pt;color:#999}
+.cv3 .row .r{flex:1;font-size:9.5pt;color:#333;line-height:1.5}
+.cv3 .row .r b{color:#1a1a2e}
+/* M4 Créatif */
+.cv4 .band{background:#FFB703;padding:12mm 14mm;display:flex;align-items:center;gap:8mm}
+.cv4 .band .av{width:24mm;height:24mm;border-radius:3mm;background:#1a1a2e;color:#FFB703;font-size:12pt;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cv4 .band h1{font-size:19pt}
+.cv4 .band .job{font-size:10.5pt;color:#5b4300;font-weight:700}
+.cv4 .cols{display:grid;grid-template-columns:1fr 62mm;gap:8mm;padding:8mm 14mm}
+.cv4 h3{font-size:10pt;text-transform:uppercase;letter-spacing:1px;color:#FF5D73;margin:4mm 0 2mm}
+.cv4 p{font-size:9pt;line-height:1.5;color:#444}
+.cv4 .tag{display:inline-block;background:#1a1a2e;color:#FFB703;border-radius:99px;padding:1mm 3.5mm;font-size:8.5pt;font-weight:700;margin:0 1mm 1.5mm 0}
+/* M5 Étudiant */
+.cv5{padding:14mm 16mm}
+.cv5 .top{display:flex;justify-content:space-between;align-items:flex-start;border-left:6mm solid #06C39A;padding-left:6mm;margin-bottom:6mm}
+.cv5 h1{font-size:19pt;color:#0b3b33}
+.cv5 .job{font-size:10pt;color:#06C39A;font-weight:700}
+.cv5 .ct{font-size:8.5pt;color:#777;text-align:right;line-height:1.6}
+.cv5 h3{font-size:10pt;text-transform:uppercase;letter-spacing:1px;color:#0b3b33;background:#E4FBF3;display:inline-block;padding:1.5mm 4mm;border-radius:2mm;margin:4mm 0 3mm}
+.cv5 p,.cv5 li{font-size:9.5pt;line-height:1.5;color:#333}
+.cv5 ul{margin-left:5mm}
+.cv5 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+</style>
+</head>
+<body data-header="force">
+
+<main id="contenu"></main>
+
+<!-- Drawer personnalisation -->
+<div class="drawer-ov" id="drawerOv"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div><h2>✏️ Personnalise ton document</h2><p>Remplace l'exemple par tes infos — l'aperçu se met à jour en direct.</p></div>
+    <button id="drawerClose" aria-label="Fermer">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" id="drawerOk">✅ J'ai terminé</button>
+  </div>
+</aside>
+
+<!-- Modale paiement 200 F -->
+<div class="modal-ov" id="payOv">
+  <div class="modal">
+    <button class="close" id="payClose" aria-label="Fermer">✕</button>
+    <h2>📥 Télécharger ce document pour <span id="mPrix" style="color:var(--violet)">200 F</span> seulement</h2>
+    <div class="msub">Paiement Mobile Money · ton PDF personnalisé est généré immédiatement après validation.</div>
+    <div class="recap">
+      <span class="em" id="mEm">📄</span>
+      <div><div class="tt" id="mTitre">—</div><div class="mt" id="mMeta">—</div></div>
+      <span class="pr" id="mPrice">—</span>
+    </div>
+    <label for="mTel">Ton numéro Mobile Money</label>
+    <div class="tel-box"><span class="prefix">+242</span><input type="tel" id="mTel" maxlength="9" placeholder="6 51 86 967" inputmode="numeric"></div>
+    <label>Opérateur</label>
+    <div class="ops">
+      <label class="op mtn sel" onclick="selOp(this)"><input type="radio" name="mop" value="MTN" checked><span class="dot"></span>MTN MoMo</label>
+      <label class="op air" onclick="selOp(this)"><input type="radio" name="mop" value="AIRTEL"><span class="dot"></span>Airtel Money</label>
+    </div>
+    <button class="btn btn-gold btn-block btn-lg" id="mPay" style="margin-top:16px">🛒 Payer et télécharger</button>
+    <div class="status" id="mStatus"></div>
+    <div style="margin-top:12px;font-size:11.5px;color:var(--grey-2);text-align:center">🔒 Paiement sécurisé OpenPay · lien retrouvable 48 h</div>
+  </div>
+</div>
+
+<button class="fab" id="fab" style="display:none"><span class="em">📥</span><span class="lbl">Télécharger</span></button>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <span class="logo"><svg viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#6C5CE7"/><path d="M14 26c6-3 12-3 18 0 6-3 12-3 18 0v20c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#fff"/><path d="M32 26v20" stroke="#6C5CE7" stroke-width="3"/><path d="M32 8l3 6 6.5.9-4.7 4.5 1.1 6.4-5.9-3.1-5.9 3.1 1.1-6.4-4.7-4.5L29 14Z" fill="#FFB703"/></svg><span class="word">Mu<b>kanda</b></span></span>
+      <p>La grande plateforme de lecture et d'apprentissage du Congo-Brazzaville.</p>
+    </div>
+    <div><h4>Explorer</h4><a href="catalogue.html">Catalogue complet</a><a href="catalogue.html?cat=pro">Modèles professionnels</a><a href="catalogue.html?n=cepe">Cours CEPE</a><a href="catalogue.html?n=bepc">Cours BEPC</a><a href="catalogue.html?n=bac">Cours BAC</a></div>
+    <div><h4>Mon espace</h4><a href="auth.html">Se connecter</a><a href="auth.html">Créer un compte</a><a href="dashboard.html">Mes cours</a><a href="recuperer.html">Récupérer un achat</a></div>
+    <div><h4>Aide & légal</h4><a href="faq.html">FAQ</a><a href="legal.html#cgu">Conditions générales</a><a href="legal.html#confidentialite">Confidentialité</a><a href="https://wa.me/242065186967" target="_blank" rel="noopener">WhatsApp · +242 06 518 69 67</a></div>
+  </div>
+  <div class="foot-bottom">© 2026 Mukanda · Brazzaville, Congo · Un projet de l'équipe Meurphy</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="header.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+/* ============================================================
+   EXEMPLAIRE — aperçu + personnalisation live + paiement 200 F
+   ============================================================ */
+const FN='https://wyfkogowsdbxctbpfuud.functions.supabase.co';
+const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
+const sb=window.supabase?supabase.createClient(SB_URL,SB_KEY):null;
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fcfa=n=>new Intl.NumberFormat('fr-FR').format(n||0)+' F';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2800);}
+
+const params=new URLSearchParams(location.search);
+const TYPE=params.get('type')||'';
+const MODELE=parseInt(params.get('modele')||'1',10);
+
+/* ---- Métadonnées des types (titres + emojis) ---- */
+const TYPES={
+  'cv-modernes':{em:'📄',titre:'CV modernes',n:5},
+  'lettres-motivation':{em:'✉️',titre:'Lettres de motivation',n:10},
+  'factures-devis':{em:'🧾',titre:'Factures & devis',n:5},
+  'contrat-travail':{em:'📑',titre:'Contrats de travail',n:4},
+  'attestations':{em:'📜',titre:'Attestations',n:5},
+  'certificats':{em:'🏅',titre:'Certificats',n:4},
+  'business-plan':{em:'📊',titre:'Business plan',n:3},
+  'etude-marche':{em:'🔍',titre:'Étude de marché',n:2},
+  'pitch-deck':{em:'🎤',titre:'Pitch deck',n:3}
+};
+const NOMS_MODELES={
+  1:'Moderne',2:'Classique',3:'Minimal',4:'Créatif',5:'Étudiant'
+};
+const DESC_MODELES={
+  1:'Sidebar violette avec barres de compétences. Parfait pour les profils jeunes et dynamiques.',
+  2:'Sérif élégant, noir et blanc. Rassure les employeurs conservateurs.',
+  3:'Typographie épurée, beaucoup d\'espace blanc. Met en valeur le texte.',
+  4:'Bandeau or vif, deux colonnes. Tape à l\'œil sans faire amateur.',
+  5:'Conçu pour les profils sans expérience pro : stages, projets, qualités.'
+};
+
+/* ---- Données d'exemple (le CV que tu vois en arrivant) ---- */
+const SAMPLE={
+  nom:'Jean-Baptiste Nkouka',
+  titre:'Assistant comptable & gestionnaire de caisse',
+  ville:'Brazzaville, Congo',
+  tel:'+242 06 518 69 67',
+  email:'jb.nkouka@gmail.com',
+  profil:"Trois ans d'expérience en gestion de caisse et comptabilité dans le secteur des télécoms à Brazzaville. Je cherche un poste où la rigueur et l'honnêteté font la différence.",
+  exp:[
+    {t:'Assistant comptable — MTN Congo, Brazzaville',d:'2023 – 2025',p:'Tenue de caisse quotidienne (≈ 500 000 F/jour). Rapprochements bancaires hebdomadaires. Facturation clients et relances.'},
+    {t:'Stagiaire — Direction Générale du Trésor',d:'2022 (6 mois)',p:"Saisie d'écritures comptables. Participation à l'inventaire annuel."},
+    {t:'Vendeur conseil — Boutique Kando & Frères',d:'2020 – 2022',p:'Accueil et conseil client. Encaissement Mobile Money. Gestion du stock.'}
+  ],
+  form:[
+    {t:'Licence en Sciences de Gestion — Université Marien Ngouabi',d:'2022 · Mention Assez Bien'},
+    {t:'Baccalauréat série D — Lycée de la Révolution',d:'2018'}
+  ],
+  comps:['Excel & tableaux de bord','Comptabilité & caisses','Facturation & devis','Logiciel Sage'],
+  langues:['Français — courant','Lingala — langue maternelle','Anglais — intermédiaire'],
+  atouts:"Ponctuel · rigoureux · honnête. Habitué au contact client et à la gestion d'argent."
+};
+let DATA=JSON.parse(JSON.stringify(SAMPLE));
+let PAY_ROW=null;
+let pollTimer=null;
+let pdfDone=false;
+
+/* ---- Helpers ---- */
+function initials(n){return (n||'').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase()||'XX';}
+function setPath(o,p,v){const parts=p.split('.');let cur=o;for(let i=0;i<parts.length-1;i++)cur=cur[parts[i]];cur[parts[parts.length-1]]=v;}
+function getPath(o,p){const parts=p.split('.');let cur=o;for(const k of parts)cur=cur?.[k];return cur??'';}
+
+/* ============================================================
+   RENDUS DES 5 MODÈLES DE CV
+   ============================================================ */
+const BARS=[92,85,78,70,64];
+function r1(d){
+  const comps=d.comps.map((c,i)=>`<p>${esc(c)}</p><div class="bar"><i style="width:${BARS[i%5]}%"></i></div>`).join('');
+  return `<div class="cv1">
+    <div class="side">
+      <div class="av">${esc(initials(d.nom))}</div>
+      <h2>Contact</h2><p>${esc(d.ville)}<br>${esc(d.tel)}<br>${esc(d.email)}</p>
+      <h2>Compétences</h2>${comps}
+      <h2>Langues</h2><p>${d.langues.map(esc).join('<br>')}</p>
+      <h2>Atouts</h2><p>${esc(d.atouts)}</p>
+    </div>
+    <div class="main">
+      <h1>${esc(d.nom)}</h1><div class="job">${esc(d.titre)}</div>
+      <h3>Profil</h3><p style="font-size:9.5pt;color:#444;line-height:1.5">${esc(d.profil)}</p>
+      <h3>Expérience professionnelle</h3>
+      ${d.exp.map(x=>`<div class="xp"><div class="t">${esc(x.t)}</div><div class="d">${esc(x.d)}</div><p>${esc(x.p)}</p></div>`).join('')}
+      <h3>Formation</h3>
+      ${d.form.map(x=>`<div class="xp"><div class="t">${esc(x.t)}</div><div class="d">${esc(x.d)}</div></div>`).join('')}
+    </div>
+    <div class="foot">Modèle 1/5 · © Mukanda · mukanda.onrender.com</div>
+  </div>`;
+}
+function r2(d){
+  return `<div class="cv2">
+    <div class="head"><h1>${esc(d.nom)}</h1><div class="job">${esc(d.titre)}</div>
+      <div class="ct">${esc(d.ville)} · ${esc(d.tel)} · ${esc(d.email)}</div></div>
+    <h3>Profil</h3><p>${esc(d.profil)}</p>
+    <h3>Expérience professionnelle</h3>
+    ${d.exp.map(x=>`<div class="xp"><div class="t">${esc(x.t)}</div><div class="d">${esc(x.d)}</div><ul><li>${esc(x.p)}</li></ul></div>`).join('')}
+    <h3>Formation</h3>
+    ${d.form.map(x=>`<div class="xp"><div class="t">${esc(x.t)}</div><div class="d">${esc(x.d)}</div></div>`).join('')}
+    <h3>Compétences & langues</h3>
+    <ul><li>${d.comps.map(esc).join(' · ')}</li><li>${d.langues.map(esc).join(' · ')}</li></ul>
+    <div class="foot">Modèle 2/5 · © Mukanda · mukanda.onrender.com</div>
+  </div>`;
+}
+function r3(d){
+  const parts=d.nom.trim().split(/\s+/);const last=parts.pop();const first=parts.join(' ');
+  return `<div class="cv3">
+    <h1>${esc(first)} <b>${esc(last)}</b></h1>
+    <div class="job">${esc(d.titre)}</div>
+    <div class="ct">${esc(d.ville)} · ${esc(d.tel)} · ${esc(d.email)}</div>
+    <h3>Expérience</h3>
+    ${d.exp.map(x=>`<div class="row"><div class="l">${esc(x.d)}</div><div class="r"><b>${esc(x.t)}.</b> ${esc(x.p)}</div></div>`).join('')}
+    <h3>Formation</h3>
+    ${d.form.map(x=>`<div class="row"><div class="l">${esc(x.d)}</div><div class="r"><b>${esc(x.t)}</b></div></div>`).join('')}
+    <h3>Compétences</h3>
+    <div class="row"><div class="l">Savoir-faire</div><div class="r">${d.comps.map(esc).join(' · ')}</div></div>
+    <div class="row"><div class="l">Langues</div><div class="r">${d.langues.map(esc).join(' · ')}</div></div>
+    <div class="row"><div class="l">Atouts</div><div class="r">${esc(d.atouts)}</div></div>
+    <div class="foot">Modèle 3/5 · © Mukanda · mukanda.onrender.com</div>
+  </div>`;
+}
+function r4(d){
+  return `<div class="cv4">
+    <div class="band"><div class="av">${esc(initials(d.nom))}</div>
+      <div><h1>${esc(d.nom)}</h1><div class="job">${esc(d.titre)}</div></div></div>
+    <div class="cols">
+      <div>
+        <h3>Profil</h3><p>${esc(d.profil)}</p>
+        <h3>Expérience</h3>
+        ${d.exp.map(x=>`<p style="margin-bottom:2mm"><b>${esc(x.t)}</b> · ${esc(x.d)}<br>${esc(x.p)}</p>`).join('')}
+      </div>
+      <div>
+        <h3>Contact</h3><p>${esc(d.ville)}<br>${esc(d.tel)}<br>${esc(d.email)}</p>
+        <h3>Compétences</h3>${d.comps.map(c=>`<span class="tag">${esc(c)}</span>`).join('')}
+        <h3>Langues</h3><p>${d.langues.map(esc).join(' · ')}</p>
+        <h3>Formation</h3>${d.form.map(x=>`<p style="margin-bottom:1.5mm">${esc(x.t)} (${esc(x.d)})</p>`).join('')}
+      </div>
+    </div>
+    <div class="foot">Modèle 4/5 · © Mukanda · mukanda.onrender.com</div>
+  </div>`;
+}
+function r5(d){
+  return `<div class="cv5">
+    <div class="top">
+      <div><h1>${esc(d.nom)}</h1><div class="job">${esc(d.titre)}</div></div>
+      <div class="ct">${esc(d.ville)}<br>${esc(d.tel)}<br>${esc(d.email)}</div>
+    </div>
+    <h3>Profil</h3><p>${esc(d.profil)}</p>
+    <div class="grid">
+      <div>
+        <h3>Stages & projets</h3>
+        <ul>${d.exp.map(x=>`<li><b>${esc(x.t)}</b> (${esc(x.d)}) : ${esc(x.p)}</li>`).join('')}</ul>
+        <h3>Formation</h3>
+        <ul>${d.form.map(x=>`<li>${esc(x.t)} (${esc(x.d)})</li>`).join('')}</ul>
+      </div>
+      <div>
+        <h3>Compétences</h3><ul>${d.comps.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>
+        <h3>Langues</h3><ul>${d.langues.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>
+        <h3>Qualités</h3><ul><li>${esc(d.atouts)}</li></ul>
+      </div>
+    </div>
+    <div class="foot">Modèle 5/5 · © Mukanda · mukanda.onrender.com</div>
+  </div>`;
+}
+const RENDERERS={1:r1,2:r2,3:r3,4:r4,5:r5};
+
+/* ============================================================
+   MISE EN PAGE DE LA PAGE
+   ============================================================ */
+function fit(){
+  const wrap=$('#sheetWrap'),sheet=$('#sheet');
+  if(!wrap||!sheet)return;
+  const w=wrap.clientWidth;
+  const s=Math.min(1,w/sheet.offsetWidth);
+  sheet.style.transform='scale('+s+')';
+  wrap.style.height=(sheet.offsetHeight*s)+'px';
+}
+window.addEventListener('resize',fit);
+
+function renderSheet(){
+  const sheet=$('#sheet');
+  if(!sheet)return;
+  sheet.innerHTML=(RENDERERS[MODELE]||r1)(DATA);
+  requestAnimationFrame(fit);
+}
+
+function renderComingSoon(){
+  const T=TYPES[TYPE]||{em:'📄',titre:'Ce type',n:0};
+  $('#contenu').innerHTML=`
+    <section class="ex-hero"><div class="wrap ex-hero-in">
+      <div><div class="bread"><a href="index.html">🏠 Accueil</a><span>›</span><a href="exemplaires.html?type=${TYPE}">${esc(T.titre)}</a></div>
+      <h1><span class="em">${T.em}</span>${esc(T.titre)}</h1></div>
+    </div></section>
+    <div class="wrap" style="padding:40px 20px 80px">
+      <div class="soon-panel">
+        <span class="em">🛠️</span>
+        <h2>Personnalisation en cours d'arrivée pour ce type</h2>
+        <p>Le flux complet (aperçu réel → personnalisation en direct → PDF après paiement) est déjà vivant pour les <b>CV</b>. Ce type de document suivra dans la prochaine mise à jour — même expérience, même prix de 200 F.</p>
+        <div class="ctas">
+          <a class="btn btn-grad" href="exemplaire.html?type=cv-modernes&modele=1">👁️ Voir la démo avec un CV</a>
+          <a class="btn btn-ghost" href="exemplaires.html?type=${TYPE}">← Retour à la galerie</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+function render(){
+  const T=TYPES[TYPE];
+  if(!T){location.href='exemplaires.html';return;}
+  if(TYPE!=='cv-modernes'||!RENDERERS[MODELE]&&TYPE==='cv-modernes'){/* cv seulement pour l'instant */}
+  if(TYPE!=='cv-modernes'){renderComingSoon();return;}
+
+  const nomModele=NOMS_MODELES[MODELE]||'Moderne';
+  document.title=nomModele+' · '+T.titre+' · Mukanda';
+  $('#metaDesc').content='Prévisualise le modèle '+nomModele+', personnalise-le avec tes infos et télécharge ton PDF pour 200 F.';
+
+  $('#contenu').innerHTML=`
+    <section class="ex-hero"><div class="wrap ex-hero-in">
+      <div>
+        <div class="bread"><a href="index.html">🏠 Accueil</a><span>›</span><a href="index.html#pro">Modèles pro</a><span>›</span><a href="exemplaires.html?type=${TYPE}">${esc(T.titre)}</a><span>›</span><span>${esc(nomModele)}</span></div>
+        <h1><span class="em">${T.em}</span>CV ${esc(nomModele)}</h1>
+        <div class="sub">${esc(DESC_MODELES[MODELE]||'')}</div>
+      </div>
+      <div class="hero-pills">
+        <span class="hpill">Modèle ${MODELE}/${T.n}</span>
+        <span class="hpill">📐 Format A4</span>
+        <span class="hpill gold">200 F le PDF personnalisé</span>
+      </div>
+    </div></section>
+
+    <div class="ex-layout">
+      <div class="preview-col">
+        <div class="sheet-toolbar">
+          <span>👁️ Aperçu réel du document</span>
+          <span class="live"><i></i> Mise à jour en direct</span>
+        </div>
+        <div class="sheet-wrap" id="sheetWrap"><div id="sheet"></div></div>
+        <div class="action-bar">
+          <button class="btn btn-grad" id="btnUse">✏️ Utiliser — mettre mes infos</button>
+          <span class="hint">Tu vois exactement ce que tu achètes. Personnalise gratuitement, paie seulement au téléchargement.</span>
+          <button class="btn btn-gold" id="btnDl">📥 Télécharger · 200 F</button>
+        </div>
+      </div>
+
+      <aside>
+        <div class="price-card">
+          <div class="kick">💳 Téléchargement personnalisé</div>
+          <div class="amount">200 F <small>/ document</small></div>
+          <ul>
+            <li>PDF A4 généré avec TES infos</li>
+            <li>Génération immédiate après paiement</li>
+            <li>MoMo / Airtel en 15 secondes</li>
+            <li>Retrouvable 48 h avec ton numéro</li>
+          </ul>
+          <button class="btn btn-gold btn-block" id="sideDl">📥 Télécharger maintenant</button>
+          <button class="btn btn-ghost btn-block" id="sideUse">✏️ D'abord personnaliser</button>
+          <div class="secure">🔒 Paiement sécurisé OpenPay</div>
+        </div>
+        <div class="side-card">
+          <h3>📋 Ce modèle</h3>
+          <p>${esc(DESC_MODELES[MODELE]||'')}</p>
+          <span class="usage">Idéal : jeunes diplômés · commerce · comptabilité</span>
+        </div>
+        <div class="side-card">
+          <h3>💎 Tu veux les 5 modèles ?</h3>
+          <p>Le pack complet (5 CV + guide) est à 1 000 F au lieu de 1 000 F pièce… soit <b>-60%</b>.</p>
+          <a class="btn btn-grad btn-block btn-sm" style="margin-top:12px" href="exemplaires.html?type=cv-modernes">Voir le pack →</a>
+        </div>
+        <div class="side-card">
+          <h3>💬 Besoin d'aide ?</h3>
+          <p>Un doute sur un champ ? On t'aide en direct sur WhatsApp, gratuitement.</p>
+          <a class="btn btn-ghost btn-block btn-sm" style="margin-top:12px" href="https://wa.me/242065186967" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+        </div>
+      </aside>
+    </div>`;
+
+  renderSheet();
+  $('#fab').style.display='flex';
+
+  /* Boutons */
+  $('#btnUse').addEventListener('click',openDrawer);
+  $('#sideUse').addEventListener('click',openDrawer);
+  $('#btnDl').addEventListener('click',openPay);
+  $('#sideDl').addEventListener('click',openPay);
+  $('#fab').addEventListener('click',openPay);
+}
+
+/* ============================================================
+   DRAWER DE PERSONNALISATION
+   ============================================================ */
+function field(p,label,val,area){
+  return `<div class="f-row"><label>${label}</label>${area
+    ?`<textarea data-p="${p}">${esc(val)}</textarea>`
+    :`<input type="text" data-p="${p}" value="${esc(val)}">`}</div>`;
+}
+function buildDrawer(){
+  const b=$('#drawerBody');
+  b.innerHTML=`
+    <div class="f-group"><h4>👤 Identité</h4>
+      ${field('nom','Nom complet',DATA.nom)}
+      ${field('titre','Titre / métier visé',DATA.titre)}
+      <div class="f-2">${field('ville','Ville',DATA.ville)}${field('tel','Téléphone',DATA.tel)}</div>
+      ${field('email','Email',DATA.email)}
+    </div>
+    <div class="f-group"><h4>🎯 Profil (3 lignes max)</h4>
+      ${field('profil','Accroche',DATA.profil,true)}
+    </div>
+    ${DATA.exp.map((x,i)=>`<div class="f-group"><h4>💼 Expérience ${i+1}</h4>
+      ${field('exp.'+i+'.t','Poste — entreprise',x.t)}
+      ${field('exp.'+i+'.d','Période',x.d)}
+      ${field('exp.'+i+'.p','Missions / résultats',x.p,true)}
+    </div>`).join('')}
+    ${DATA.form.map((x,i)=>`<div class="f-group"><h4>🎓 Formation ${i+1}</h4>
+      ${field('form.'+i+'.t','Diplôme — établissement',x.t)}
+      ${field('form.'+i+'.d','Année / mention',x.d)}
+    </div>`).join('')}
+    <div class="f-group"><h4>🛠️ Compétences (1 par ligne)</h4>
+      <textarea data-p="comps" data-split="1" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-family:inherit;font-size:13.5px;min-height:90px">${DATA.comps.map(esc).join('\n')}</textarea>
+    </div>
+    <div class="f-group"><h4>🌍 Langues (1 par ligne)</h4>
+      <textarea data-p="langues" data-split="1" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-family:inherit;font-size:13.5px;min-height:80px">${DATA.langues.map(esc).join('\n')}</textarea>
+    </div>
+    <div class="f-group"><h4>⭐ Atouts / qualités</h4>
+      ${field('atouts','Atouts',DATA.atouts,true)}
+    </div>`;
+  b.addEventListener('input',e=>{
+    const el=e.target;const p=el.dataset.p;if(!p)return;
+    if(el.dataset.split){setPath(DATA,p,el.value.split('\n').map(s=>s.trim()).filter(Boolean));}
+    else{setPath(DATA,p,el.value);}
+    renderSheet();
+  });
+}
+function openDrawer(){buildDrawer();$('#drawer').classList.add('show');$('#drawerOv').classList.add('show');document.body.style.overflow='hidden';}
+function closeDrawer(){$('#drawer').classList.remove('show');$('#drawerOv').classList.remove('show');document.body.style.overflow='';}
+$('#drawerClose').addEventListener('click',closeDrawer);
+$('#drawerOv').addEventListener('click',closeDrawer);
+$('#drawerOk').addEventListener('click',()=>{closeDrawer();toast('✅ Ton CV est à jour !');});
+
+/* ============================================================
+   PAIEMENT 200 F + GÉNÉRATION PDF
+   ============================================================ */
+function selOp(el){document.querySelectorAll('.op').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');el.querySelector('input').checked=true;}
+window.selOp=selOp;
+
+(async()=>{
+  if(sb){
+    const r=await sb.from('documents').select('*').eq('slug','ex-'+TYPE).maybeSingle();
+    PAY_ROW=r.data||null;
+  }
+})();
+
+function openPay(){
+  if(TYPE!=='cv-modernes'){toast('🛠️ Bientôt disponible pour ce type !');return;}
+  if(!PAY_ROW){toast('⚠️ Produit 200 F non configuré (SQL ex-…).');return;}
+  $('#mEm').textContent='📄';
+  $('#mTitre').textContent='CV '+(NOMS_MODELES[MODELE]||'')+' — personnalisé';
+  $('#mMeta').textContent='PDF A4 généré avec tes infos · '+DATA.nom;
+  $('#mPrice').textContent=fcfa(PAY_ROW.prix_fcfa);
+  $('#mPrix').textContent=fcfa(PAY_ROW.prix_fcfa);
+  $('#mStatus').className='status';
+  const saved=localStorage.getItem('mukanda_tel');if(saved)$('#mTel').value=saved.replace(/^0/,'');
+  $('#payOv').classList.add('show');document.body.style.overflow='hidden';
+}
+function closePay(){$('#payOv').classList.remove('show');document.body.style.overflow='';}
+$('#payClose').addEventListener('click',closePay);
+$('#payOv').addEventListener('click',e=>{if(e.target.id==='payOv')closePay();});
+
+function mStatus(cls,ic,html,act){const s=$('#mStatus');s.className='status show '+cls;s.innerHTML=`<span class="ic">${ic}</span><div>${html}${act?`<div class="act">${act}</div>`:''}</div>`;}
+
+$('#mPay').addEventListener('click',async()=>{
+  let t=$('#mTel').value.replace(/\D/g,'');
+  if(t.length===9&&t[0]==='0')t=t.slice(1);
+  if(t.length!==9){mStatus('err','⚠️','Numéro invalide — 9 chiffres, ex : 065186967.');return;}
+  const tel='0'+t;localStorage.setItem('mukanda_tel',tel);
+  const prov=document.querySelector('#payOv .op input:checked').value;
+  const btn=$('#mPay');btn.disabled=true;btn.textContent='⏳ Envoi à OpenPay…';
+  mStatus('ring','📡','Contact du service de paiement…');
+  try{
+    const r=await fetch(FN+'/mukanda-pay',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({produit_type:'document',produit_id:PAY_ROW.id,telephone:tel,provider:prov})});
+    const d=await r.json();
+    if(r.ok&&d.ok){
+      mStatus('ring','📲','<b>Ton téléphone sonne !</b> Valide le paiement '+prov+' de '+fcfa(PAY_ROW.prix_fcfa)+'. Je prépare ton PDF…');
+      surveiller(tel);
+    }else if(d.openpay_status){
+      mStatus('ring','⏰','<b>Pas de validation détectée à temps.</b> Si tu viens de valider sur ton téléphone :',
+        '<button onclick="surveiller(\''+tel+'\')">✅ J\'ai validé — vérifier</button><button onclick="document.getElementById(\'mPay\').click()">🔁 Relancer</button>');
+    }else{
+      mStatus('err','❌',esc(d.error||'Erreur de paiement.'));
+    }
+  }catch(e){mStatus('err','❌','Connexion impossible : '+esc(e.message));}
+  finally{btn.disabled=false;btn.textContent='🛒 Payer et télécharger';}
+});
+
+function surveiller(tel){
+  clearInterval(pollTimer);let essais=0;pdfDone=false;
+  mStatus('ring','📲','<b>Vérification en cours…</b> Dès confirmation, ton PDF se génère.');
+  pollTimer=setInterval(async()=>{
+    essais++;
+    try{
+      const r=await fetch(FN+'/mukanda-download',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telephone:tel})});
+      if(r.ok){const d=await r.json();
+        if(d.liens&&d.liens.length){
+          clearInterval(pollTimer);
+          mStatus('ok','🎉','<b>Paiement confirmé !</b> Ton PDF personnalisé se télécharge…',
+            '<button onclick="genererPDF()">📥 Re-télécharger mon PDF</button>');
+          if(!pdfDone){pdfDone=true;setTimeout(genererPDF,600);}
+          return;
+        }}
+    }catch(e){}
+    if(essais>=45){clearInterval(pollTimer);mStatus('err','⏰','Délai dépassé. As-tu validé sur ton téléphone ?',
+      '<button onclick="surveiller(\''+tel+'\')">🔍 Revérifier</button>');}
+  },4000);
+}
+window.surveiller=surveiller;
+
+async function genererPDF(){
+  const sheet=$('#sheet'),wrap=$('#sheetWrap');
+  if(!sheet){toast('⚠️ Aperçu introuvable.');return;}
+  toast('🖨️ Génération du PDF…');
+  const pT=sheet.style.transform,pH=wrap.style.height;
+  sheet.style.transform='none';wrap.style.height='auto';
+  const fname=('Mukanda-CV-'+(NOMS_MODELES[MODELE]||'')+'-'+DATA.nom).replace(/[^\w\-]+/g,'-').replace(/-+/g,'-')+'.pdf';
+  try{
+    await html2pdf().set({
+      margin:0,filename:fname,
+      html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:794},
+      jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+      pagebreak:{mode:['css','legacy']}
+    }).from(sheet).save();
+    toast('📥 PDF téléchargé : '+fname);
+  }catch(e){toast('❌ Erreur PDF : '+e.message);}
+  sheet.style.transform=pT;wrap.style.height=pH;
+}
+window.genererPDF=genererPDF;
+
+/* ---- Init ---- */
+render();
+console.log('✅ Exemplaire — Phase 3+4 OK');
+</script>
+</body>
+</html>

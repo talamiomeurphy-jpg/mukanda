@@ -1,0 +1,73 @@
+/* ============================================================
+   REGISTRE.CSS — mise en page A4 des documents Mukanda
+   ============================================================ */
+.doc-a4{width:210mm;min-height:297mm;position:relative;overflow:hidden;background:#fff;
+  font-family:'Segoe UI',Arial,Helvetica,sans-serif;color:#1a1a2e;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+.doc-a4 *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.doc-a4 .foot{position:absolute;bottom:5mm;left:12mm;right:12mm;font-size:8.5pt;color:#9aa;
+  text-align:center;border-top:1px solid #e5e5ef;padding-top:2mm}
+
+/* ---- CV 1 · Moderne ---- */
+.cv1{display:grid;grid-template-columns:70mm 140mm;min-height:297mm}
+.cv1 .side{background:#6C5CE7;color:#fff;padding:12mm 8mm}
+.cv1 .side .av{width:26mm;height:26mm;border-radius:50%;background:#fff;color:#6C5CE7;font-size:13pt;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6mm}
+.cv1 .side h2{font-size:10pt;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2mm;margin:6mm 0 3mm}
+.cv1 .side p{font-size:9pt;margin-bottom:1.5mm;line-height:1.4}
+.cv1 .bar{height:1.6mm;background:rgba(255,255,255,.3);border-radius:99px;margin:1mm 0 2.5mm}
+.cv1 .bar i{display:block;height:100%;background:#FFB703;border-radius:99px}
+.cv1 .main{padding:12mm 10mm}
+.cv1 .main h1{font-size:20pt}
+.cv1 .main .job{color:#6C5CE7;font-weight:700;font-size:11pt;margin:1mm 0 5mm}
+.cv1 .main h3{font-size:10.5pt;text-transform:uppercase;letter-spacing:1px;color:#6C5CE7;margin:5mm 0 3mm}
+.cv1 .xp{margin-bottom:4mm}
+.cv1 .xp .t{font-weight:700;font-size:10pt}
+.cv1 .xp .d{font-size:8.5pt;color:#888;margin-bottom:1mm}
+.cv1 .xp p{font-size:9pt;color:#444;line-height:1.45}
+
+/* ---- CV 2 · Classique ---- */
+.cv2{padding:16mm 18mm;font-family:Georgia,'Times New Roman',serif}
+.cv2 .head{text-align:center;border-bottom:3px double #1a1a2e;padding-bottom:5mm;margin-bottom:6mm}
+.cv2 .head h1{font-size:21pt;letter-spacing:2px;text-transform:uppercase}
+.cv2 .head .job{font-style:italic;font-size:11pt;color:#555;margin:1mm 0 2mm}
+.cv2 .head .ct{font-size:9pt;color:#666}
+.cv2 h3{font-size:11pt;text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid #1a1a2e;padding-bottom:1.5mm;margin:6mm 0 3mm}
+.cv2 .xp{margin-bottom:4mm}
+.cv2 .xp .t{font-weight:700;font-size:10pt}
+.cv2 .xp .d{font-style:italic;font-size:8.5pt;color:#777}
+.cv2 p,.cv2 li{font-size:9.5pt;line-height:1.5;color:#333}
+.cv2 ul{margin:1mm 0 0 6mm}
+
+/* ---- CV 3 · Minimal ---- */
+.cv3{padding:18mm 20mm}
+.cv3 h1{font-size:24pt;font-weight:300;letter-spacing:1px}
+.cv3 h1 b{font-weight:800}
+.cv3 .job{font-size:10pt;letter-spacing:3px;text-transform:uppercase;color:#888;margin:2mm 0 6mm}
+.cv3 .ct{font-size:9pt;color:#666;margin-bottom:8mm}
+.cv3 h3{font-size:9pt;letter-spacing:3px;text-transform:uppercase;margin:6mm 0 3mm}
+.cv3 h3::after{content:'';display:block;width:12mm;height:.8mm;background:#1a1a2e;margin-top:1.5mm}
+.cv3 .row{display:flex;gap:6mm;margin-bottom:3mm}
+.cv3 .row .l{flex:0 0 40mm;font-size:8.5pt;color:#999}
+.cv3 .row .r{flex:1;font-size:9.5pt;color:#333;line-height:1.5}
+.cv3 .row .r b{color:#1a1a2e}
+
+/* ---- CV 4 · Créatif ---- */
+.cv4 .band{background:#FFB703;padding:12mm 14mm;display:flex;align-items:center;gap:8mm}
+.cv4 .band .av{width:24mm;height:24mm;border-radius:3mm;background:#1a1a2e;color:#FFB703;font-size:12pt;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cv4 .band h1{font-size:19pt}
+.cv4 .band .job{font-size:10.5pt;color:#5b4300;font-weight:700}
+.cv4 .cols{display:grid;grid-template-columns:1fr 62mm;gap:8mm;padding:8mm 14mm}
+.cv4 h3{font-size:10pt;text-transform:uppercase;letter-spacing:1px;color:#FF5D73;margin:4mm 0 2mm}
+.cv4 p{font-size:9pt;line-height:1.5;color:#444}
+.cv4 .tag{display:inline-block;background:#1a1a2e;color:#FFB703;border-radius:99px;padding:1mm 3.5mm;font-size:8.5pt;font-weight:700;margin:0 1mm 1.5mm 0}
+
+/* ---- CV 5 · Étudiant ---- */
+.cv5{padding:14mm 16mm}
+.cv5 .top{display:flex;justify-content:space-between;align-items:flex-start;border-left:6mm solid #06C39A;padding-left:6mm;margin-bottom:6mm}
+.cv5 h1{font-size:19pt;color:#0b3b33}
+.cv5 .job{font-size:10pt;color:#06C39A;font-weight:700}
+.cv5 .ct{font-size:8.5pt;color:#777;text-align:right;line-height:1.6}
+.cv5 h3{font-size:10pt;text-transform:uppercase;letter-spacing:1px;color:#0b3b33;background:#E4FBF3;display:inline-block;padding:1.5mm 4mm;border-radius:2mm;margin:4mm 0 3mm}
+.cv5 p,.cv5 li{font-size:9.5pt;line-height:1.5;color:#333}
+.cv5 ul{margin-left:5mm}
+.cv5 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6mm}

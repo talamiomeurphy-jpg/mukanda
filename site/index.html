@@ -221,7 +221,7 @@ footer{margin-top:70px;background:var(--ink-3);color:#AEB6C8}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
 .rv.on{opacity:1;transform:none}
 
-/* ---- Cartes (cours + docs) : prix + bouton Acheter ---- */
+/* ---- Cartes (cours + docs) ---- */
 .bk{display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:var(--tr);height:100%}
 .bk:hover{transform:translateY(-6px);box-shadow:var(--sh-xl);border-color:var(--violet)}
 .bk-top{display:flex;flex-direction:column;flex:1;text-decoration:none;color:inherit}
@@ -236,11 +236,12 @@ footer{margin-top:70px;background:var(--ink-3);color:#AEB6C8}
 .bk .meta{font-size:12.5px;color:var(--grey);line-height:1.5;flex:1}
 .bk-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-top:2px solid var(--line);background:#fff;border-radius:0 0 var(--r) var(--r);margin-top:auto}
 .price-tag{font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;color:var(--ink);background:var(--gold);border:2px solid var(--ink);border-radius:10px;padding:5px 12px;white-space:nowrap;line-height:1.2}
-.price-tag.soon{background:var(--surface);color:var(--grey);border:2px dashed var(--grey-2);font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:11.5px}
 .btn-buy{background:var(--grad);color:#fff;border-radius:10px;padding:8px 14px;font-weight:800;font-size:12.5px;white-space:nowrap;box-shadow:0 4px 12px rgba(108,92,231,.35);transition:var(--tr);border:2px solid var(--ink);display:inline-flex;align-items:center;gap:6px}
 .btn-buy:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(108,92,231,.45)}
-.btn-soon{background:#fff;border:2px solid var(--line);color:var(--grey);border-radius:10px;padding:7px 12px;font-weight:800;font-size:12px;white-space:nowrap;transition:var(--tr);cursor:pointer}
-.btn-soon:hover{border-color:var(--violet);color:var(--violet)}
+
+/* ---- NOUVEAU : bouton "En savoir plus" pour documents en préparation ---- */
+.btn-discover{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px 14px;background:var(--grad);color:#fff;border-radius:10px;font-weight:800;font-size:13px;white-space:nowrap;box-shadow:0 4px 12px rgba(108,92,231,.35);transition:var(--tr);border:2px solid var(--ink);margin-top:auto}
+.btn-discover:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(108,92,231,.45)}
 
 /* ---- Responsive ---- */
 @media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-art{display:none}.hero{padding:120px 0 60px}}
@@ -433,7 +434,7 @@ footer{margin-top:70px;background:var(--ink-3);color:#AEB6C8}
 <script src="header.js"></script>
 <script>
 /* ============================================================
-   LOGIQUE PAGE D'ACCUEIL
+   LOGIQUE PAGE D'ACCUEIL — Phase 1 (bouton "En savoir plus")
    ============================================================ */
 const SB_URL='https://wyfkogowsdbxctbpfuud.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmtvZ293c2RieGN0YnBmdXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDc3MjAsImV4cCI6MjEwNjI4MzcyMH0.231eQ38RFvFaH3O6D-ReA8rlf3TehvWfcM-LBWocNEM';
@@ -487,6 +488,7 @@ function emoDoc(t){t=(t||'').toLowerCase();
   if(t.includes('cv'))return'📄';if(t.includes('lettre'))return'✉️';if(t.includes('facture'))return'🧾';
   if(t.includes('contrat'))return'📑';if(t.includes('business'))return'📊';return'💼';}
 
+/* Carte cours réel : prix + bouton Acheter */
 function carteCours(c){return `<article class="bk">
   <a class="bk-top" href="cours.html?id=${c.id}">
     <div class="cover"><span class="spine"></span>${EMO[c.matiere]||'📘'}<span class="ribbon ok">Dispo</span></div>
@@ -501,6 +503,7 @@ function carteCours(c){return `<article class="bk">
     <a class="btn-buy" href="paiement.html?type=cours&id=${c.id}">🛒 Acheter</a>
   </div></article>`;}
 
+/* Carte document réel : prix + bouton Acheter (pack complet) */
 function carteDoc(d){return `<article class="bk">
   <a class="bk-top" href="produit.html?type=document&id=${d.id}">
     <div class="cover"><span class="spine"></span>${emoDoc(d.titre)}<span class="ribbon ok">Dispo</span></div>
@@ -515,7 +518,8 @@ function carteDoc(d){return `<article class="bk">
     <a class="btn-buy" href="paiement.html?type=document&id=${d.id}">🛒 Acheter</a>
   </div></article>`;}
 
-function cartePrepa(em,t,sub){return `<article class="bk">
+/* NOUVEAU : Carte en préparation avec bouton "En savoir plus" → exemplaires.html */
+function cartePrepa(slug,em,t,sub){return `<article class="bk">
   <div class="bk-top">
     <div class="cover"><span class="spine"></span>${em}<span class="ribbon">Bientôt</span></div>
     <div class="body">
@@ -525,8 +529,7 @@ function cartePrepa(em,t,sub){return `<article class="bk">
     </div>
   </div>
   <div class="bk-foot">
-    <span class="price-tag soon">Prix au lancement</span>
-    <button class="btn-soon" onclick="toast('🔔 Tu seras prévenu dès la mise en ligne !')">🔔 Préviens-moi</button>
+    <a class="btn-discover" href="exemplaires.html?type=${slug}">En savoir plus →</a>
   </div></article>`;}
 
 /* ---- Remplir les étagères ---- */
@@ -541,15 +544,19 @@ async function remplir(){
       cours=rc.data||[];docs=rd.data||[];
     }catch(e){console.warn('Erreur chargement étagères:',e);}
   }
+  
+  /* Étagère cours */
   const sc=$('#shelfCours');
   if(sc)sc.innerHTML=cours.length?cours.map(carteCours).join(''):[
-    cartePrepa('🧮','Maths · CEPE','Les 4 opérations + problèmes corrigés'),
-    cartePrepa('📖','Français · CEPE','Dictées + rédactions corrigées'),
-    cartePrepa('⚗️','Physique · BAC','Mécanique + électricité'),
-    cartePrepa('🌱','SVT · BEPC','Leçons + exercices corrigés'),
-    cartePrepa('💭','Philosophie · BAC','Dissertation méthodée')
+    cartePrepa('maths-cepe','🧮','Maths · CEPE','Les 4 opérations + problèmes corrigés'),
+    cartePrepa('francais-cepe','📖','Français · CEPE','Dictées + rédactions corrigées'),
+    cartePrepa('physique-bac','⚗️','Physique · BAC','Mécanique + électricité'),
+    cartePrepa('svt-bepc','🌱','SVT · BEPC','Leçons + exercices corrigés'),
+    cartePrepa('philo-bac','💭','Philosophie · BAC','Dissertation méthodée')
   ].join('');
-    const PRO_A_VENIR=[
+  
+  /* Étagère Pro : documents réels (packs complets) + documents en préparation (nouveaux exemplaires) */
+  const PRO_A_VENIR=[
     {slug:'cv-modernes',em:'📄',t:'CV modernes',sub:'5 modèles prêts à remplir'},
     {slug:'lettres-motivation',em:'✉️',t:'Lettres de motivation',sub:'10 modèles selon la situation'},
     {slug:'factures-devis',em:'🧾',t:'Factures & devis',sub:'Modèles conformes usages Congo'},
@@ -562,19 +569,15 @@ async function remplir(){
   ];
   const sp=$('#shelfPro');
   if(sp){
-    sp.innerHTML=docs.map(carteDoc).join('')+
-      PRO_A_VENIR.filter(p=>!docs.some(d=>d.slug===p.slug)).map(p=>cartePrepa(p.em,p.t,p.sub)).join('');
+    /* D'abord les documents réels (packs complets à 1000F), puis les exemplaires à venir */
+    const docsHtml=docs.map(carteDoc).join('');
+    const prepaHtml=PRO_A_VENIR.filter(p=>!docs.some(d=>d.slug===p.slug)).map(p=>cartePrepa(p.slug,p.em,p.t,p.sub)).join('');
+    sp.innerHTML=docsHtml+prepaHtml;
   }
-  if(sp)sp.innerHTML=docs.length?docs.map(carteDoc).join(''):[
-    cartePrepa('📄','CV moderne','5 modèles prêts à remplir'),
-    cartePrepa('✉️','Lettre de motivation','10 modèles selon la situation'),
-    cartePrepa('🧾','Facture conforme','Facture + devis, usages Congo'),
-    cartePrepa('📑','Contrat de travail','CDI / CDD clair et complet'),
-    cartePrepa('📊','Business plan','Lancer ton commerce à Brazzaville')
-  ].join('');
+  
   /* Compteurs par niveau */
   if(sb){
-    for(const n of ['cepe',' bepc ','bac','concours']){
+    for(const n of ['cepe','bepc','bac','concours']){
       try{
         const r=await sb.from('cours').select('id',{count:'exact',head:true}).eq('actif',true).eq('niveau',n);
         const el=document.getElementById('c-'+n);if(el)el.textContent=(r.count||0)+' cours';
@@ -583,7 +586,7 @@ async function remplir(){
   }
 }
 remplir();
-console.log('✅ Accueil Mukanda — propre et fonctionnel');
+console.log('✅ Accueil Mukanda — Phase 1 (bouton En savoir plus) activée');
 </script>
 </body>
 </html>

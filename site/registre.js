@@ -714,3 +714,503 @@ definirDocument({
 });
 
 /* ➕ PROCHAIN DOCUMENT ICI (ex : definirDocument({slug:'contrat-travail', ...})) */
+
+
+/* ============================================================
+   📑 DOCUMENT : CONTRATS DE TRAVAIL (5 modèles)
+   ➕ Bloc autonome : CSS injecté + definirDocument.
+   ➕ Conforme aux usages et mentions légales du Congo-Brazzaville.
+   ============================================================ */
+(function(){
+  if(!document.getElementById('css-contrats')){
+    const s=document.createElement('style');s.id='css-contrats';s.textContent=`
+      .ct1,.ct2,.ct3,.ct4,.ct5{padding:18mm 20mm;min-height:297mm;position:relative;font-size:10pt;line-height:1.6;color:#222}
+      /* ---- 1. Classique (CDI standard) ---- */
+      .ct1{font-family:Georgia,'Times New Roman',serif}
+      .ct1 .ct-head{text-align:center;border-bottom:2px solid #1a1a2e;padding-bottom:4mm;margin-bottom:6mm}
+      .ct1 .ct-head h1{font-size:16pt;text-transform:uppercase;letter-spacing:2px;margin-bottom:2mm}
+      .ct1 .ct-head .sub{font-size:9pt;color:#555}
+      .ct1 .ct-parties{display:flex;justify-content:space-between;gap:8mm;margin-bottom:6mm}
+      .ct1 .ct-party{flex:1;background:#f8f9fc;padding:4mm;border-radius:2mm;border-left:3px solid #1a1a2e}
+      .ct1 .ct-party b{display:block;font-size:9pt;text-transform:uppercase;color:#555;margin-bottom:1mm}
+      .ct1 .ct-art{margin-bottom:4mm}
+      .ct1 .ct-art h3{font-size:11pt;border-bottom:1px solid #ddd;padding-bottom:1mm;margin-bottom:2mm}
+      .ct1 .ct-art p{text-align:justify;margin-bottom:2mm}
+      .ct1 .ct-sig{display:flex;justify-content:space-between;margin-top:12mm;gap:8mm}
+      .ct1 .ct-sig .box{flex:1;border-top:1px solid #222;padding-top:2mm;text-align:center;font-size:9pt}
+      /* ---- 2. Moderne (CDD / Mission) ---- */
+      .ct2{font-family:'Segoe UI',Arial,sans-serif}
+      .ct2 .ct-band{background:var(--ac,#2F6BFF);color:#fff;margin:-18mm -20mm 8mm;padding:8mm 20mm;display:flex;justify-content:space-between;align-items:center}
+      .ct2 .ct-band h1{font-size:18pt}
+      .ct2 .ct-band .sub{font-size:9pt;opacity:.9}
+      .ct2 .ct-row{display:flex;gap:6mm;margin-bottom:4mm}
+      .ct2 .ct-col{flex:1}
+      .ct2 .ct-col b{color:var(--ac,#2F6BFF);font-size:9pt;text-transform:uppercase;display:block;margin-bottom:1mm}
+      .ct2 .ct-art h3{color:var(--ac,#2F6BFF);font-size:11pt;margin:5mm 0 2mm}
+      .ct2 .ct-art p{text-align:justify;margin-bottom:2mm}
+      .ct2 .ct-sig{display:flex;justify-content:space-between;margin-top:12mm;page-break-inside:avoid}
+      .ct2 .ct-sig .box{width:45%;border-top:2px solid var(--ac,#2F6BFF);padding-top:2mm;text-align:center;font-size:9pt}
+      /* ---- 3. Stage (Épuré & bienveillant) ---- */
+      .ct3{font-family:'Segoe UI',Arial,sans-serif;color:#333}
+      .ct3 .ct-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #06C39A;padding-bottom:4mm;margin-bottom:6mm}
+      .ct3 .ct-head h1{color:#06C39A;font-size:16pt}
+      .ct3 .ct-badge{background:#06C39A;color:#fff;padding:2mm 4mm;border-radius:2mm;font-size:9pt;font-weight:700}
+      .ct3 .ct-art h3{color:#06C39A;font-size:11pt;margin:4mm 0 2mm}
+      .ct3 .ct-art p{text-align:justify;margin-bottom:2mm}
+      .ct3 .ct-sig{display:flex;justify-content:space-between;margin-top:12mm}
+      .ct3 .ct-sig .box{width:45%;text-align:center;font-size:9pt;padding-top:2mm;border-top:1px dashed #06C39A}
+      /* ---- 4. Temps partiel / CDD court (Minimaliste) ---- */
+      .ct4{font-family:'Segoe UI',Arial,sans-serif;color:#222}
+      .ct4 .ct-head{text-align:center;margin-bottom:6mm}
+      .ct4 .ct-head h1{font-weight:300;font-size:20pt;letter-spacing:1px}
+      .ct4 .ct-head h1 b{font-weight:800}
+      .ct4 .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:6mm;background:#f4f4f8;padding:4mm;border-radius:3mm}
+      .ct4 .ct-grid .item b{display:block;font-size:8pt;color:#666;text-transform:uppercase;margin-bottom:1mm}
+      .ct4 .ct-art h3{font-size:10.5pt;margin:4mm 0 2mm;color:#101A3E}
+      .ct4 .ct-art p{text-align:justify;margin-bottom:2mm}
+      .ct4 .ct-sig{display:flex;justify-content:space-between;margin-top:12mm}
+      .ct4 .ct-sig .box{width:45%;text-align:center;font-size:9pt;padding-top:2mm;border-top:1px solid #101A3E}
+      /* ---- 5. Apprentissage / Alternance (Structuré) ---- */
+      .ct5{font-family:Georgia,serif;color:#222}
+      .ct5 .ct-head{border-top:3px double #3A2E8C;border-bottom:3px double #3A2E8C;padding:4mm 0;margin-bottom:6mm;text-align:center}
+      .ct5 .ct-head h1{font-size:15pt;letter-spacing:2px;color:#3A2E8C;text-transform:uppercase}
+      .ct5 .ct-parties{display:flex;justify-content:space-between;gap:6mm;margin-bottom:6mm}
+      .ct5 .ct-party{flex:1;font-size:9.5pt}
+      .ct5 .ct-party b{display:block;color:#3A2E8C;margin-bottom:1mm;font-size:8.5pt;text-transform:uppercase}
+      .ct5 .ct-art h3{color:#3A2E8C;font-size:11pt;margin:4mm 0 2mm;border-bottom:1px dotted #ccc;padding-bottom:1mm}
+      .ct5 .ct-art p{text-align:justify;margin-bottom:2mm}
+      .ct5 .ct-sig{display:flex;justify-content:space-between;margin-top:12mm;gap:6mm}
+      .ct5 .ct-sig .box{flex:1;text-align:center;font-size:9pt;padding-top:2mm;border-top:2px solid #3A2E8C}
+    `;document.head.appendChild(s);
+  }
+})();
+
+/* ---- Fonctions de rendu pour les 5 modèles ---- */
+function R_ct1(d,opts){
+  return `<div class="doc-a4"><div class="ct1">
+    <div class="ct-head"><h1>Contrat de Travail à Durée Indéterminée</h1><div class="sub">Conforme à la Loi n° 021-2002 du 13 juin 2002 (Code du Travail)</div></div>
+    <div class="ct-parties">
+      <div class="ct-party"><b>L'Employeur</b>${R_esc(d.employeur_nom)}<br>${R_esc(d.employeur_adresse)}<br>RCCM : ${R_esc(d.employeur_rccm)}<br>NIF : ${R_esc(d.employeur_nif)}</div>
+      <div class="ct-party"><b>Le Salarié</b>${R_esc(d.employe_nom)}<br>${R_esc(d.employe_adresse)}<br>CNI n° : ${R_esc(d.employe_cni)}<br>Tél : ${R_esc(d.employe_tel)}</div>
+    </div>
+    <div class="ct-art"><h3>Article 1 : Objet et Qualification</h3><p>Le salarié est engagé en qualité de <b>${R_esc(d.poste)}</b>. Il exercera ses fonctions principalement à <b>${R_esc(d.lieu_travail)}</b>, sous l'autorité de la direction.</p></div>
+    <div class="ct-art"><h3>Article 2 : Date d'effet et Période d'essai</h3><p>Le présent contrat prend effet à compter du <b>${R_esc(d.date_debut)}</b>. Il est conclu pour une durée indéterminée, sous réserve d'une période d'essai de <b>${R_esc(d.periode_essai)}</b>, renouvelable une fois conformément à la loi.</p></div>
+    <div class="ct-art"><h3>Article 3 : Durée du travail et Rémunération</h3><p>La durée hebdomadaire de travail est fixée à <b>${R_esc(d.duree_hebdo)} heures</b>. En contrepartie, le salarié percevra un salaire mensuel brut de <b>${R_esc(d.salaire_brut)} FCFA</b>, soumis aux retenues légales en vigueur.</p></div>
+    <div class="ct-art"><h3>Article 4 : Congés et Obligations</h3><p>Le salarié bénéficie de <b>${R_esc(d.conges)}</b> de congés payés par mois de travail effectif. Il s'engage à respecter le règlement intérieur de l'entreprise et la clause de confidentialité.</p></div>
+    <div class="ct-sig">
+      <div class="box">Fait à ${R_esc(d.lieu_travail)}, le ${R_esc(d.date_signature)}<br><br><br>L'Employeur<br>(Signature et Cachet)</div>
+      <div class="box">Fait à ${R_esc(d.lieu_travail)}, le ${R_esc(d.date_signature)}<br><br><br>Le Salarié<br>(Signature précédée de « Lu et approuvé »)</div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_ct2(d,opts){
+  return `<div class="doc-a4"><div class="ct2" style="--ac:${opts.ac}">
+    <div class="ct-band"><h1>Contrat à Durée Déterminée (CDD)</h1><div class="sub">N° ${R_esc(d.numero_contrat)}</div></div>
+    <div class="ct-row">
+      <div class="ct-col"><b>Entre</b>${R_esc(d.employeur_nom)}<br>${R_esc(d.employeur_adresse)}<br>RCCM : ${R_esc(d.employeur_rccm)}</div>
+      <div class="ct-col"><b>Et</b>${R_esc(d.employe_nom)}<br>${R_esc(d.employe_adresse)}<br>CNI n° : ${R_esc(d.employe_cni)}</div>
+    </div>
+    <div class="ct-art"><h3>1. Motif et Objet</h3><p>Le présent contrat est conclu pour un motif de <b>${R_esc(d.motif_cdd)}</b>. Le salarié est engagé au poste de <b>${R_esc(d.poste)}</b>.</p></div>
+    <div class="ct-art"><h3>2. Durée du contrat</h3><p>Le contrat est conclu pour une durée déterminée commençant le <b>${R_esc(d.date_debut)}</b> et prenant fin le <b>${R_esc(d.date_fin)}</b>, incluant une période d'essai de <b>${R_esc(d.periode_essai)}</b>.</p></div>
+    <div class="ct-art"><h3>3. Rémunération et Horaires</h3><p>Durée hebdomadaire : <b>${R_esc(d.duree_hebdo)} heures</b>. Salaire mensuel brut : <b>${R_esc(d.salaire_brut)} FCFA</b>, payable avant le 5 du mois suivant.</p></div>
+    <div class="ct-art"><h3>4. Résiliation</h3><p>En dehors de la période d'essai, le contrat ne peut être rompu anticipativement que pour faute grave, force majeure ou accord commun des parties, conformément au Code du Travail congolais.</p></div>
+    <div class="ct-sig">
+      <div class="box">L'Employeur<br><br><br>(Signature et Cachet)</div>
+      <div class="box">Le Salarié<br><br><br>(Lu et approuvé)</div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_ct3(d,opts){
+  return `<div class="doc-a4"><div class="ct3">
+    <div class="ct-head"><h1>Convention de Stage</h1><div class="ct-badge">PÉRIODE DE FORMATION</div></div>
+    <div style="margin-bottom:6mm">
+      <b style="color:#06C39A;font-size:9pt">L'ORGANISME D'ACCUEIL :</b><br>${R_esc(d.employeur_nom)}, ${R_esc(d.employeur_adresse)}<br>
+      <b style="color:#06C39A;font-size:9pt;margin-top:2mm;display:block">LE STAGIAIRE :</b><br>${R_esc(d.employe_nom)}, ${R_esc(d.employe_adresse)}, CNI n° ${R_esc(d.employe_cni)}
+    </div>
+    <div class="ct-art"><h3>Article 1 : Objet du stage</h3><p>Le stage a pour objectif de permettre au stagiaire d'acquérir une expérience professionnelle en tant que <b>${R_esc(d.poste)}</b>, en application de son cursus de formation.</p></div>
+    <div class="ct-art"><h3>Article 2 : Durée et Horaires</h3><p>Le stage débutera le <b>${R_esc(d.date_debut)}</b> pour se terminer le <b>${R_esc(d.date_fin)}</b>. Les horaires de présence sont fixés de ${R_esc(d.horaires)}.</p></div>
+    <div class="ct-art"><h3>Article 3 : Encadrement et Gratification</h3><p>Le stagiaire sera placé sous la responsabilité de <b>${R_esc(d.tuteur)}</b>. En contrepartie de son activité, il percevra une gratification mensuelle de <b>${R_esc(d.salaire_brut)} FCFA</b> (non soumise aux cotisations sociales classiques).</p></div>
+    <div class="ct-art"><h3>Article 4 : Assurance et Confidentialité</h3><p>Le stagiaire reste affilié à son régime de sécurité sociale d'origine. Il s'engage à une stricte confidentialité sur les données de l'entreprise auxquelles il pourrait avoir accès.</p></div>
+    <div class="ct-sig">
+      <div class="box">Le Responsable de l'organisme<br><br><br>(Signature et Cachet)</div>
+      <div class="box">Le Stagiaire<br><br><br>(Lu et approuvé)</div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_ct4(d,opts){
+  return `<div class="doc-a4"><div class="ct4">
+    <div class="ct-head"><h1>Contrat de Travail <b>à Temps Partiel</b></h1></div>
+    <div class="ct-grid">
+      <div class="item"><b>Employeur</b>${R_esc(d.employeur_nom)}</div>
+      <div class="item"><b>Salarié</b>${R_esc(d.employe_nom)}</div>
+      <div class="item"><b>Poste</b>${R_esc(d.poste)}</div>
+      <div class="item"><b>Début</b>${R_esc(d.date_debut)}</div>
+    </div>
+    <div class="ct-art"><h3>1. Nature du lien</h3><p>Les parties conviennent d'un contrat de travail à temps partiel. Le salarié n'est pas soumis à l'horaire collectif de l'entreprise mais aux plages horaires suivantes : <b>${R_esc(d.horaires)}</b>.</p></div>
+    <div class="ct-art"><h3>2. Rémunération</h3><p>Le salaire est calculé au prorata de la durée du travail par rapport à un salarié à temps complet. Il est fixé à <b>${R_esc(d.salaire_brut)} FCFA</b> mensuels, payables à terme échu.</p></div>
+    <div class="ct-art"><h3>3. Heures complémentaires</h3><p>Des heures complémentaires peuvent être demandées dans la limite du dixième de la durée hebdomadaire prévue, avec une majoration de 10%.</p></div>
+    <div class="ct-art"><h3>4. Durée et Résiliation</h3><p>Le contrat est conclu pour une durée de <b>${R_esc(d.duree_contrat)}</b>. Il est renouvelable par tacite reconduction. La période d'essai est de <b>${R_esc(d.periode_essai)}</b>.</p></div>
+    <div class="ct-sig">
+      <div class="box">L'Employeur<br><br><br>(Signature)</div>
+      <div class="box">Le Salarié<br><br><br>(Lu et approuvé)</div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_ct5(d,opts){
+  return `<div class="doc-a4"><div class="ct5">
+    <div class="ct-head"><h1>Contrat d'Apprentissage</h1></div>
+    <div class="ct-parties">
+      <div class="ct-party"><b>L'Employeur</b>${R_esc(d.employeur_nom)}<br>${R_esc(d.employeur_adresse)}<br>Représenté par : ${R_esc(d.representant)}</div>
+      <div class="ct-party"><b>L'Apprenti(e)</b>${R_esc(d.employe_nom)}<br>Né(e) le : ${R_esc(d.date_naissance)}<br>CNI n° : ${R_esc(d.employe_cni)}<br>Niveau scolaire : ${R_esc(d.niveau_scolaire)}</div>
+    </div>
+    <div class="ct-art"><h3>Article 1 : Diplôme ou Titre visé</h3><p>Le présent contrat a pour objet de former l'apprenti au métier de <b>${R_esc(d.poste)}</b> en vue de l'obtention du diplôme/titre suivant : <b>${R_esc(d.diplome_vise)}</b>.</p></div>
+    <div class="ct-art"><h3>Article 2 : Durée et Alternance</h3><p>Le contrat est conclu pour une durée de <b>${R_esc(d.duree_contrat)}</b>, du ${R_esc(d.date_debut)} au ${R_esc(d.date_fin)}. L'apprenti suivra des cours théoriques à ${R_esc(d.centre_formation)} à raison de ${R_esc(d.rythme_alternance)}.</p></div>
+    <div class="ct-art"><h3>Article 3 : Rémunération</h3><p>En application de la réglementation en vigueur, l'apprenti percevra un salaire mensuel égal à <b>${R_esc(d.pourcentage_salaire)}%</b> du SMIG ou du salaire minimum conventionnel, soit <b>${R_esc(d.salaire_brut)} FCFA</b>.</p></div>
+    <div class="ct-art"><h3>Article 4 : Engagements du Maître d'Apprentissage</h3><p>L'employeur s'engage à inscrire l'apprenti au centre de formation, à lui assurer une formation pratique complète et à le présenter aux épreuves du diplôme.</p></div>
+    <div class="ct-sig">
+      <div class="box">L'Employeur<br><br><br>(Signature et Cachet)</div>
+      <div class="box">L'Apprenti(e) (ou son représentant légal)<br><br><br>(Lu et approuvé)</div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+definirDocument({
+  slug:'contrat-travail', type:'contrat', em:'📑',
+  titre:'Contrats de travail',
+  desc:'5 modèles juridiques solides, conformes au Code du Travail congolais. Protège ton entreprise et clarifie les attentes dès le premier jour.',
+  prixUnit:200, prixPack:1500,
+  defaut:{
+    employeur_nom:'Mukanda SARL',
+    employeur_adresse:'Avenue de la Paix, Brazzaville',
+    employeur_rccm:'CG-BZV-2026-B-12-00123',
+    employeur_nif:'C060012345X',
+    representant:'Meurphy Talamio, Gérant',
+    employe_nom:'Jean-Baptiste Nkouka',
+    employe_adresse:'Ouenzé, Brazzaville',
+    employe_cni:'123456789',
+    employe_tel:'+242 06 518 69 67',
+    date_naissance:'15 août 1998',
+    niveau_scolaire:'Licence en Sciences de Gestion',
+    poste:'Assistant Comptable',
+    lieu_travail:'Brazzaville',
+    date_debut:'1er avril 2026',
+    date_fin:'31 mars 2027',
+    date_signature:'15 mars 2026',
+    numero_contrat:'CDD-2026-008',
+    motif_cdd:'Accroissement temporaire d\'activité',
+    duree_contrat:'12 mois',
+    duree_hebdo:'40',
+    rythme_alternance:'1 semaine entreprise / 1 semaine centre',
+    periode_essai:'3 mois',
+    salaire_brut:'150 000',
+    pourcentage_salaire:'55',
+    conges:'2,5 jours',
+    horaires:'8h00 à 16h00, du lundi au vendredi',
+    tuteur:'Mme. Kamba, Directrice Financière',
+    diplome_vise:'Brevet de Technicien Supérieur (BTS) Comptabilité',
+    centre_formation:'Centre de Formation Professionnelle de Brazzaville'
+  },
+  champs:[
+    {g:'🏢 Employeur',f:[{p:'employeur_nom',l:'Nom de l\'entreprise'},{p:'employeur_adresse',l:'Adresse'},{p:'employeur_rccm',l:'N° RCCM'},{p:'employeur_nif',l:'N° NIF / NIU'},{p:'representant',l:'Nom du représentant légal'}]},
+    {g:'👤 Employé / Stagiaire',f:[{p:'employe_nom',l:'Nom complet'},{p:'employe_adresse',l:'Adresse'},{p:'employe_cni',l:'N° CNI'},{p:'employe_tel',l:'Téléphone'},{p:'date_naissance',l:'Date de naissance (si apprentissage)'},{p:'niveau_scolaire',l:'Niveau scolaire (si apprentissage)'}]},
+    {g:'💼 Poste & Durée',f:[
+      {p:'poste',l:'Intitulé du poste'},
+      {p:'lieu_travail',l:'Lieu de travail'},
+      {p:'date_debut',l:'Date de début'},
+      {p:'date_fin',l:'Date de fin (laisser vide si CDI)'},
+      {p:'date_signature',l:'Date de signature'},
+      {p:'numero_contrat',l:'N° du contrat (optionnel)'},
+      {p:'motif_cdd',l:'Motif du CDD (si applicable)'},
+      {p:'duree_contrat',l:'Durée totale (ex: 12 mois)'},
+      {p:'periode_essai',l:'Durée de la période d\'essai'}
+    ]},
+    {g:'💰 Conditions',f:[
+      {p:'duree_hebdo',l:'Durée hebdomadaire (heures)'},
+      {p:'horaires',l:'Horaires de travail'},
+      {p:'salaire_brut',l:'Salaire mensuel brut (FCFA)'},
+      {p:'conges',l:'Congés payés (ex: 2,5 jours/mois)'},
+      {p:'pourcentage_salaire',l:'% du SMIG (pour apprentissage uniquement)'},
+      {p:'tuteur',l:'Nom du tuteur / maître d\'apprentissage'},
+      {p:'diplome_vise',l:'Diplôme ou titre visé (apprentissage)'},
+      {p:'centre_formation',l:'Centre de formation (apprentissage)'},
+      {p:'rythme_alternance',l:'Rythme d\'alternance'}
+    ]}
+  ],
+  modeles:[
+    {id:1,nom:'CDI Standard',badge:'Le plus utilisé',color:'#1a1a2e',
+     usage:'Recrutement classique, emploi stable',
+     desc:'Le contrat de droit commun. Formel, complet, avec toutes les clauses de protection légales (période d\'essai, congés, confidentialité).',
+     rendu:d=>R_ct1(d,{foot:'Contrat 1/5 · CDI Standard · © Mukanda'})},
+    {id:2,nom:'CDD / Mission',badge:'Flexible',color:'#2F6BFF',
+     usage:'Remplacement, surcroît d\'activité, projet précis',
+     desc:'Clair sur la date de fin et le motif légal. Bandeau moderne, structure aérée pour une lecture rapide des obligations.',
+     rendu:d=>R_ct2(d,{ac:'#2F6BFF',foot:'Contrat 2/5 · CDD / Mission · © Mukanda'})},
+    {id:3,nom:'Convention de Stage',badge:'Étudiants',color:'#06C39A',
+     usage:'Stages de fin d\'études, stages d\'observation',
+     desc:'Met l\'accent sur la formation et l\'encadrement, avec mention de la gratification (et non du salaire) et des horaires.',
+     rendu:d=>R_ct3(d,{foot:'Contrat 3/5 · Convention de Stage · © Mukanda'})},
+    {id:4,nom:'Temps Partiel',badge:'Spécifique',color:'#101A3E',
+     usage:'Emplois à horaires réduits, renforts ponctuels',
+     desc:'Minimaliste et direct. Insiste sur les plages horaires spécifiques et le calcul au prorata de la rémunération.',
+     rendu:d=>R_ct4(d,{foot:'Contrat 4/5 · Temps Partiel · © Mukanda'})},
+    {id:5,nom:'Apprentissage',badge:'Formation',color:'#3A2E8C',
+     usage:'Jeunes en alternance, formation en milieu professionnel',
+     desc:'Conforme aux exigences des centres de formation : mention du diplôme visé, du pourcentage du SMIG, et du rythme d\'alternance.',
+     rendu:d=>R_ct5(d,{foot:'Contrat 5/5 · Apprentissage · © Mukanda'})}
+  ]
+});
+
+/* ➕ PROCHAIN DOCUMENT ICI (ex : definirDocument({slug:'attestations', ...})) */
+
+
+/* ============================================================
+   📜 DOCUMENT : ATTESTATIONS (5 modèles)
+   ➕ Bloc autonome : CSS injecté + definirDocument.
+   ➕ Formulations juridiques adaptées aux usages du Congo-Brazzaville.
+   ============================================================ */
+(function(){
+  if(!document.getElementById('css-attestations')){
+    const s=document.createElement('style');s.id='css-attestations';s.textContent=`
+      .att1,.att2,.att3,.att4,.att5{padding:20mm;min-height:297mm;position:relative;font-size:10.5pt;line-height:1.6;color:#222}
+      /* ---- 1. Travail (Classique & sobre) ---- */
+      .att1{font-family:Georgia,'Times New Roman',serif}
+      .att1 .att-head{text-align:center;margin-bottom:10mm;text-transform:uppercase;font-weight:700;font-size:14pt;letter-spacing:1px}
+      .att1 .att-body{text-align:justify;margin-bottom:12mm}
+      .att1 .att-body p{margin-bottom:4mm}
+      .att1 .att-sig{margin-top:15mm;text-align:right;font-style:italic}
+      /* ---- 2. Stage (Moderne avec filet) ---- */
+      .att2{font-family:'Segoe UI',Arial,sans-serif}
+      .att2 .att-head{border-bottom:3px solid var(--ac,#06C39A);padding-bottom:4mm;margin-bottom:8mm;display:flex;justify-content:space-between;align-items:flex-end}
+      .att2 .att-head h1{color:var(--ac,#06C39A);font-size:16pt;margin:0}
+      .att2 .att-head .sub{font-size:9pt;color:#666;text-align:right}
+      .att2 .att-body p{margin-bottom:4mm}
+      .att2 .att-sig{margin-top:15mm;text-align:right}
+      .att2 .att-sig .box{display:inline-block;text-align:center;border-top:1px solid #222;padding-top:2mm;min-width:60mm}
+      /* ---- 3. Salaire (Structuré, met en valeur les chiffres) ---- */
+      .att3{font-family:'Segoe UI',Arial,sans-serif}
+      .att3 .att-head{text-align:center;margin-bottom:8mm}
+      .att3 .att-head h1{font-size:16pt;color:#1a1a2e;margin-bottom:2mm}
+      .att3 .att-box{background:#f4f6f9;border:1px solid #dde2ea;border-radius:4mm;padding:6mm;margin:6mm 0;font-size:11pt}
+      .att3 .att-box b{color:#1a1a2e}
+      .att3 .att-sig{margin-top:15mm;display:flex;justify-content:space-between}
+      .att3 .att-sig .box{width:45%;text-align:center;padding-top:2mm;border-top:2px solid #1a1a2e;font-size:9pt}
+      /* ---- 4. Hébergement (Déclaratif, clair) ---- */
+      .att4{font-family:Georgia,serif}
+      .att4 .att-head{text-align:center;font-size:15pt;font-weight:700;margin-bottom:8mm;text-decoration:underline;text-underline-offset:4mm}
+      .att4 .att-je{font-size:11pt;margin-bottom:6mm}
+      .att4 .att-je b{display:block;font-size:12pt;margin-bottom:2mm}
+      .att4 .att-sig{margin-top:15mm;text-align:right}
+      /* ---- 5. Sur l'honneur (Minimaliste, solennel) ---- */
+      .att5{font-family:'Segoe UI',Arial,sans-serif;color:#111}
+      .att5 .att-head{text-align:center;font-size:18pt;font-weight:800;letter-spacing:2px;margin-bottom:12mm;color:#1a1a2e}
+      .att5 .att-body{font-size:11pt;line-height:1.8;text-align:justify}
+      .att5 .att-body .hl{background:#fff8e1;padding:0 2mm;border-radius:2mm;font-weight:700}
+      .att5 .att-sig{margin-top:20mm;text-align:center}
+      .att5 .att-sig .box{display:inline-block;padding:4mm 10mm;border:2px solid #1a1a2e;border-radius:4mm;font-weight:700}
+    `;document.head.appendChild(s);
+  }
+})();
+
+/* ---- Fonctions de rendu pour les 5 modèles ---- */
+function R_att1(d,opts){
+  return `<div class="doc-a4"><div class="att1">
+    <div class="att-head">ATTESTATION DE TRAVAIL</div>
+    <div class="att-body">
+      <p>Je soussigné(e), <b>${R_esc(d.emetteur_nom)}</b>, agissant en qualité de <b>${R_esc(d.emetteur_fonction)}</b> au sein de <b>${R_esc(d.emetteur_entreprise)}</b>,</p>
+      <p>Certifie par la présente que :</p>
+      <p style="text-align:center;font-size:12pt;margin:6mm 0"><b>${R_esc(d.concerne_nom)}</b><br>CNI n° ${R_esc(d.concerne_cni)}</p>
+      <p>A été employé(e) au sein de notre établissement en qualité de <b>${R_esc(d.poste_fonction)}</b>, pour la période allant du <b>${R_esc(d.date_debut)}</b> au <b>${R_esc(d.date_fin)}</b>.</p>
+      <p>Cette attestation est délivrée à la demande de l'intéressé(e), ${R_esc(d.motif_precision)}.</p>
+    </div>
+    <div class="att-sig">
+      Fait à ${R_esc(d.lieu)}, le ${R_esc(d.date)}<br><br><br>
+      ${R_esc(d.emetteur_nom)}<br>
+      <i>(Signature et Cachet de l'entreprise)</i>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_att2(d,opts){
+  return `<div class="doc-a4"><div class="att2" style="--ac:${opts.ac}">
+    <div class="att-head">
+      <h1>ATTESTATION DE STAGE</h1>
+      <div class="sub">${R_esc(d.emetteur_entreprise)}<br>${R_esc(d.emetteur_adresse)}<br>${R_esc(d.emetteur_tel)}</div>
+    </div>
+    <div class="att-body">
+      <p>Je soussigné(e), <b>${R_esc(d.emetteur_nom)}</b>, <b>${R_esc(d.emetteur_fonction)}</b>, certifie que :</p>
+      <p style="text-align:center;font-size:11.5pt;margin:6mm 0"><b>${R_esc(d.concerne_nom)}</b><br>Étudiant(e) en ${R_esc(d.concerne_fonction)}</p>
+      <p>A effectué un stage au sein de notre structure du <b>${R_esc(d.date_debut)}</b> au <b>${R_esc(d.date_fin)}</b>.</p>
+      <p> Durant cette période, ${R_esc(d.concerne_nom).split(' ')[0]} a fait preuve de sérieux, d'assiduité et a participé activement aux missions qui lui ont été confiées.</p>
+      <p>Cette attestation est délivrée pour servir et valoir ce que de droit.</p>
+    </div>
+    <div class="att-sig">
+      <div class="box">
+        Fait à ${R_esc(d.lieu)}, le ${R_esc(d.date)}<br><br>
+        ${R_esc(d.emetteur_nom)}<br>
+        <i>(Signature et Cachet)</i>
+      </div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_att3(d,opts){
+  return `<div class="doc-a4"><div class="att3">
+    <div class="att-head"><h1>ATTESTATION DE SALAIRE</h1></div>
+    <div class="att-body">
+      <p>Je soussigné(e), <b>${R_esc(d.emetteur_nom)}</b>, <b>${R_esc(d.emetteur_fonction)}</b> de la société <b>${R_esc(d.emetteur_entreprise)}</b>,</p>
+      <p>Certifie que <b>${R_esc(d.concerne_nom)}</b>, titulaire de la CNI n° ${R_esc(d.concerne_cni)}, est employé(e) dans notre entreprise en qualité de <b>${R_esc(d.concerne_fonction)}</b> depuis le ${R_esc(d.date_debut)}.</p>
+      <div class="att-box">
+        À ce titre, il/elle perçoit un salaire mensuel brut de :<br>
+        <b style="font-size:14pt;color:#1a1a2e">${R_esc(d.salaire_mensuel)} FCFA</b>
+      </div>
+      <p>Cette attestation est établie à la demande de l'intéressé(e), ${R_esc(d.motif_precision)}.</p>
+    </div>
+    <div class="att-sig">
+      <div class="box">Fait à ${R_esc(d.lieu)}, le ${R_esc(d.date)}<br><br><br>L'Employeur<br>(Cachet et Signature)</div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_att4(d,opts){
+  return `<div class="doc-a4"><div class="att4">
+    <div class="att-head">ATTESTATION D'HÉBERGEMENT</div>
+    <div class="att-je">
+      Je soussigné(e),
+      <b>${R_esc(d.emetteur_nom)}</b>
+      Né(e) le ${R_esc(d.emetteur_ne_le)} à ${R_esc(d.emetteur_ne_a)}
+      Titulaire de la CNI n° ${R_esc(d.emetteur_cni)}
+      Demeurant au : ${R_esc(d.emetteur_adresse)}
+    </div>
+    <div class="att-body">
+      <p>Certifie sur l'honneur héberger à mon domicile, à titre gratuit, depuis le <b>${R_esc(d.date_debut)}</b> :</p>
+      <p style="text-align:center;font-size:11.5pt;margin:6mm 0">
+        <b>${R_esc(d.concerne_nom)}</b><br>
+        Né(e) le ${R_esc(d.concerne_ne_le)} à ${R_esc(d.concerne_ne_a)}<br>
+        Titulaire de la CNI n° ${R_esc(d.concerne_cni)}
+      </p>
+      <p>Je m'engage à maintenir cet hébergement pour une durée de <b>${R_esc(d.duree_hebergement)}</b>.</p>
+      <p>Cette attestation est délivrée pour servir et valoir ce que de droit.</p>
+    </div>
+    <div class="att-sig">
+      Fait à ${R_esc(d.lieu)}, le ${R_esc(d.date)}<br><br><br>
+      <i>(Signature légalisée en mairie)</i>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+function R_att5(d,opts){
+  return `<div class="doc-a4"><div class="att5">
+    <div class="att-head">ATTESTATION SUR L'HONNEUR</div>
+    <div class="att-body">
+      <p>Je soussigné(e),</p>
+      <p style="text-align:center;font-size:11.5pt;margin:6mm 0">
+        <b>${R_esc(d.concerne_nom)}</b><br>
+        Né(e) le <span class="hl">${R_esc(d.concerne_ne_le)}</span> à <span class="hl">${R_esc(d.concerne_ne_a)}</span><br>
+        Titulaire de la CNI n° <span class="hl">${R_esc(d.concerne_cni)}</span><br>
+        Demeurant au : ${R_esc(d.concerne_adresse)}
+      </p>
+      <p>Certifie sur l'honneur que les informations suivantes sont exactes et sincères :</p>
+      <p style="background:#f8f9fa;padding:4mm;border-radius:2mm;border-left:4px solid #1a1a2e;margin:6mm 0">
+        ${R_esc(d.motif_precision)}
+      </p>
+      <p>J'ai pris conscience que toute fausse déclaration m'expose aux sanctions pénales prévues par la loi en vigueur en République du Congo.</p>
+      <p>Fait pour servir et valoir ce que de droit.</p>
+    </div>
+    <div class="att-sig">
+      <div class="box">
+        Fait à ${R_esc(d.lieu)}, le ${R_esc(d.date)}<br><br>
+        Signature du déclarant<br>
+        <i>(Précédée de la mention "Lu et approuvé")</i>
+      </div>
+    </div>
+    <div class="foot">${opts.foot}</div></div></div>`;
+}
+
+definirDocument({
+  slug:'attestations', type:'attestation', em:'📜',
+  titre:'Attestations officielles',
+  desc:'5 modèles administratifs prêts à l\'emploi. Formulations juridiques claires, conformes aux attentes des administrations et entreprises congolaises.',
+  prixUnit:200, prixPack:800,
+  defaut:{
+    emetteur_nom:'Meurphy Talamio',
+    emetteur_fonction:'Gérant',
+    emetteur_entreprise:'Mukanda SARL',
+    emetteur_adresse:'Avenue de la Paix, Brazzaville',
+    emetteur_tel:'+242 06 518 69 67',
+    emetteur_cni:'987654321',
+    emetteur_ne_le:'10 janvier 1990',
+    emetteur_ne_a:'Brazzaville',
+    concerne_nom:'Jean-Baptiste Nkouka',
+    concerne_cni:'123456789',
+    concerne_ne_le:'15 août 1998',
+    concerne_ne_a:'Pointe-Noire',
+    concerne_adresse:'Ouenzé, Brazzaville',
+    concerne_fonction:'Licence en Sciences de Gestion',
+    poste_fonction:'Assistant Comptable',
+    date_debut:'1er janvier 2024',
+    date_fin:'31 décembre 2025',
+    duree_hebergement:'12 mois',
+    salaire_mensuel:'150 000',
+    motif_precision:'pour faire valoir ce que de droit',
+    lieu:'Brazzaville',
+    date:'15 mars 2026'
+  },
+  champs:[
+    {g:'🏢 L\'Émetteur (ou l\'Hébergeant)',f:[
+      {p:'emetteur_nom',l:'Nom complet'},
+      {p:'emetteur_fonction',l:'Fonction / Titre (ex: Le Directeur)'},
+      {p:'emetteur_entreprise',l:'Entreprise / Organisation (si applicable)'},
+      {p:'emetteur_adresse',l:'Adresse complète'},
+      {p:'emetteur_tel',l:'Téléphone'},
+      {p:'emetteur_cni',l:'Ta CNI (pour hébergement)'},
+      {p:'emetteur_ne_le',l:'Ta date de naissance (pour hébergement)'},
+      {p:'emetteur_ne_a',l:'Ton lieu de naissance (pour hébergement)'}
+    ]},
+    {g:'👤 La Personne concernée (ou l\'Hébergé)',f:[
+      {p:'concerne_nom',l:'Nom complet'},
+      {p:'concerne_cni',l:'Numéro de CNI'},
+      {p:'concerne_ne_le',l:'Date de naissance'},
+      {p:'concerne_ne_a',l:'Lieu de naissance'},
+      {p:'concerne_adresse',l:'Adresse (pour attestation sur l\'honneur)'},
+      {p:'concerne_fonction',l:'Fonction / Niveau d\'étude'}
+    ]},
+    {g:'📝 Détails du document',f:[
+      {p:'poste_fonction',l:'Poste occupé (pour travail/stage)'},
+      {p:'date_debut',l:'Date de début'},
+      {p:'date_fin',l:'Date de fin (ou "à ce jour")'},
+      {p:'duree_hebergement',l:'Durée d\'hébergement (pour hébergement)'},
+      {p:'salaire_mensuel',l:'Salaire mensuel brut (pour salaire)'},
+      {p:'motif_precision',l:'Motif / Précision (ex: "pour faire valoir ce que de droit" ou le texte de ton attestation sur l\'honneur)'},
+      {p:'lieu',l:'Lieu de délivrance'},
+      {p:'date',l:'Date de délivrance'}
+    ]}
+  ],
+  modeles:[
+    {id:1,nom:'Attestation de travail',badge:'Le plus demandé',color:'#1a1a2e',
+     usage:'Fin de contrat, demande de visa, prêt bancaire',
+     desc:'Le grand classique. Sobre, formel, avec toutes les mentions légales requises par les employeurs et administrations.',
+     rendu:d=>R_att1(d,{foot:'Attestation 1/5 · Travail · © Mukanda'})},
+    {id:2,nom:'Attestation de stage',badge:'Étudiants',color:'#06C39A',
+     usage:'Fin de stage, rapport de stage, première embauche',
+     desc:'Met en valeur l\'assiduité et les missions. Bandeau moderne et ton bienveillant pour encourager le stagiaire.',
+     rendu:d=>R_att2(d,{ac:'#06C39A',foot:'Attestation 2/5 · Stage · © Mukanda'})},
+    {id:3,nom:'Attestation de salaire',badge:'Finances',color:'#2F6BFF',
+     usage:'Demande de crédit, location d\'appartement, visa',
+     desc:'Structure claire qui met en évidence le montant du salaire brut. Indispensable pour les démarches financières.',
+     rendu:d=>R_att3(d,{foot:'Attestation 3/5 · Salaire · © Mukanda'})},
+    {id:4,nom:'Attestation d\'hébergement',badge:'Administratif',color:'#F59E0B',
+     usage:'Obtention de papiers, inscription scolaire, démarches mairie',
+     desc:'Format déclaratif strict. Mentionne l\'hébergeant et l\'hébergé avec leurs CNI respectives. Prête pour légalisation.',
+     rendu:d=>R_att4(d,{foot:'Attestation 4/5 · Hébergement · © Mukanda'})},
+    {id:5,nom:'Attestation sur l\'honneur',badge:'Universel',color:'#FF5D73',
+     usage:'Déclaration de perte, changement d\'adresse, situation matrimoniale',
+     desc:'Modèle minimaliste et solennel. Tu remplis le champ "Motif" avec ta propre déclaration, le cadre juridique est déjà en place.',
+     rendu:d=>R_att5(d,{foot:'Attestation 5/5 · Sur l\'honneur · © Mukanda'})}
+  ]
+});
+
+/* ➕ PROCHAIN DOCUMENT ICI (ex : definirDocument({slug:'certificats', ...})) */
